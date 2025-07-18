@@ -1,23 +1,105 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مرحبا بك في كاتشر</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>كتشر - أفضل منصة لشحن برامج اللايف</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #000;
+      color: #fff;
+    }
+
+    header {
+      background-color: #111;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid gold;
+    }
+
+    header h1 {
+      font-size: 28px;
+      color: gold;
+      margin: 0;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background-color: #000;
+    }
+
+    .hero h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .hero button {
+      padding: 12px 25px;
+      font-size: 18px;
+      background-color: gold;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .sections {
+      display: none;
+      padding: 40px 20px;
+    }
+
+    .section {
+      background-color: #111;
+      padding: 20px;
+      margin: 20px 0;
+      border: 1px solid gold;
+      border-radius: 10px;
+    }
+
+    .section h3 {
+      color: gold;
+      margin-top: 0;
+    }
+  </style>
 </head>
-<body onload="playWelcome()">
+<body>
+
   <header>
-    <h1>أهلاً بك في عالم كاتشر</h1>
-    <a class="start-button" href="home.html">ابدأ الآن</a>
+    <h1>كتشر - أفضل منصة لشحن برامج اللايف</h1>
   </header>
-  <audio id="welcomeAudio" src="welcome.mp3"></audio>
+
+  <section class="hero">
+    <h2>اشحن بيجو لايف، ميكو لايف، كيتي لايف بأمان وسرعة</h2>
+    <button onclick="showSections()">ابدأ الآن</button>
+  </section>
+
+  <section class="sections" id="sections">
+    <div class="section">
+      <h3>🔹 بيجو لايف</h3>
+      <p>خدمة شحن سريعة وآمنة لجميع باقات بيجو.</p>
+      <a href="#">الذهاب لصفحة بيجو</a>
+    </div>
+    <div class="section">
+      <h3>🔹 ميكو لايف</h3>
+      <p>استمتع بعروض حصرية على شحن ميكو لايف.</p>
+      <a href="#">الذهاب لصفحة ميكو</a>
+    </div>
+    <div class="section">
+      <h3>🔹 كيتي لايف</h3>
+      <p>خدمة مميزة لشحن كيتي لايف بأفضل الأسعار.</p>
+      <a href="#">الذهاب لصفحة كيتي</a>
+    </div>
+  </section>
+
   <script>
-    function playWelcome() {
-      const audio = document.getElementById('welcomeAudio');
-      audio.play().catch(() => {});
+    function showSections() {
+      document.getElementById('sections').style.display = 'block';
     }
   </script>
+
 </body>
 </html>
