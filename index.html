@@ -1,58 +1,38 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>كتشر - شحن برامج اللايف</title>
-  <style>
-    body {
-      margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff;
-    }
-    header, .hero, .section {
-      text-align: center; padding: 20px;
-    }
-    header { background: #111; border-bottom: 2px solid gold; }
-    header h1 { color: gold; margin: 0; }
-    .hero button {
-      padding: 10px 20px; font-size: 16px;
-      background: gold; color: #000; border: none; border-radius: 5px; cursor: pointer;
-    }
-    .sections { display: none; padding: 20px; }
-    .section {
-      background: #111; margin: 15px 0; padding: 15px;
-      border: 1px solid gold; border-radius: 8px;
-    }
-    .section h3 { color: gold; margin: 0 0 10px; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <header>
     <h1>كتشر - شحن برامج اللايف</h1>
+    <p>اشحن بيجو، ميكو، كيتي لايف بأمان وسرعة</p>
+    <a href="#sections" class="start-button">ابدأ الآن</a>
   </header>
 
-  <section class="hero">
-    <h2>اشحن بيجو، ميكو، كيتي لايف بأمان وسرعة</h2>
-    <button onclick="document.getElementById('sections').style.display='block'">ابدأ الآن</button>
-  </section>
-
-  <section class="sections" id="sections">
-    <div class="section">
-      <h3>🔹 بيجو لايف</h3>
-      <p>شحن سريع وآمن لجميع باقات بيجو.</p>
-      <a href="#">صفحة بيجو</a>
+  <section id="sections">
+    <div class="card">
+      <h2>◆ بيجو لايف</h2>
+      <p>نحن سريع وآمن لجميع رفقاتك بيجو.</p>
+      <a href="bigo.html" class="link">صفحة بيجو</a>
     </div>
-    <div class="section">
-      <h3>🔹 ميكو لايف</h3>
+    <div class="card">
+      <h2>◆ ميكو لايف</h2>
       <p>عروض حصرية لشحن ميكو لايف.</p>
-      <a href="#">صفحة ميكو</a>
+      <a href="Mico.html" class="link">صفحة ميكو</a>
     </div>
-    <div class="section">
-      <h3>🔹 كيتي لايف</h3>
+    <div class="card">
+      <h2>◆ كيتي لايف</h2>
       <p>أفضل الأسعار لشحن كيتي لايف.</p>
-      <a href="#">صفحة كيتي</a>
+      <a href="Kiti.html" class="link">صفحة كيتي</a>
     </div>
   </section>
 
+  <!-- زر واتساب -->
+  <a href="https://wa.me/201145427899" class="whatsapp-float" target="_blank" title="تواصل معنا">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="واتساب" />
+  </a>
 </body>
 </html>
