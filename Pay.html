@@ -1,31 +1,24 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <title>صفحة الدفع</title>
-  <link href="style.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <title>تحويل إلى واتساب</title>
+  <script>
+    window.onload = function () {
+      const params = new URLSearchParams(window.location.search);
+      const diamonds = params.get("diamonds") || "غير محدد";
+      const country = params.get("country") || "غير محددة";
+      const price = params.get("price") || "غير محدد";
+
+      const message = `مرحبًا، أريد شحن ميكو لايف:\n- عدد الماس: ${diamonds}\n- الدولة: ${country}\n- السعر: ${price}`;
+      const phone = "201145427899"; // رقمك بدون +
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+      window.location.href = url;
+    };
+  </script>
 </head>
-<body>
-  <div class="container">
-    <h1>إتمام الدفع</h1>
-    
-    <div class="box">
-      <p>شكراً لاستخدامك خدمتنا ❤️</p>
-      <p>يرجى التواصل مع الدعم لإتمام الدفع عبر الطريقة المناسبة.</p>
-
-      <div class="payment-details">
-        <h3>طرق الدفع:</h3>
-        <ul>
-          <li><strong>مصر:</strong> فودافون كاش - Instapay - ويسترن يونيون</li>
-          <li><strong>السعودية:</strong> تحويل بنكي داخلي</li>
-          <li><strong>الإمارات:</strong> تحويل بنكي داخلي</li>
-        </ul>
-      </div>
-
-      <a href="https://wa.me/201145427899" class="whatsapp-btn" target="_blank">تواصل عبر واتساب</a>
-      <br><br>
-      <a href="index.html" class="back-btn">العودة للصفحة السابقة</a>
-    </div>
-  </div>
+<body style="background:#111;color:#fff;text-align:center;padding-top:50px;">
+  <h2>جارٍ تحويلك إلى واتساب...</h2>
 </body>
 </html>
