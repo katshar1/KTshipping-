@@ -11,7 +11,6 @@
       font-family: Arial, sans-serif;
       padding: 20px;
     }
-
     .container {
       max-width: 500px;
       margin: auto;
@@ -20,13 +19,11 @@
       border-radius: 15px;
       border: 2px solid gold;
     }
-
     label {
       display: block;
       margin: 15px 0 5px;
       font-weight: bold;
     }
-
     input, select {
       width: 100%;
       padding: 10px;
@@ -34,9 +31,7 @@
       border: none;
       margin-bottom: 10px;
     }
-
     .btn {
-      display: block;
       width: 100%;
       background: gold;
       color: #000;
@@ -47,7 +42,6 @@
       cursor: pointer;
       margin-top: 15px;
     }
-
     .result {
       margin-top: 10px;
       font-size: 18px;
@@ -72,7 +66,6 @@
     <div class="result" id="priceResult"></div>
 
     <button class="btn" onclick="calculate()">احسب السعر</button>
-    <button class="btn" onclick="goToWhatsApp()">طلب عبر واتساب</button>
   </div>
 
   <script>
@@ -81,36 +74,17 @@
       const country = document.getElementById("country").value;
       let rate = 0;
 
-      if (country === "eg") rate = 0.0409;
+      if (country === "eg") rate = 0.0408;
       else if (country === "sa") rate = 0.00320;
       else if (country === "ae") rate = 0.00318;
 
       if (amount && amount > 0) {
         const total = (amount * rate).toFixed(2);
-        document.getElementById("priceResult").innerText = `السعر: ${total}`;
+        const currency = country === "eg" ? "جنيه" : country === "sa" ? "ريال" : "درهم";
+        document.getElementById("priceResult").innerText = `السعر: ${total} ${currency}`;
       } else {
         document.getElementById("priceResult").innerText = "أدخل عدد الماس أولاً.";
       }
-    }
-
-    function goToWhatsApp() {
-      const amount = document.getElementById("amount").value;
-      const country = document.getElementById("country").value;
-      let countryName = '';
-
-      if (!amount || amount <= 0) {
-        alert("يرجى إدخال عدد الماس أولاً.");
-        return;
-      }
-
-      if (country === "eg") countryName = "مصر";
-      else if (country === "sa") countryName = "السعودية";
-      else if (country === "ae") countryName = "الإمارات";
-
-      const message = `مرحبًا، أريد شحن ${amount} ماسة كيتي لايف\nالدولة: ${countryName}`;
-      const phone = "201145427899"; // رقم واتساب
-      const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-      window.open(whatsappURL, "_blank");
     }
   </script>
 </body>
