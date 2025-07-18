@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>شحن ميكو لايف</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    .box {
+      background: #222;
+      border: 2px solid #fdd835;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+    input, select, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      background: #fdd835;
+      color: black;
+      border: none;
+      cursor: pointer;
+    }
+    .price {
+      font-size: 20px;
+      margin-top: 10px;
+      color: #4caf50;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>شحن ميكو لايف</h2>
+    <input type="number" id="coins" placeholder="عدد الكوينز">
+    <select id="country">
+      <option value="eg">مصر</option>
+      <option value="sa">السعودية</option>
+      <option value="ae">الإمارات</option>
+    </select>
+    <div class="price" id="priceDisplay">السعر: --</div>
+    <button onclick="calcPrice()">احسب السعر</button>
+    <button onclick="goToPayment()">الذهاب للدفع</button>
+  </div>
+
+  <script>
+    function calcPrice() {
+      const coins = parseFloat(document.getElementById("coins").value);
+      const country = document.getElementById("country").value;
+      const dollarPrice = getDollarPrice(coins);
+      let price = 0;
+
+      if (country === "eg") price = dollarPrice * 51;
+      else if (country === "sa") price = dollarPrice * 12.70;
+      else if (country === "ae") price = dollarPrice * 12.90;
+
+      document.getElementById("priceDisplay").textContent = `السعر: ${price.toFixed(2)} ${getCurrency(country)}`;
+    }
+
+    function getDollarPrice(coins) {
+      const table = {
+        15000: 25, 30000: 50, 60000: 100, 300000: 500, 600000: 1000,
+        1200000: 2000, 3000000: 5000, 4200000: 7000, 6000000: 10000, 12000000: 20000
+      };
+      return table[coins] || 0;
+    }
+
+    function getCurrency(country) {
+      return country === "eg" ? "جنيه" : country === "sa" ? "ريال" : "درهم";
+    }
+
+    function goToPayment() {
+      window.location.href = "payment.html";
+    }
+  </script>
+</body>
+</html>
