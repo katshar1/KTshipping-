@@ -5,44 +5,99 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>شحن بيجو لايف</title>
   <style>
-    body {background:#000;color:#fff;font-family:Arial;padding:20px}
-    .container {max-width:500px;margin:auto;background:#111;padding:30px;border-radius:15px;border:2px solid gold}
-    label {margin:15px 0 5px;display:block}
-    input, select, .btn {width:100%;padding:10px;margin-bottom:10px;border-radius:5px;border:none}
-    .btn {background:gold;color:#000;font-size:18px;cursor:pointer}
-    .result {color:#0f0;font-size:18px;margin-top:10px}
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #111;
+      padding: 30px;
+      border-radius: 15px;
+      border: 2px solid gold;
+    }
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      margin-bottom: 10px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      background: gold;
+      color: #000;
+      font-size: 18px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+      text-align: center;
+      text-decoration: none;
+    }
+    .result {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #0f0;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>شحن بيجو لايف</h2>
-    <label>عدد الماس:</label>
+
+    <label for="amount">عدد الماس:</label>
     <input type="number" id="amount" min="1" placeholder="أدخل عدد الماس">
-    <label>اختر الدولة:</label>
+
+    <label for="country">اختر الدولة:</label>
     <select id="country">
       <option value="eg">مصر</option>
       <option value="sa">السعودية</option>
       <option value="ae">الإمارات</option>
     </select>
+
     <div class="result" id="priceResult"></div>
-    <button class="btn" onclick="calc()">احسب السعر</button>
-    <button class="btn" onclick="send()">التحويل على واتساب</button>
+
+    <button class="btn" onclick="calculate()">احسب السعر</button>
+    <a id="whatsappLink" class="btn" style="display:none" target="_blank">التحويل على واتساب</a>
   </div>
 
   <script>
-    const rates = {eg: 0.92, sa: 0.073, ae: 0.071};
-    const names = {eg: "مصر", sa: "السعودية", ae: "الإمارات"};
+    function calculate() {
+      const amount = document.getElementById("amount").value;
+      const country = document.getElementById("country").value;
+      let rate = 0;
 
-    function calc() {
-      const a = +amount.value, r = rates[country.value];
-      priceResult.innerText = a ? `السعر: ${(a*r).toFixed(2)}` : "أدخل عدد الماس أولاً.";
-    }
+      if (country === "eg") rate = 0.92;
+      else if (country === "sa") rate = 0.073;
+      else if (country === "ae") rate = 0.070;
 
-    function send() {
-      const a = amount.value, c = country.value;
-      if (!a || a <= 0) return alert("أدخل عدد الماس أولاً.");
-      const msg = `مرحبًا، أود شحن ${a} ماسة في بيجو لايف. الدولة: ${names[c]} - السعر: ${(a*rates[c]).toFixed(2)}`;
-      location.href = `https://wa.me/201145427899?text=${encodeURIComponent(msg)}`;
+      if (amount && amount > 0) {
+        const total = (amount * rate).toFixed(2);
+        document.getElementById("priceResult").innerText = `السعر: ${total}`;
+
+        const phone = "+201145427899";
+        const countryName = country === "eg" ? "مصر" : country === "sa" ? "السعودية" : "الإمارات";
+        const text = `مرحبًا، أود شحن ${amount} ماسه في بيجو لايف.\nالدولة: ${countryName}\nالسعر: ${total}`;
+        const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+
+        const link = document.getElementById("whatsappLink");
+        link.href = whatsappURL;
+        link.style.display = "block";
+      } else {
+        document.getElementById("priceResult").innerText = "أدخل عدد الماس أولاً.";
+        document.getElementById("whatsappLink").style.display = "none";
+      }
     }
   </script>
 </body>
