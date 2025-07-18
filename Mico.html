@@ -1,57 +1,95 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>شحن ميكو لايف</title>
   <style>
-    body { background: #111; color: #fff; font-family: Arial; padding: 20px; text-align: center; }
-    input, select, button { padding: 10px; margin: 10px; font-size: 16px; border-radius: 5px; }
-    .box { background: #222; padding: 20px; border: 1px solid gold; border-radius: 10px; display: inline-block; }
-    .price { margin-top: 15px; font-size: 18px; color: gold; }
+    body {
+      background: url('logo.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      text-align: center;
+      padding: 40px;
+    }
+    .box {
+      background: rgba(0,0,0,0.7);
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 400px;
+      margin: auto;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      background-color: gold;
+      color: #000;
+      cursor: pointer;
+    }
+    .result {
+      font-weight: bold;
+      margin: 10px 0;
+      color: #0f0;
+    }
   </style>
 </head>
 <body>
 
   <div class="box">
-    <h2>🟣 شحن ميكو لايف</h2>
-    <input type="number" id="mas" placeholder="ادخل عدد الماسات" oninput="calc()" />
+    <h2>شحن ماسات ميكو لايف</h2>
+    <input type="number" id="diamonds" placeholder="اكتب عدد الماسات">
     
-    <div class="price" id="prices"></div>
-
-    <select id="country" onchange="showMethods()">
-      <option value="">اختر الدولة</option>
-      <option value="egypt">مصر</option>
-      <option value="ksa">السعودية</option>
-      <option value="uae">الإمارات</option>
+    <select id="country" onchange="updatePrice()">
+      <option disabled selected>اختر الدولة</option>
+      <option value="eg">مصر</option>
+      <option value="sa">السعودية</option>
+      <option value="ae">الإمارات</option>
     </select>
 
-    <div id="methods"></div>
+    <div class="result" id="priceResult">السعر: —</div>
 
-    <br />
-    <button onclick="window.location.href='pay.html'">الانتقال للدفع</button>
+    <select id="payment">
+      <option disabled selected>اختر طريقة الدفع</option>
+      <option>فودافون كاش</option>
+      <option>إنستا باي</option>
+      <option>ويسترن يونيون</option>
+      <option>تحويل بنكي داخلي</option>
+    </select>
+
+    <button onclick="goToPayment()">متابعة للدفع</button>
   </div>
 
   <script>
-    function calc() {
-      let count = parseFloat(document.getElementById("mas").value || 0);
-      let egp = (count * 0.92).toFixed(2);
-      let ksa = (egp / 12.70).toFixed(2);
-      let uae = (egp / 12.90).toFixed(2);
+    function updatePrice() {
+      const qty = parseInt(document.getElementById('diamonds').value) || 0;
+      const country = document.getElementById('country').value;
+      let rate = 1;
 
-      document.getElementById("prices").innerHTML = `
-        🇪🇬 السعر بالجنيه: ${egp} جنيه<br>
-        🇸🇦 السعر بالريال: ${ksa} ريال<br>
-        🇦🇪 السعر بالدرهم: ${uae} درهم
-      `;
+      if (country === 'eg') rate = 51;
+      if (country === 'sa') rate = 51 / 12.70;
+      if (country === 'ae') rate = 51 / 12.90;
+
+      const total = (qty * rate).toFixed(2);
+      document.getElementById('priceResult').textContent = `السعر: ${total}`;
     }
 
-    function showMethods() {
-      const c = document.getElementById("country").value;
-      let methods = "";
-      if (c === "egypt") methods = "فودافون كاش - انستا باي - ويسترن يونيون";
-      if (c === "ksa") methods = "تحويل بنكي داخلي - STC Pay - ويسترن يونيون";
-      if (c === "uae") methods = "تحويل بنكي داخلي - ويسترن يونيون";
-      document.getElementById("methods").innerText = methods;
+    document.getElementById('diamonds').addEventListener('input', updatePrice);
+
+    function goToPayment() {
+      const qty = document.getElementById('diamonds').value;
+      const country = document.getElementById('country').value;
+      const payment = document.getElementById('payment').value;
+      if (qty && country && payment) {
+        window.location.href = "pay.html";
+      } else {
+        alert("يرجى تعبئة كل الحقول قبل المتابعة.");
+      }
     }
   </script>
 
