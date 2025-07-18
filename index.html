@@ -1,52 +1,56 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>كاتشر - أفضل منصة لشحن برامج اللايف</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>وكالة كاتشر</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+    }
+
+    header, .content {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      color: gold;
+      font-size: 2.5rem;
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 1.2rem;
+    }
+  </style>
 </head>
 <body>
-
   <header>
-    <h1>كاتشر - أفضل منصة لشحن برامج اللايف</h1>
+    <h1>أهلاً بك في عالم وكالة كاتشر</h1>
+    <p>نحن هنا لخدمتك في شحن برامج البث المباشر</p>
   </header>
 
-  <section class="hero">
-    <h2>اشحن بيجو لايف، ميكو لايف، كيتي لايف بأمان وسرعة</h2>
-    <button onclick="showSections()">ابدأ الآن</button>
-  </section>
+  <div class="content">
+    <!-- يمكنك إضافة روابط إلى صفحات الشحن هنا -->
+  </div>
 
-  <section class="sections" id="sections">
-    <div class="section">
-      <h3>🔹 بيجو لايف</h3>
-      <p>خدمة شحن سريعة وآمنة لجميع باقات بيجو.</p>
-      <a href="bigo.html">الذهاب لصفحة بيجو</a>
-    </div>
-    <div class="section">
-      <h3>🔹 ميكو لايف</h3>
-      <p>استمتع بعروض حصرية على شحن ميكو لايف.</p>
-      <a href="mico.html">الذهاب لصفحة ميكو</a>
-    </div>
-    <div class="section">
-      <h3>🔹 كيتي لايف</h3>
-      <p>خدمة مميزة لشحن كيتي لايف بأفضل الأسعار.</p>
-      <a href="kitty.html">الذهاب لصفحة كيتي</a>
-    </div>
-  </section>
-
-  <!-- زر واتساب -->
-  <a href="https://wa.me/201145427899" class="whatsapp-float" target="_blank" title="تواصل معنا على واتساب">🟢</a>
+  <!-- مشغل الصوت -->
+  <audio id="introSound" src="welcome.mp3"></audio>
 
   <script>
-    function showSections() {
-      document.getElementById('sections').style.display = 'block';
-      window.scrollTo({
-        top: document.getElementById('sections').offsetTop,
-        behavior: 'smooth'
-      });
-    }
-  </script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const audio = document.getElementById("introSound");
 
+      // تشغيل الصوت عند أول نقرة من المستخدم
+      document.body.addEventListener("click", function playOnce() {
+        audio.play().catch(err => console.log("فشل تشغيل الصوت:", err));
+        document.body.removeEventListener("click", playOnce);
+      });
+    });
+  </script>
 </body>
 </html>
