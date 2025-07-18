@@ -1,21 +1,96 @@
-
+/* تنسيق عام */
 body {
-  background: linear-gradient(to bottom, #000, #222);
-  color: gold;
-  text-align: center;
+  margin: 0;
   font-family: 'Arial', sans-serif;
-  padding: 50px;
+  background-color: #000;
+  color: #fff;
 }
-.start-button {
+
+/* رأس الصفحة */
+header {
+  background-color: #111;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid gold;
+}
+
+header h1 {
+  font-size: 28px;
+  color: gold;
+  margin: 0;
+}
+
+/* قسم المقدمة */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #000;
+}
+
+.hero h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.hero button {
+  padding: 12px 25px;
+  font-size: 18px;
   background-color: gold;
   color: black;
-  padding: 15px 30px;
-  font-size: 20px;
   border: none;
-  border-radius: 10px;
-  text-decoration: none;
-  transition: transform 0.3s;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
-.start-button:hover {
+
+.hero button:hover {
+  background-color: #e6c200;
+}
+
+/* أقسام الخدمات */
+.sections {
+  display: none;
+  padding: 40px 20px;
+}
+
+.section {
+  background-color: #111;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid gold;
+  border-radius: 10px;
+}
+
+.section h3 {
+  color: gold;
+  margin-top: 0;
+}
+
+.section a {
+  color: #00c3ff;
+  text-decoration: none;
+}
+
+.section a:hover {
+  text-decoration: underline;
+}
+
+/* زر واتساب عائم */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #25D366;
+  color: white;
+  border-radius: 50%;
+  padding: 15px;
+  font-size: 24px;
+  z-index: 999;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
   transform: scale(1.1);
 }
