@@ -5,92 +5,84 @@
   <title>شحن ميكو لايف</title>
   <style>
     body {
-      background: url('logo.png') no-repeat center center fixed;
-      background-size: cover;
       font-family: Arial, sans-serif;
-      color: #fff;
-      text-align: center;
-      padding: 40px;
-    }
-    .box {
-      background: rgba(0,0,0,0.7);
-      padding: 30px;
-      border-radius: 15px;
-      max-width: 400px;
+      background: #f4f4f4;
+      padding: 20px;
+      max-width: 600px;
       margin: auto;
     }
-    input, select, button {
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
-      font-size: 16px;
+      margin-top: 5px;
       border-radius: 8px;
-      border: none;
+      border: 1px solid #ccc;
     }
-    button {
-      background-color: gold;
-      color: #000;
-      cursor: pointer;
-    }
+
     .result {
-      font-weight: bold;
-      margin: 10px 0;
-      color: #0f0;
+      margin-top: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 18px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
 
-  <div class="box">
-    <h2>شحن ماسات ميكو لايف</h2>
-    <input type="number" id="diamonds" placeholder="اكتب عدد الماسات">
-    
-    <select id="country" onchange="updatePrice()">
-      <option disabled selected>اختر الدولة</option>
-      <option value="eg">مصر</option>
-      <option value="sa">السعودية</option>
-      <option value="ae">الإمارات</option>
-    </select>
+  <h2>شحن ميكو لايف</h2>
 
-    <div class="result" id="priceResult">السعر: —</div>
+  <label for="coins">عدد الكوينز:</label>
+  <input type="number" id="coins" placeholder="أدخل عدد الكوينز">
 
-    <select id="payment">
-      <option disabled selected>اختر طريقة الدفع</option>
-      <option>فودافون كاش</option>
-      <option>إنستا باي</option>
-      <option>ويسترن يونيون</option>
-      <option>تحويل بنكي داخلي</option>
-    </select>
+  <label for="country">اختر الدولة:</label>
+  <select id="country">
+    <option value="usa">🇺🇸 الولايات المتحدة</option>
+    <option value="ksa">🇸🇦 السعودية</option>
+    <option value="egypt">🇪🇬 مصر</option>
+    <option value="uae">🇦🇪 الإمارات</option>
+  </select>
 
-    <button onclick="goToPayment()">متابعة للدفع</button>
+  <label for="payment">طريقة الدفع:</label>
+  <select id="payment">
+    <option value="visa">💳 فيزا / ماستر كارد</option>
+    <option value="paypal">💰 باي بال</option>
+    <option value="stc">📱 STC Pay</option>
+    <option value="vodafone">📞 فودافون كاش</option>
+  </select>
+
+  <div class="result" id="priceResult">
+    السعر: $0.00
   </div>
 
   <script>
-    function updatePrice() {
-      const qty = parseInt(document.getElementById('diamonds').value) || 0;
-      const country = document.getElementById('country').value;
-      let rate = 1;
+    const coinsInput = document.getElementById("coins");
+    const priceResult = document.getElementById("priceResult");
 
-      if (country === 'eg') rate = 51;
-      if (country === 'sa') rate = 51 / 12.70;
-      if (country === 'ae') rate = 51 / 12.90;
-
-      const total = (qty * rate).toFixed(2);
-      document.getElementById('priceResult').textContent = `السعر: ${total}`;
-    }
-
-    document.getElementById('diamonds').addEventListener('input', updatePrice);
-
-    function goToPayment() {
-      const qty = document.getElementById('diamonds').value;
-      const country = document.getElementById('country').value;
-      const payment = document.getElementById('payment').value;
-      if (qty && country && payment) {
-        window.location.href = "pay.html";
+    coinsInput.addEventListener("input", () => {
+      const coins = parseInt(coinsInput.value);
+      if (!isNaN(coins) && coins > 0) {
+        // سعر تقريبي: 1 دولار لكل 70 كوينز (مثال فقط)
+        const price = (coins / 70).toFixed(2);
+        priceResult.textContent = `السعر: $${price}`;
       } else {
-        alert("يرجى تعبئة كل الحقول قبل المتابعة.");
+        priceResult.textContent = "السعر: $0.00";
       }
-    }
+    });
   </script>
 
 </body>
