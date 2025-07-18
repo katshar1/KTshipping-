@@ -1,85 +1,90 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>شحن ميكو لايف</title>
   <style>
     body {
       background: #111;
-      color: #fff;
-      font-family: Arial, sans-serif;
+      color: white;
+      font-family: Arial;
       text-align: center;
+      direction: rtl;
       padding: 30px;
     }
     .box {
-      background: #222;
-      border: 2px solid #fdd835;
+      border: 2px solid gold;
       border-radius: 10px;
       padding: 20px;
-      max-width: 400px;
-      margin: auto;
+      background: #222;
+      display: inline-block;
     }
     input, select, button {
-      width: 100%;
-      margin: 10px 0;
+      width: 90%;
       padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
       font-size: 16px;
     }
     button {
-      background: #fdd835;
+      background: gold;
       color: black;
-      border: none;
-      cursor: pointer;
+      font-weight: bold;
     }
-    .price {
-      font-size: 20px;
-      margin-top: 10px;
-      color: #4caf50;
+    #price {
+      color: #0f0;
+      font-size: 18px;
     }
   </style>
 </head>
 <body>
   <div class="box">
     <h2>شحن ميكو لايف</h2>
-    <input type="number" id="coins" placeholder="عدد الكوينز">
+    <input id="gems" type="number" placeholder="ادخل عدد الماسات (1000 - 10000000)">
     <select id="country">
       <option value="eg">مصر</option>
       <option value="sa">السعودية</option>
       <option value="ae">الإمارات</option>
     </select>
-    <div class="price" id="priceDisplay">السعر: --</div>
-    <button onclick="calcPrice()">احسب السعر</button>
-    <button onclick="goToPayment()">الذهاب للدفع</button>
+    <div id="price">السعر: 0.00</div>
+    <button onclick="calc()">احسب السعر</button>
+    <button onclick="location.href='payment.html'">الذهاب للدفع</button>
   </div>
 
   <script>
-    function calcPrice() {
-      const coins = parseFloat(document.getElementById("coins").value);
-      const country = document.getElementById("country").value;
-      const dollarPrice = getDollarPrice(coins);
-      let price = 0;
+    const rates = { eg: 12.7, sa: 3.75, ae: 3.67 }; // تحويل الدولار حسب الدولة
 
-      if (country === "eg") price = dollarPrice * 51;
-      else if (country === "sa") price = dollarPrice * 12.70;
-      else if (country === "ae") price = dollarPrice * 12.90;
+    function calc() {
+      const gems = parseInt(document.getElementById('gems').value);
+      const country = document.getElementById('country').value;
+      const priceElement = document.getElementById('price');
 
-      document.getElementById("priceDisplay").textContent = `السعر: ${price.toFixed(2)} ${getCurrency(country)}`;
-    }
+      if (isNaN(gems) || gems < 1000 || gems > 10000000) {
+        priceElement.textContent = '⚠️ أدخل عدد ماسات بين 1000 و 10 مليون';
+        priceElement.style.color = 'red';
+        return;
+      }
 
-    function getDollarPrice(coins) {
-      const table = {
-        15000: 25, 30000: 50, 60000: 100, 300000: 500, 600000: 1000,
-        1200000: 2000, 3000000: 5000, 4200000: 7000, 6000000: 10000, 12000000: 20000
-      };
-      return table[coins] || 0;
-    }
+      let usd = 0;
 
-    function getCurrency(country) {
-      return country === "eg" ? "جنيه" : country === "sa" ? "ريال" : "درهم";
-    }
+      // التسعير حسب جدولك
+      if (gems < 15000) usd = (gems / 15000) * 25;
+      else if (gems < 30000) usd = 50;
+      else if (gems < 60000) usd = 100;
+      else if (gems < 300000) usd = 500;
+      else if (gems < 600000) usd = 1000;
+      else if (gems < 1200000) usd = 2000;
+      else if (gems < 3000000) usd = 5000;
+      else if (gems < 4200000) usd = 7000;
+      else if (gems < 6000000) usd = 10000;
+      else usd = 20000;
 
-    function goToPayment() {
-      window.location.href = "payment.html";
+      const converted = (usd * rates[country]).toFixed(2);
+      const currency = country === "eg" ? "جنيه" : country === "sa" ? "ريال" : "درهم";
+
+      priceElement.textContent = `السعر: ${converted} ${currency}`;
+      priceElement.style.color = "#0f0";
     }
   </script>
 </body>
