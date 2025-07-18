@@ -1,0 +1,21 @@
+
+body {
+  background: linear-gradient(to bottom, #000, #222);
+  color: gold;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  padding: 50px;
+}
+.start-button {
+  background-color: gold;
+  color: black;
+  padding: 15px 30px;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: transform 0.3s;
+}
+.start-button:hover {
+  transform: scale(1.1);
+}
