@@ -5,85 +5,71 @@
   <title>شحن ميكو لايف</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-    }
-
-    h2 {
+      background: #111;
+      color: #fff;
+      font-family: Arial;
       text-align: center;
-      color: #333;
+      padding: 50px;
     }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
+    .box {
+      background: #222;
+      padding: 20px;
+      border-radius: 15px;
+      display: inline-block;
+      width: 300px;
     }
-
-    input, select {
+    input, select, button {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
+      margin-top: 10px;
       border-radius: 8px;
-      border: 1px solid #ccc;
+      border: none;
+      font-size: 16px;
     }
-
-    .result {
-      margin-top: 20px;
-      background: #fff;
-      padding: 15px;
-      border-radius: 10px;
-      text-align: center;
+    button {
+      background: #f1c40f;
+      color: #000;
+      font-weight: bold;
+    }
+    .price {
+      margin-top: 15px;
       font-size: 18px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      color: #0f0;
     }
   </style>
 </head>
 <body>
 
+<div class="box">
   <h2>شحن ميكو لايف</h2>
-
-  <label for="coins">عدد الكوينز:</label>
-  <input type="number" id="coins" placeholder="أدخل عدد الكوينز">
-
-  <label for="country">اختر الدولة:</label>
+  <input type="number" id="coins" placeholder="عدد الكوينز">
   <select id="country">
-    <option value="usa">🇺🇸 الولايات المتحدة</option>
-    <option value="ksa">🇸🇦 السعودية</option>
-    <option value="egypt">🇪🇬 مصر</option>
-    <option value="uae">🇦🇪 الإمارات</option>
+    <option value="eg">مصر</option>
+    <option value="sa">السعودية</option>
+    <option value="ae">الإمارات</option>
   </select>
+  <div class="price" id="price"></div>
+  <button onclick="calcPrice()">احسب السعر</button>
+  <button onclick="goToPay()">الذهاب للدفع</button>
+</div>
 
-  <label for="payment">طريقة الدفع:</label>
-  <select id="payment">
-    <option value="visa">💳 فيزا / ماستر كارد</option>
-    <option value="paypal">💰 باي بال</option>
-    <option value="stc">📱 STC Pay</option>
-    <option value="vodafone">📞 فودافون كاش</option>
-  </select>
+<script>
+  function calcPrice() {
+    const coins = parseInt(document.getElementById('coins').value);
+    const country = document.getElementById('country').value;
+    const prices = { eg: 51, sa: 51 / 12.7, ae: 51 / 12.9 };
+    if (coins > 0) {
+      const price = (coins / 1000) * prices[country];
+      document.getElementById('price').innerText = `السعر: ${price.toFixed(2)} ${country === 'eg' ? 'ج.م' : country === 'sa' ? 'ر.س' : 'د.إ'}`;
+    } else {
+      document.getElementById('price').innerText = "أدخل عدد الكوينز بشكل صحيح";
+    }
+  }
 
-  <div class="result" id="priceResult">
-    السعر: $0.00
-  </div>
-
-  <script>
-    const coinsInput = document.getElementById("coins");
-    const priceResult = document.getElementById("priceResult");
-
-    coinsInput.addEventListener("input", () => {
-      const coins = parseInt(coinsInput.value);
-      if (!isNaN(coins) && coins > 0) {
-        // سعر تقريبي: 1 دولار لكل 70 كوينز (مثال فقط)
-        const price = (coins / 70).toFixed(2);
-        priceResult.textContent = `السعر: $${price}`;
-      } else {
-        priceResult.textContent = "السعر: $0.00";
-      }
-    });
-  </script>
+  function goToPay() {
+    window.location.href = "payment.html";
+  }
+</script>
 
 </body>
 </html>
