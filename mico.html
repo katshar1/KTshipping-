@@ -1,90 +1,65 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>شحن ميكو لايف</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>شحن بيجو لايف</title>
   <style>
     body {
-      background: #111;
-      color: white;
-      font-family: Arial;
-      text-align: center;
-      direction: rtl;
-      padding: 30px;
+      background: #000; color: #fff; font-family: Arial; padding: 20px;
     }
-    .box {
-      border: 2px solid gold;
-      border-radius: 10px;
-      padding: 20px;
-      background: #222;
-      display: inline-block;
+    .container {
+      max-width: 500px; margin: auto; background: #111; padding: 30px;
+      border-radius: 15px; border: 2px solid gold;
     }
+    label, .result { margin: 10px 0; display: block; font-weight: bold; }
     input, select, button {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
+      width: 100%; padding: 10px; border-radius: 5px; border: none; margin-bottom: 15px;
     }
-    button {
-      background: gold;
-      color: black;
-      font-weight: bold;
+    .btn {
+      background: gold; color: #000; font-size: 18px; border-radius: 8px; cursor: pointer;
     }
-    #price {
-      color: #0f0;
-      font-size: 18px;
-    }
+    .result { color: #0f0; }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h2>شحن ميكو لايف</h2>
-    <input id="gems" type="number" placeholder="ادخل عدد الماسات (1000 - 10000000)">
+  <div class="container">
+    <h2>شحن بيجو لايف</h2>
+
+    <label>عدد الماس:</label>
+    <input type="number" id="amount" min="1" placeholder="أدخل عدد الماس">
+
+    <label>اختر الدولة:</label>
     <select id="country">
       <option value="eg">مصر</option>
       <option value="sa">السعودية</option>
       <option value="ae">الإمارات</option>
     </select>
-    <div id="price">السعر: 0.00</div>
-    <button onclick="calc()">احسب السعر</button>
-    <button onclick="location.href='payment.html'">الذهاب للدفع</button>
+
+    <div class="result" id="priceResult"></div>
+
+    <button class="btn" onclick="calculate()">احسب السعر</button>
+    <button class="btn" onclick="goToPay()">الذهاب للدفع</button>
   </div>
 
   <script>
-    const rates = { eg: 12.7, sa: 3.75, ae: 3.67 }; // تحويل الدولار حسب الدولة
-
-    function calc() {
-      const gems = parseInt(document.getElementById('gems').value);
-      const country = document.getElementById('country').value;
-      const priceElement = document.getElementById('price');
-
-      if (isNaN(gems) || gems < 1000 || gems > 10000000) {
-        priceElement.textContent = '⚠️ أدخل عدد ماسات بين 1000 و 10 مليون';
-        priceElement.style.color = 'red';
-        return;
+    function calculate() {
+      const amount = +document.getElementById("amount").value;
+      const country = document.getElementById("country").value;
+      const rates = { eg: 0.085, sa: 0.0067, ae: 0.0065 };
+      if (amount > 0) {
+        const total = (amount * rates[country]).toFixed(2);
+        document.getElementById("priceResult").innerText = `السعر: ${total}`;
+      } else {
+        document.getElementById("priceResult").innerText = "أدخل عدد الماس أولاً.";
       }
+    }
 
-      let usd = 0;
-
-      // التسعير حسب جدولك
-      if (gems < 15000) usd = (gems / 15000) * 25;
-      else if (gems < 30000) usd = 50;
-      else if (gems < 60000) usd = 100;
-      else if (gems < 300000) usd = 500;
-      else if (gems < 600000) usd = 1000;
-      else if (gems < 1200000) usd = 2000;
-      else if (gems < 3000000) usd = 5000;
-      else if (gems < 4200000) usd = 7000;
-      else if (gems < 6000000) usd = 10000;
-      else usd = 20000;
-
-      const converted = (usd * rates[country]).toFixed(2);
-      const currency = country === "eg" ? "جنيه" : country === "sa" ? "ريال" : "درهم";
-
-      priceElement.textContent = `السعر: ${converted} ${currency}`;
-      priceElement.style.color = "#0f0";
+    function goToPay() {
+      const amount = document.getElementById("amount").value;
+      const country = document.getElementById("country").value;
+      if (!amount) return alert("يرجى إدخال عدد الماس أولاً.");
+      location.href = `pay.html?amount=${amount}&country=${country}`;
     }
   </script>
 </body>
