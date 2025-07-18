@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>شحن بيجو لايف</title>
   <style>
     body { background:#111; color:#FFD700; font-family:sans-serif; text-align:center; padding:30px }
-    input { padding:10px; width:220px; margin:10px; border-radius:6px; border:1px solid #FFD700; font-size:16px; text-align:center }
+    input, select { padding:10px; width:220px; margin:10px; border-radius:6px; border:1px solid #FFD700; font-size:16px; text-align:center }
     .btn { padding:10px 20px; border-radius:6px; font-weight:bold; text-decoration:none; margin:10px; display:inline-block }
     .main { background:#FFD700; color:#000 }
     .whats { background:#25D366; color:#fff }
@@ -16,36 +16,83 @@
 
   <h2>شحن بيجو لايف</h2>
   <p>أدخل عدد الوحدات المطلوبة</p>
-  <input id="units" type="number" placeholder="مثال: 10000" oninput="showPrice()" />
+  <input id="units" type="number" placeholder="مثال: 10000" oninput="showCountry()">
+
+  <div id="countryDiv" style="display:none;">
+    <select id="country" onchange="showMethods()">
+      <option value="">اختر الدولة</option>
+      <option value="مصر">🇪🇬 مصر</option>
+      <option value="السعودية">🇸🇦 السعودية</option>
+      <option value="الإمارات">🇦🇪 الإمارات</option>
+    </select>
+  </div>
+
+  <div id="methodDiv" style="display:none;">
+    <select id="method" onchange="showPrice()"></select>
+  </div>
 
   <div id="result" class="result" style="display:none;">
-    <p>الجنيه المصري: <span id="egp"></span> جنيه</p>
-    <p>الريال السعودي: <span id="sar"></span> ريال</p>
-    <p>الدرهم الإماراتي: <span id="aed"></span> درهم</p>
+    <p id="priceText"></p>
   </div>
 
   <a href="index.html" class="btn main">العودة للرئيسية</a>
   <a id="wa" class="btn whats" target="_blank" style="display:none;">طلب عبر واتساب</a>
 
   <script>
-    function showPrice() {
-      let units = +document.getElementById("units").value;
+    function showCountry() {
+      const units = +document.getElementById("units").value;
       if (units > 0) {
-        let egp = (units * 0.94).toFixed(2),
-            sar = (units * 0.073).toFixed(2),
-            aed = (units * 0.069).toFixed(2),
-            msg = `أرغب بشحن ${units} وحدة.\nالسعر:\n- جنيه: ${egp}\n- ريال: ${sar}\n- درهم: ${aed}`;
-
-        document.getElementById("egp").innerText = egp;
-        document.getElementById("sar").innerText = sar;
-        document.getElementById("aed").innerText = aed;
-        document.getElementById("result").style.display = "block";
-
-        document.getElementById("wa").href = "https://wa.me/201145427899?text=" + encodeURIComponent(msg);
-        document.getElementById("wa").style.display = "inline-block";
-      } else {
+        document.getElementById("countryDiv").style.display = "block";
         document.getElementById("result").style.display = "none";
         document.getElementById("wa").style.display = "none";
+      } else {
+        document.getElementById("countryDiv").style.display = "none";
+        document.getElementById("methodDiv").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("wa").style.display = "none";
+      }
+    }
+
+    function showMethods() {
+      const country = document.getElementById("country").value;
+      const methodSelect = document.getElementById("method");
+      methodSelect.innerHTML = "";
+
+      if (country === "مصر") {
+        ["فودافون كاش", "انستا باي", "ويسترن يونيون"].forEach(m => {
+          let opt = document.createElement("option");
+          opt.value = opt.text = m;
+          methodSelect.add(opt);
+        });
+      } else if (country === "السعودية" || country === "الإمارات") {
+        let opt = document.createElement("option");
+        opt.value = opt.text = "تحويل بنكي داخلي";
+        methodSelect.add(opt);
+      }
+
+      document.getElementById("methodDiv").style.display = country ? "block" : "none";
+      showPrice();
+    }
+
+    function showPrice() {
+      const units = +document.getElementById("units").value;
+      const country = document.getElementById("country").value;
+      const method = document.getElementById("method").value;
+
+      if (units && country && method) {
+        let price = 0, currency = '';
+        if (country === "مصر") { price = (units * 0.94).toFixed(2); currency = "جنيه"; }
+        else if (country === "السعودية") { price = (units * 0.073).toFixed(2); currency = "ريال"; }
+        else if (country === "الإمارات") { price = (units * 0.069).toFixed(2); currency = "درهم"; }
+
+        document.getElementById("priceText").innerText =
+          `سعر ${units} وحدة في ${country} = ${price} ${currency}\nطريقة الدفع: ${method}`;
+
+        let msg = `أرغب بشحن ${units} وحدة.\nالدولة: ${country}\nطريقة الدفع: ${method}\nالسعر: ${price} ${currency}`;
+        document.getElementById("wa").href = "https://wa.me/201145427899?text=" + encodeURIComponent(msg);
+
+        document.getElementById("result").style.display = "block";
+        document.getElementById("wa").style.display = "inline-block";
       }
     }
   </script>
