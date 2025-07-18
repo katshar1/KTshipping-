@@ -2,58 +2,30 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>صفحة الدفع - كاتشر</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px 20px;
-    }
-    h1 {
-      color: gold;
-      margin-bottom: 30px;
-    }
-    .box {
-      background: #111;
-      padding: 20px;
-      border-radius: 10px;
-      border: 1px solid gold;
-      display: inline-block;
-      text-align: right;
-    }
-    .box p {
-      margin: 10px 0;
-      font-size: 18px;
-    }
-    .btn {
-      margin-top: 20px;
-      display: inline-block;
-      padding: 12px 25px;
-      background-color: gold;
-      color: black;
-      font-size: 16px;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-    }
-  </style>
+  <title>صفحة الدفع</title>
+  <link href="style.css" rel="stylesheet" />
 </head>
 <body>
+  <div class="container">
+    <h1>إتمام الدفع</h1>
+    
+    <div class="box">
+      <p>شكراً لاستخدامك خدمتنا ❤️</p>
+      <p>يرجى التواصل مع الدعم لإتمام الدفع عبر الطريقة المناسبة.</p>
 
-  <h1>تفاصيل طلبك</h1>
+      <div class="payment-details">
+        <h3>طرق الدفع:</h3>
+        <ul>
+          <li><strong>مصر:</strong> فودافون كاش - Instapay - ويسترن يونيون</li>
+          <li><strong>السعودية:</strong> تحويل بنكي داخلي</li>
+          <li><strong>الإمارات:</strong> تحويل بنكي داخلي</li>
+        </ul>
+      </div>
 
-  <div class="box">
-    <p><strong>الكمية المطلوبة:</strong> <span id="amount"></span></p>
-    <p><strong>الدولة:</strong> <span id="country"></span></p>
-    <p><strong>السعر بالجنيه:</strong> <span id="egp"></span> جنيه</p>
-    <p><strong>السعر بالريال:</strong> <span id="sar"></span> ريال</p>
-    <p><strong>السعر بالدرهم:</strong> <span id="aed"></span> درهم</p>
+      <a href="https://wa.me/201145427899" class="whatsapp-btn" target="_blank">تواصل عبر واتساب</a>
+      <br><br>
+      <a href="index.html" class="back-btn">العودة للصفحة السابقة</a>
+    </div>
   </div>
-
-  <br/>
-
-  <a class="btn" href="index.html">تعديل الطلب</a>
-  <a class
+</body>
+</html>
