@@ -4,40 +4,48 @@
   <meta charset="UTF-8" />
   <title>شحن بيجو لايف</title>
   <style>
-    body { background:#111; color:#FFD700; font-family:sans-serif; text-align:center; padding:20px }
-    input { padding:10px; width:200px; margin:10px; border-radius:5px; border:1px solid #FFD700; text-align:center }
-    .btn { display:inline-block; margin:10px; padding:10px 20px; border-radius:6px; font-weight:bold; text-decoration:none }
+    body { background:#111; color:#FFD700; font-family:sans-serif; text-align:center; padding:30px }
+    input { padding:10px; width:220px; margin:10px; border-radius:6px; border:1px solid #FFD700; font-size:16px; text-align:center }
+    .btn { padding:10px 20px; border-radius:6px; font-weight:bold; text-decoration:none; margin:10px; display:inline-block }
     .main { background:#FFD700; color:#000 }
     .whats { background:#25D366; color:#fff }
-    .result { margin-top:20px; color:white }
+    .result { margin-top:20px; font-size:18px; color:#fff }
   </style>
 </head>
 <body>
 
   <h2>شحن بيجو لايف</h2>
-  <p>أدخل عدد الوحدات</p>
-  <input id="amount" type="number" placeholder="مثال: 10000" oninput="calc()"/>
+  <p>أدخل عدد الوحدات المطلوبة</p>
+  <input id="units" type="number" placeholder="مثال: 10000" oninput="showPrice()" />
 
-  <div class="result" id="res" style="display:none;">
-    <p>جنيه: <span id="egp"></span> | ريال: <span id="sar"></span> | درهم: <span id="aed"></span></p>
+  <div id="result" class="result" style="display:none;">
+    <p>الجنيه المصري: <span id="egp"></span> جنيه</p>
+    <p>الريال السعودي: <span id="sar"></span> ريال</p>
+    <p>الدرهم الإماراتي: <span id="aed"></span> درهم</p>
   </div>
 
-  <a href="index.html" class="btn main">العودة</a>
-  <a id="wa" class="btn whats" target="_blank" style="display:none;">طلب واتساب</a>
+  <a href="index.html" class="btn main">العودة للرئيسية</a>
+  <a id="wa" class="btn whats" target="_blank" style="display:none;">طلب عبر واتساب</a>
 
   <script>
-    function calc() {
-      let val = +document.getElementById("amount").value;
-      if(val > 0){
-        let egp = (val * 0.94).toFixed(2),
-            sar = (val * 0.073).toFixed(2),
-            aed = (val * 0.069).toFixed(2),
-            msg = `أود شحن ${val} وحدة:\nجنيه: ${egp} - ريال: ${sar} - درهم: ${aed}`;
-        res.style.display = wa.style.display = 'block';
-        egp.innerText = egp; sar.innerText = sar; aed.innerText = aed;
-        wa.href = "https://wa.me/201145427899?text=" + encodeURIComponent(msg);
+    function showPrice() {
+      let units = +document.getElementById("units").value;
+      if (units > 0) {
+        let egp = (units * 0.94).toFixed(2),
+            sar = (units * 0.073).toFixed(2),
+            aed = (units * 0.069).toFixed(2),
+            msg = `أرغب بشحن ${units} وحدة.\nالسعر:\n- جنيه: ${egp}\n- ريال: ${sar}\n- درهم: ${aed}`;
+
+        document.getElementById("egp").innerText = egp;
+        document.getElementById("sar").innerText = sar;
+        document.getElementById("aed").innerText = aed;
+        document.getElementById("result").style.display = "block";
+
+        document.getElementById("wa").href = "https://wa.me/201145427899?text=" + encodeURIComponent(msg);
+        document.getElementById("wa").style.display = "inline-block";
       } else {
-        res.style.display = wa.style.display = 'none';
+        document.getElementById("result").style.display = "none";
+        document.getElementById("wa").style.display = "none";
       }
     }
   </script>
