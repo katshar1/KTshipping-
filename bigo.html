@@ -1,69 +1,109 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>شحن بيجو لايف - كاتشر</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>شحن بيجو لايف</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    body { background: #000; color: #fff; font-family: Arial; text-align: center; padding: 20px; }
-    h1 { color: gold; }
-    label, select, input { margin: 10px 0; display: block; width: 100%; max-width: 300px; margin-inline: auto; }
-    input, select { padding: 10px; border-radius: 5px; border: none; }
-    .result { margin-top: 15px; font-size: 18px; color: #0f0; }
-    .btn-pay { margin-top: 20px; background: gold; color: #000; padding: 10px 25px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #111;
+      padding: 30px;
+      border-radius: 15px;
+      border: 2px solid gold;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      background: gold;
+      color: #000;
+      font-size: 18px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #0f0;
+    }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h2>شحن بيجو لايف</h2>
 
-  <h1>شحن بيجو لايف</h1>
+    <label for="amount">عدد الماس:</label>
+    <input type="number" id="amount" min="1" placeholder="أدخل عدد الماس">
 
-  <label for="amount">عدد الألماس:</label>
-  <input type="number" id="amount" placeholder="أدخل الكمية" oninput="calculate()">
+    <label for="country">اختر الدولة:</label>
+    <select id="country">
+      <option value="eg">مصر</option>
+      <option value="sa">السعودية</option>
+      <option value="ae">الإمارات</option>
+    </select>
 
-  <label for="country">اختر الدولة:</label>
-  <select id="country" onchange="calculate()">
-    <option value="">-- اختر الدولة --</option>
-    <option value="egp">مصر</option>
-    <option value="ksa">السعودية</option>
-    <option value="uae">الإمارات</option>
-  </select>
+    <div class="result" id="priceResult"></div>
 
-  <div class="result" id="result">السعر: 0</div>
-
-  <button class="btn-pay" onclick="goToPay()">إتمام الدفع</button>
+    <button class="btn" onclick="calculate()">احسب السعر</button>
+    <button class="btn" onclick="goToPay()">الذهاب للدفع</button>
+  </div>
 
   <script>
     function calculate() {
-      const amount = parseFloat(document.getElementById('amount').value);
-      const country = document.getElementById('country').value;
+      const amount = document.getElementById("amount").value;
+      const country = document.getElementById("country").value;
       let rate = 0;
 
-      if (country === "egp") rate = 0.92;
-      else if (country === "ksa") rate = 0.25;
-      else if (country === "uae") rate = 0.071;
+      if (country === "eg") rate = 0.92;
+      else if (country === "sa") rate = 0.073;
+      else if (country === "ae") rate = 0.071;
 
-      const total = amount && rate ? (amount * rate).toFixed(2) : 0;
-      document.getElementById('result').textContent = `السعر: ${total} ${getCurrency(country)}`;
-    }
-
-    function getCurrency(country) {
-      if (country === "egp") return "جنيه مصري";
-      if (country === "ksa") return "ريال سعودي";
-      if (country === "uae") return "درهم إماراتي";
-      return "";
+      if (amount && amount > 0) {
+        const total = (amount * rate).toFixed(2);
+        document.getElementById("priceResult").innerText = `السعر: ${total}`;
+      } else {
+        document.getElementById("priceResult").innerText = "أدخل عدد الماس أولاً.";
+      }
     }
 
     function goToPay() {
-      const amount = document.getElementById('amount').value;
-      const country = document.getElementById('country').value;
-      if (!amount || !country) {
-        alert("يرجى إدخال الكمية واختيار الدولة أولاً");
+      const amount = document.getElementById("amount").value;
+      const country = document.getElementById("country").value;
+      if (!amount) {
+        alert("يرجى إدخال عدد الماس أولاً.");
         return;
       }
-      // يمكن لاحقًا تمرير بيانات الدفع عبر URL أو LocalStorage
-      window.location.href = "pay.html";
+      // تحويل لصفحة الدفع مع بيانات في الرابط
+      window.location.href = `pay.html?amount=${amount}&country=${country}`;
     }
   </script>
-
 </body>
 </html>
