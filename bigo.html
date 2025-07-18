@@ -1,100 +1,43 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>شحن بيجو لايف</title>
   <style>
-    body {
-      background: #1c1c1c;
-      color: #FFD700;
-      font-family: 'Cairo', sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    h1 {
-      margin-bottom: 10px;
-    }
-    label, input {
-      display: block;
-      margin: 10px auto;
-      font-size: 18px;
-    }
-    input[type="number"] {
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #FFD700;
-      width: 200px;
-      text-align: center;
-    }
-    .result {
-      background: #222;
-      color: white;
-      padding: 15px;
-      border-radius: 10px;
-      max-width: 300px;
-      margin: 20px auto;
-      border: 1px solid #FFD700;
-    }
-    .btn, .whatsapp {
-      display: inline-block;
-      margin: 15px 10px;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    .btn {
-      background-color: #FFD700;
-      color: black;
-    }
-    .whatsapp {
-      background-color: #25D366;
-      color: white;
-    }
+    body { background:#111; color:#FFD700; font-family:sans-serif; text-align:center; padding:20px }
+    input { padding:10px; width:200px; margin:10px; border-radius:5px; border:1px solid #FFD700; text-align:center }
+    .btn { display:inline-block; margin:10px; padding:10px 20px; border-radius:6px; font-weight:bold; text-decoration:none }
+    .main { background:#FFD700; color:#000 }
+    .whats { background:#25D366; color:#fff }
+    .result { margin-top:20px; color:white }
   </style>
 </head>
 <body>
 
-  <h1>شحن بيجو لايف</h1>
-  <p>أدخل كمية الشحن المطلوبة (مثلاً: 1000 أو 5000...)</p>
+  <h2>شحن بيجو لايف</h2>
+  <p>أدخل عدد الوحدات</p>
+  <input id="amount" type="number" placeholder="مثال: 10000" oninput="calc()"/>
 
-  <label for="amount">كمية الشحن</label>
-  <input type="number" id="amount" placeholder="مثال: 10000" oninput="calculatePrice()">
-
-  <div class="result" id="priceResult" style="display: none;">
-    <p>السعر بالجنيه: <span id="egp">0</span> جنيه</p>
-    <p>السعر بالريال: <span id="sar">0</span> ريال</p>
-    <p>السعر بالدرهم: <span id="aed">0</span> درهم</p>
+  <div class="result" id="res" style="display:none;">
+    <p>جنيه: <span id="egp"></span> | ريال: <span id="sar"></span> | درهم: <span id="aed"></span></p>
   </div>
 
-  <a class="btn" href="index.html">العودة للرئيسية</a>
-  <a class="whatsapp" id="whatsLink" target="_blank" style="display:none;">طلب عبر واتساب</a>
+  <a href="index.html" class="btn main">العودة</a>
+  <a id="wa" class="btn whats" target="_blank" style="display:none;">طلب واتساب</a>
 
   <script>
-    function calculatePrice() {
-      const amount = parseInt(document.getElementById("amount").value);
-      const egpPrice = 0.94;
-      const sarPrice = 0.073;
-      const aedPrice = 0.069;
-
-      if (!isNaN(amount) && amount > 0) {
-        const egp = (amount * egpPrice).toFixed(2);
-        const sar = (amount * sarPrice).toFixed(2);
-        const aed = (amount * aedPrice).toFixed(2);
-
-        document.getElementById("egp").textContent = egp;
-        document.getElementById("sar").textContent = sar;
-        document.getElementById("aed").textContent = aed;
-
-        document.getElementById("priceResult").style.display = "block";
-
-        const message = `مرحبًا، أود شحن ${amount} وحدة بيجو لايف.\nالسعر:\nجنيه: ${egp} - ريال: ${sar} - درهم: ${aed}`;
-        const waLink = `https://wa.me/201145427899?text=${encodeURIComponent(message)}`;
-        document.getElementById("whatsLink").href = waLink;
-        document.getElementById("whatsLink").style.display = "inline-block";
+    function calc() {
+      let val = +document.getElementById("amount").value;
+      if(val > 0){
+        let egp = (val * 0.94).toFixed(2),
+            sar = (val * 0.073).toFixed(2),
+            aed = (val * 0.069).toFixed(2),
+            msg = `أود شحن ${val} وحدة:\nجنيه: ${egp} - ريال: ${sar} - درهم: ${aed}`;
+        res.style.display = wa.style.display = 'block';
+        egp.innerText = egp; sar.innerText = sar; aed.innerText = aed;
+        wa.href = "https://wa.me/201145427899?text=" + encodeURIComponent(msg);
       } else {
-        document.getElementById("priceResult").style.display = "none";
-        document.getElementById("whatsLink").style.display = "none";
+        res.style.display = wa.style.display = 'none';
       }
     }
   </script>
