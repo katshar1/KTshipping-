@@ -1,20 +1,59 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <title>شحن ميكو لايف</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { background: #111; color: #fff; font-family: Arial; padding: 20px; text-align: center; }
+    input, select, button { padding: 10px; margin: 10px; font-size: 16px; border-radius: 5px; }
+    .box { background: #222; padding: 20px; border: 1px solid gold; border-radius: 10px; display: inline-block; }
+    .price { margin-top: 15px; font-size: 18px; color: gold; }
+  </style>
 </head>
 <body>
-  <header><h1>شحن ميكو لايف</h1></header>
 
-  <section class="card">
-    <p>عروض رائعة لشحن حسابك في ميكو</p>
-    <a href="index.html" class="link">العودة للرئيسية</a>
-  </section>
+  <div class="box">
+    <h2>🟣 شحن ميكو لايف</h2>
+    <input type="number" id="mas" placeholder="ادخل عدد الماسات" oninput="calc()" />
+    
+    <div class="price" id="prices"></div>
 
-  <a href="https://wa.me/201145427899" class="whatsapp-float" target="_blank" title="تواصل معنا">
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="واتساب" />
-  </a>
+    <select id="country" onchange="showMethods()">
+      <option value="">اختر الدولة</option>
+      <option value="egypt">مصر</option>
+      <option value="ksa">السعودية</option>
+      <option value="uae">الإمارات</option>
+    </select>
+
+    <div id="methods"></div>
+
+    <br />
+    <button onclick="window.location.href='pay.html'">الانتقال للدفع</button>
+  </div>
+
+  <script>
+    function calc() {
+      let count = parseFloat(document.getElementById("mas").value || 0);
+      let egp = (count * 0.92).toFixed(2);
+      let ksa = (egp / 12.70).toFixed(2);
+      let uae = (egp / 12.90).toFixed(2);
+
+      document.getElementById("prices").innerHTML = `
+        🇪🇬 السعر بالجنيه: ${egp} جنيه<br>
+        🇸🇦 السعر بالريال: ${ksa} ريال<br>
+        🇦🇪 السعر بالدرهم: ${uae} درهم
+      `;
+    }
+
+    function showMethods() {
+      const c = document.getElementById("country").value;
+      let methods = "";
+      if (c === "egypt") methods = "فودافون كاش - انستا باي - ويسترن يونيون";
+      if (c === "ksa") methods = "تحويل بنكي داخلي - STC Pay - ويسترن يونيون";
+      if (c === "uae") methods = "تحويل بنكي داخلي - ويسترن يونيون";
+      document.getElementById("methods").innerText = methods;
+    }
+  </script>
+
 </body>
 </html>
