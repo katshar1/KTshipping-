@@ -11,20 +11,34 @@
       font-family: 'Tajawal', sans-serif;
       background: linear-gradient(to bottom right, #000, #111);
       color: #fff;
+      scroll-behavior: smooth;
     }
+
     header, footer {
       background: #111;
       text-align: center;
       padding: 20px;
       border-bottom: 2px solid gold;
     }
-    header h1 { color: gold; margin: 0; }
+
+    header h1 {
+      color: gold;
+      margin: 0;
+      animation: fadeInDown 1.2s ease-in-out;
+    }
+
     .hero {
       text-align: center;
       padding: 60px 20px;
+      animation: fadeIn 2s ease;
     }
-    .hero h2 { margin-bottom: 30px; font-size: 24px; }
-    .hero button, .section a {
+
+    .hero h2 {
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+
+    .hero button {
       background: gold;
       border: none;
       color: #000;
@@ -32,11 +46,14 @@
       font-size: 18px;
       border-radius: 8px;
       cursor: pointer;
-      transition: 0.3s;
-      text-decoration: none;
-      display: inline-block;
+      animation: pulse 2s infinite;
+      transition: background 0.3s;
     }
-    .hero button:hover, .section a:hover { background: #ffcc00; }
+
+    .hero button:hover {
+      background: #ffcc00;
+    }
+
     .sections {
       display: none;
       padding: 40px 20px;
@@ -44,30 +61,85 @@
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
     }
+
     .section {
       background: #222;
       border: 1px solid gold;
       border-radius: 12px;
       padding: 20px;
       text-align: center;
+      transition: 0.4s ease-in-out;
+      opacity: 0;
+      transform: translateY(30px);
     }
-    .section:hover { background: #333; }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section:hover {
+      background: linear-gradient(135deg, #333, #222);
+    }
+
+    .section a {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: gold;
+      color: #000;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .section a:hover {
+      background: #ffcc00;
+    }
+
     .whatsapp-float {
       position: fixed;
       bottom: 20px;
       left: 20px;
       width: 60px;
       height: 60px;
-      line-height: 60px;
       font-size: 28px;
       background: #25D366;
-      color: #fff;
+      color: white;
       border-radius: 50%;
       text-align: center;
+      line-height: 60px;
       text-decoration: none;
       z-index: 1000;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
     }
-    footer { color: #aaa; margin-top: 40px; }
+
+    footer {
+      color: #aaa;
+      margin-top: 40px;
+      animation: fadeInUp 1.5s ease-in-out;
+    }
+
+    /* ======= Animations ======= */
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
   </style>
 </head>
 <body>
@@ -105,9 +177,18 @@
 
   <script>
     function showSections() {
-      document.getElementById('sections').style.display = 'grid';
-      window.scrollTo({ top: document.getElementById('sections').offsetTop, behavior: 'smooth' });
+      const sections = document.getElementById('sections');
+      sections.style.display = 'grid';
+      window.scrollTo({ top: sections.offsetTop, behavior: 'smooth' });
+
+      // إضافة تأثير الظهور للعناصر
+      const boxes = document.querySelectorAll('.section');
+      boxes.forEach((box, i) => {
+        setTimeout(() => box.classList.add('visible'), i * 150);
+      });
     }
+
+    // تشغيل الصوت عند أول نقرة
     document.addEventListener('DOMContentLoaded', () => {
       const audio = document.getElementById("introSound");
       const playOnce = () => {
