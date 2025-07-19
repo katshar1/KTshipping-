@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>شحن بيجو لايف</title>
+  <title>شحن ميكو لايف</title>
   <style>
     body {
       background: #000; color: #fff; font-family: Arial; padding: 20px;
@@ -24,7 +24,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>شحن بيجو لايف</h2>
+    <h2>شحن ميكو لايف</h2>
 
     <label>عدد الماس:</label>
     <input type="number" id="amount" min="1" placeholder="أدخل عدد الماس">
@@ -67,8 +67,8 @@
 
       const price = (amount * rates[country]).toFixed(2);
       const countryName = country === "eg" ? "مصر" : country === "sa" ? "السعودية" : "الإمارات";
-      const msg = `مرحبا، أود شحن ${amount} ماسه لبيجو لايف.\nالدولة: ${countryName}\nالسعر: ${price}`;
-      const whatsappURL = `https://wa.me/201145427899?text=${encodeURIComponent(msg)}`;
+      const msg = `مرحبا، أود شحن ${amount} ماسه لميكو لايف.\nالدولة: ${countryName}\nالسعر: ${price}`;
+      const whatsappURL = `https://wa.me/201033040762?text=${encodeURIComponent(msg)}`;
       window.open(whatsappURL, "_blank");
     }
   </script>
