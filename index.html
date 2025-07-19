@@ -5,103 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>أهلاً بك في كاتشر جروب</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      text-align: center;
-      padding: 20px;
-      background-color: #111;
-      border-bottom: 2px solid gold;
-    }
-
-    header img {
-      max-width: 150px;
-      margin-bottom: 10px;
-    }
-
-    header h1 {
-      font-size: 24px;
-      color: gold;
-      margin: 0;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 40px 20px;
-      background-color: #111;
-    }
-
-    .hero h2 {
-      font-size: 20px;
-      margin-bottom: 20px;
-    }
-
-    .hero button {
-      background-color: gold;
-      color: #000;
-      border: none;
-      padding: 10px 20px;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    .sections {
-      display: none;
-      padding: 30px 20px;
-      background-color: #000;
-    }
-
-    .section {
-      background-color: #222;
-      margin-bottom: 20px;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px #444;
-    }
-
-    .section h3 {
-      color: gold;
-    }
-
-    .section a {
-      display: inline-block;
-      margin-top: 10px;
-      background-color: gold;
-      color: #000;
-      padding: 8px 16px;
-      border-radius: 8px;
-      text-decoration: none;
-    }
-
-    .whatsapp-float {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      font-size: 30px;
-      z-index: 1000;
-    }
-  </style>
 </head>
 <body>
 
-  <header>
-    <img src="logo.png" alt="شعار كاتشر" />
+  <!-- الشعار -->
+  <header class="header">
+    <img src="logo.png" alt="شعار كاتشر" class="logo">
     <h1>أهلاً بك في كاتشر جروب</h1>
   </header>
 
+  <!-- المقدمة -->
   <section class="hero">
     <h2>اشحن بيجو لايف، ميكو لايف، كيتي لايف بأمان وسرعة</h2>
     <button onclick="showSections()">ابدأ الآن</button>
   </section>
 
+  <!-- الصفحات -->
   <section class="sections" id="sections">
     <div class="section">
       <h3>🔹 بيجو لايف</h3>
@@ -121,14 +40,14 @@
   </section>
 
   <!-- زر واتساب -->
-  <a href="https://wa.me/201145427899" class="whatsapp-float" target="_blank" title="تواصل معنا على واتساب">🟢</a>
+  <a href="https://wa.me/201145427899" class="whatsapp-float" target="_blank" title="تواصل معنا على واتساب">💬</a>
 
   <!-- صوت ترحيبي -->
   <audio id="introSound" src="welcome.mp3" preload="auto"></audio>
 
   <script>
     function showSections() {
-      document.getElementById('sections').style.display = 'block';
+      document.getElementById('sections').style.display = 'flex';
       window.scrollTo({
         top: document.getElementById('sections').offsetTop,
         behavior: 'smooth'
@@ -144,6 +63,5 @@
       document.addEventListener("click", playSoundOnce);
     });
   </script>
-
 </body>
 </html>
