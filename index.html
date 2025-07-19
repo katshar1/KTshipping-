@@ -2,25 +2,83 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>أهلاً بك في كاتشر جروب</title>
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(to bottom right, #000, #111);
+      color: #fff;
+    }
+    header, footer {
+      background: #111;
+      text-align: center;
+      padding: 20px;
+      border-bottom: 2px solid gold;
+    }
+    header h1 { color: gold; margin: 0; }
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .hero h2 { margin-bottom: 30px; font-size: 24px; }
+    .hero button, .section a {
+      background: gold;
+      border: none;
+      color: #000;
+      padding: 12px 30px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .hero button:hover, .section a:hover { background: #ffcc00; }
+    .sections {
+      display: none;
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .section {
+      background: #222;
+      border: 1px solid gold;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .section:hover { background: #333; }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      font-size: 28px;
+      background: #25D366;
+      color: #fff;
+      border-radius: 50%;
+      text-align: center;
+      text-decoration: none;
+      z-index: 1000;
+    }
+    footer { color: #aaa; margin-top: 40px; }
+  </style>
 </head>
 <body>
 
-  <!-- الشعار -->
-  <header class="header">
-    <img src="logo.png" alt="شعار كاتشر" class="logo">
-    <h1>أهلاً بك في كاتشر جروب</h1>
-  </header>
+  <header><h1>أهلاً بك في كاتشر جروب</h1></header>
 
-  <!-- المقدمة -->
   <section class="hero">
     <h2>اشحن بيجو لايف، ميكو لايف، كيتي لايف بأمان وسرعة</h2>
     <button onclick="showSections()">ابدأ الآن</button>
   </section>
 
-  <!-- الصفحات -->
   <section class="sections" id="sections">
     <div class="section">
       <h3>🔹 بيجو لايف</h3>
@@ -39,29 +97,26 @@
     </div>
   </section>
 
-  <!-- زر واتساب -->
-  <a href="https://wa.me/201145427899" class="whatsapp-float" target="_blank" title="تواصل معنا على واتساب">💬</a>
+  <a href="https://wa.me/201145427899" class="whatsapp-float" title="تواصل معنا على واتساب">💬</a>
 
-  <!-- صوت ترحيبي -->
   <audio id="introSound" src="welcome.mp3" preload="auto"></audio>
+
+  <footer>جميع الحقوق محفوظة © كاتشر جروب 2025</footer>
 
   <script>
     function showSections() {
-      document.getElementById('sections').style.display = 'flex';
-      window.scrollTo({
-        top: document.getElementById('sections').offsetTop,
-        behavior: 'smooth'
-      });
+      document.getElementById('sections').style.display = 'grid';
+      window.scrollTo({ top: document.getElementById('sections').offsetTop, behavior: 'smooth' });
     }
-
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', () => {
       const audio = document.getElementById("introSound");
-      const playSoundOnce = () => {
+      const playOnce = () => {
         audio.play().catch(() => {});
-        document.removeEventListener("click", playSoundOnce);
+        document.removeEventListener("click", playOnce);
       };
-      document.addEventListener("click", playSoundOnce);
+      document.addEventListener("click", playOnce);
     });
   </script>
+
 </body>
 </html>
