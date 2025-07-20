@@ -3,111 +3,154 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>شحن كيتي لايف - كاتشر جروب</title>
-
-  <meta name="description" content="شحن كيتي لايف من خلال كاتشر جروب بأسعار مخصصة للمستخدمين في مصر والسعودية والإمارات.">
-  <meta name="keywords" content="شحن كيتي, شحن كيتي لايف, شحن KITI, كاتشر, كاتشر جروب, شحن مذيعين, شحن برامج بث">
-
+  <title>شحن كيتي لايف</title>
+  <link rel="stylesheet" href="style.css"/>
   <style>
     body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Tajawal', Arial, sans-serif;
+      font-family: 'Cairo', sans-serif;
+      background-color: #f8f8f8;
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      direction: rtl;
+    }
+    header {
+      background-color: #222;
+      color: gold;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
     }
     .container {
       max-width: 500px;
       margin: auto;
-      background: #111;
-      padding: 30px;
-      border-radius: 15px;
-      border: 2px solid gold;
-      box-shadow: 0 0 10px gold;
-    }
-    h2 {
-      text-align: center;
-      color: gold;
-      margin-bottom: 30px;
+      background: #fff;
+      padding: 2rem;
+      margin-top: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
     }
     label {
       display: block;
-      margin: 15px 0 5px;
+      margin: 1rem 0 0.5rem;
+    }
+    select, input {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .price {
+      margin: 1rem 0;
       font-weight: bold;
+      color: #444;
+      background: #f0f0f0;
+      padding: 0.5rem;
+      border-radius: 6px;
     }
-    input, select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      background: gold;
+    button {
+      background-color: gold;
       color: #000;
-      font-size: 18px;
-      padding: 12px;
+      padding: 0.7rem;
+      font-size: 1.1rem;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      margin-top: 15px;
-      text-align: center;
-      text-decoration: none;
+      width: 100%;
+      margin-top: 1rem;
     }
-    .btn:hover {
-      background-color: #ffd700;
-    }
-    .result {
-      margin-top: 15px;
-      font-size: 18px;
-      color: #0f0;
+    footer {
       text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      color: #666;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>طلب شحن كيتي لايف</h2>
 
-    <label for="amount">عدد الماس:</label>
-    <input type="number" id="amount" min="1" placeholder="أدخل عدد الماس">
+<header>شحن كيتي لايف</header>
 
-    <label for="country">اختر الدولة:</label>
-    <select id="country">
-      <option value="eg">مصر</option>
-      <option value="sa">السعودية</option>
-      <option value="ae">الإمارات</option>
-    </select>
+<div class="container">
+  <label for="country">اختر الدولة:</label>
+  <select id="country">
+    <option value="eg">مصر</option>
+    <option value="sa">السعودية</option>
+    <option value="ae">الإمارات</option>
+  </select>
 
-    <div class="result" id="priceResult"></div>
+  <label for="amount">عدد الماسات:</label>
+  <input type="number" id="amount" placeholder="مثال: 1250" />
 
-    <button class="btn" onclick="goToPayment()">التالي للدفع</button>
-  </div>
+  <div class="price" id="price">سعر الشحنة: -</div>
 
-  <script>
-    function goToPayment() {
-      const amount = document.getElementById("amount").value;
-      const country = document.getElementById("country").value;
+  <label for="method">اختر وسيلة الدفع:</label>
+  <select id="method">
+    <option value="vodafone">فودافون كاش</option>
+    <option value="etisalat">اتصالات كاش</option>
+    <option value="instapay">إنستا باي</option>
+    <option value="western">ويسترن يونيون</option>
+    <option value="binance">بايننس</option>
+    <option value="bank">تحويل بنكي داخلي</option>
+  </select>
 
-      if (!amount || amount <= 0) {
-        document.getElementById("priceResult").innerText = "⚠️ أدخل عدد الماس أولاً.";
-        return;
-      }
+  <button onclick="submitOrder()">متابعة إلى واتساب</button>
+</div>
 
-      let rate = 0;
-      if (country === "eg") rate = 0.0409;
-      else if (country === "sa") rate = 0.00309;
-      else if (country === "ae") rate = 0.00305;
+<footer>
+  جميع الحقوق محفوظة © كاتشر 2025
+</footer>
 
-      const total = (amount * rate).toFixed(2);
-      const countryName = country === "eg" ? "مصر" : country === "sa" ? "السعودية" : "الإمارات";
+<script>
+  const countryPrices = {
+    eg: 0.0408,     // مصر
+    sa: 0.00318,    // السعودية
+    ae: 0.003136    // الإمارات
+  };
 
-      const url = `pay.html?diamonds=${amount}&country=${countryName}&price=${total}`;
-      window.location.href = url;
+  const countryCurrency = {
+    eg: "جنيه",
+    sa: "ريال",
+    ae: "درهم"
+  };
+
+  document.getElementById('amount').addEventListener('input', updatePrice);
+  document.getElementById('country').addEventListener('change', updatePrice);
+
+  function updatePrice() {
+    const amount = document.getElementById('amount').value;
+    const country = document.getElementById('country').value;
+    const price = amount * countryPrices[country];
+    const currency = countryCurrency[country];
+    document.getElementById('price').textContent =
+      amount ? `سعر الشحنة: ${price.toFixed(2)} ${currency}` : "سعر الشحنة: -";
+  }
+
+  function submitOrder() {
+    const amount = document.getElementById('amount').value;
+    const country = document.getElementById('country').value;
+    const method = document.getElementById('method').value;
+
+    if (!amount || amount <= 0) {
+      alert("يرجى إدخال عدد الماسات.");
+      return;
     }
-  </script>
+
+    const messages = {
+      eg: "🇪🇬 مصر",
+      sa: "🇸🇦 السعودية",
+      ae: "🇦🇪 الإمارات"
+    };
+
+    const number = "+201145427899"; // رقم كاتشر
+
+    const msg = `مرحباً، أود شحن كيتي لايف ✅\n\nالكمية: ${amount} ماسة 💎\nالدولة: ${messages[country]}\nطريقة الدفع: ${method}\n\nيرجى تزويدي بتفاصيل الدفع.`;
+
+    const link = `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
+    window.open(link, '_blank');
+  }
+</script>
+
 </body>
 </html>
