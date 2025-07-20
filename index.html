@@ -3,107 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>مرحباً بك</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      margin: 0;
-      background-color: #111;
-      color: white;
-    }
-    nav {
-      background-color: #222;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 15px;
-      padding: 0;
-      margin: 0;
-    }
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav ul li a:hover {
-      color: gold;
-    }
-    header {
-      text-align: center;
-      padding: 50px 20px;
-    }
-    header h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-      color: gold;
-    }
-    .services {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding: 20px;
-    }
-    .card {
-      background-color: #1e1e1e;
-      padding: 20px;
-      border-radius: 12px;
-      width: 250px;
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
-      text-align: center;
-    }
-    .card h3 {
-      color: gold;
-    }
-    footer {
-      background-color: #222;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-  </style>
+  <title>مرحبا بك</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- شريط التنقل -->
-  <nav>
-    <div><strong>منصة الشحن</strong></div>
-    <ul>
-      <li><a href="index.html">الرئيسية</a></li>
-      <li><a href="contact.html">تواصل معنا</a></li>
-      <li><a href="settings.html">الإعدادات</a></li>
-      <li><a href="apply.html">تقديم وكيل 📝</a></li>
-      <li><a href="login.html">تسجيل دخول المسؤول 🔐</a></li>
-    </ul>
+  <!-- الشريط العلوي -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="navbar-brand">وكالتك</a>
+      <ul class="nav-links">
+        <li><a href="#services">الخدمات</a></li>
+        <li><a href="#settings">الإعدادات</a></li>
+        <li><a href="agent.html">تقديم كوكيل</a></li>
+        <li><a href="#contact">تواصل معنا</a></li>
+        <li><a href="login.html" class="login-btn">تسجيل دخول</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <!-- رأس الصفحة -->
-  <header>
-    <h1>مرحباً بك</h1>
-    <p>اختر الوكيل الذي ترغب بالشحن من خلاله:</p>
+  <!-- مقدمة -->
+  <header class="hero">
+    <div class="container">
+      <h1>مرحبا بك</h1>
+      <p>اختر وكالتك ثم الخدمة التي ترغب بشحنها</p>
+    </div>
   </header>
 
-  <!-- قائمة الوكلاء -->
-  <div class="services">
-    <div class="card">
-      <h3>وكالة كاتشر</h3>
-      <p><a href="bigo.html">شحن بيجو لايف</a></p>
-      <p><a href="mico.html">شحن ميكو لايف</a></p>
-      <p><a href="kiti.html">شحن كيتي لايف</a></p>
-    </div>
-  </div>
+  <!-- باقي الأقسام: الخدمات، الإعدادات، تواصل معنا -->
+  <!-- يمكنك إضافة الأقسام هنا حسب المحتوى الموجود لديك -->
 
-  <!-- تذييل الصفحة -->
-  <footer>
-    جميع الحقوق محفوظة &copy; 2025
-  </footer>
-
+  <script src="script.js"></script>
 </body>
 </html>
