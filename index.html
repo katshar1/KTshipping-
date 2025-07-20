@@ -3,54 +3,106 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>وكالة الشحن</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>كاتشر - خدمات الشحن</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+    }
+
+    header {
+      background-color: #111;
+      padding: 20px;
+      text-align: center;
+      color: gold;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px 20px;
+    }
+
+    .service-card {
+      background-color: #111;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      transition: 0.3s;
+      border: 1px solid #333;
+      text-decoration: none;
+      color: white;
+    }
+
+    .service-card:hover {
+      background-color: gold;
+      color: black;
+    }
+
+    .service-card img {
+      width: 100px;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      background-color: #111;
+      color: #888;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .login-button {
+      background-color: transparent;
+      border: 2px solid gold;
+      color: gold;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+      display: inline-block;
+      transition: 0.3s;
+    }
+
+    .login-button:hover {
+      background-color: gold;
+      color: black;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- شريط المهام -->
-  <header class="header">
-    <div class="container nav-container">
-      <h1 class="logo">مرحباً بك</h1>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="#services">الخدمات</a></li>
-          <li><a href="agent.html">تقديم وكيل</a></li>
-          <li><a href="settings.html">الإعدادات</a></li>
-          <li><a href="login.html">تسجيل الدخول</a></li>
-        </ul>
-      </nav>
-    </div>
+  <header>
+    <h1>مرحبًا بك في كاتشر</h1>
+    <a href="login.html" class="login-button">تسجيل الدخول</a>
   </header>
 
-  <!-- اختيار الوكيل -->
-  <section class="choose-agent">
-    <div class="container">
-      <h2>اختر الوكيل</h2>
-      <select id="agentSelect">
-        <option value="katshar">وكالة كاتشر</option>
-        <!-- تتم إضافة وكلاء آخرين تلقائياً بعد الموافقة -->
-      </select>
-    </div>
+  <section class="services">
+    <a href="bigo.html" class="service-card">
+      <img src="img/bigo.png" alt="BIGO" />
+      <h3>شحن بيجو لايف</h3>
+    </a>
+    <a href="mico.html" class="service-card">
+      <img src="img/mico.png" alt="MICO" />
+      <h3>شحن ميكو لايف</h3>
+    </a>
+    <a href="kitty.html" class="service-card">
+      <img src="img/kitty.png" alt="KITTY" />
+      <h3>شحن كيتي لايف</h3>
+    </a>
   </section>
 
-  <!-- خدمات الشحن -->
-  <section id="services" class="services">
-    <div class="container">
-      <h3>خدمات الشحن</h3>
-      <div class="service-buttons">
-        <a href="bigo.html" class="btn">شحن بيجو لايف</a>
-        <a href="mico.html" class="btn">شحن ميكو لايف</a>
-        <a href="kiti.html" class="btn">شحن كيتي لايف</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- تذييل -->
-  <footer class="footer">
-    <div class="container">
-      <p>© 2025 جميع الحقوق محفوظة</p>
-    </div>
+  <footer>
+    جميع الحقوق محفوظة © كاتشر 2025
   </footer>
 
 </body>
