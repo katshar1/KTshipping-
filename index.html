@@ -3,136 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>كاتشر | الصفحة الرئيسية</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
+  <title>كاتشر - الصفحة الرئيسية</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
-      margin: 0;
-      font-family: 'Tajawal', sans-serif;
       background-color: #000;
-      color: white;
-    }
-    header {
-      background-color: #111;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 5px rgba(255, 215, 0, 0.1);
-    }
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: gold;
-    }
-    nav a {
-      color: white;
-      margin-left: 20px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      color: gold;
+      color: #fff;
+      font-family: 'Tajawal', sans-serif;
+      text-align: center;
+      padding: 30px;
     }
 
-    .hero {
-      padding: 80px 20px;
-      text-align: center;
-      background: linear-gradient(45deg, #000, #111);
-    }
-    .hero h1 {
-      font-size: 36px;
+    h1 {
       color: gold;
+      margin-bottom: 10px;
     }
-    .hero p {
-      font-size: 18px;
-      margin-top: 10px;
+
+    p {
       color: #ccc;
-    }
-
-    .services {
-      padding: 40px 20px;
-      text-align: center;
-    }
-    .services h2 {
-      color: gold;
       margin-bottom: 30px;
     }
-    .service-buttons {
+
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 20px;
+      width: 250px;
+    }
+
+    .buttons {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 15px;
       flex-wrap: wrap;
     }
-    .service-buttons a {
+
+    .buttons button {
       background-color: #222;
       color: white;
       padding: 15px 25px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
       border: 2px solid gold;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
       transition: 0.3s;
     }
-    .service-buttons a:hover {
+
+    .buttons button:hover {
       background-color: gold;
-      color: black;
+      color: #000;
     }
 
     footer {
-      background-color: #111;
-      text-align: center;
-      padding: 15px;
-      color: #aaa;
       margin-top: 40px;
       border-top: 1px solid #333;
-    }
-
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 28px;
-      }
-      .service-buttons a {
-        width: 100%;
-      }
+      padding-top: 10px;
+      color: #999;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo">وكالة كاتشر</div>
-    <nav>
-      <a href="#home">الرئيسية</a>
-      <a href="#services">الخدمات</a>
-      <a href="apply.html">تقديم وكيل</a>
-      <a href="login.html">تسجيل الدخول</a>
-    </nav>
-  </header>
+  <h1>مرحباً بك في كاتشر</h1>
+  <p>أفضل وكالة لشحن برامج اللايف وإدارة المذيعين</p>
 
-  <section class="hero" id="home">
-    <h1>مرحباً بك في كاتشر</h1>
-    <p>أفضل وكالة لشحن برامج اللايف وإدارة المذيعين</p>
-  </section>
+  <label for="agent">اختر الوكيل المسؤول:</label><br>
+  <select id="agent">
+    <option value="">-- اختر الوكيل --</option>
+    <option value="وكيل1">وكيل1</option>
+    <option value="وكيل2">وكيل2</option>
+    <option value="وكيل3">وكيل3</option>
+  </select>
 
-  <section class="services" id="services">
-    <h2>خدمات الشحن</h2>
-    <div class="service-buttons">
-      <a href="bigo.html">شحن بيجو لايف</a>
-      <a href="mico.html">شحن ميكو لايف</a>
-      <a href="kiti.html">شحن كيتي لايف</a>
-    </div>
-  </section>
+  <h2>خدمات الشحن</h2>
+  <div class="buttons">
+    <button onclick="goTo('bigo')">شحن بيجو لايف</button>
+    <button onclick="goTo('mico')">شحن ميكو لايف</button>
+    <button onclick="goTo('kitty')">شحن كيتي لايف</button>
+  </div>
 
   <footer>
     © 2025 وكالة كاتشر - جميع الحقوق محفوظة
   </footer>
+
+  <script>
+    function goTo(service) {
+      const agent = document.getElementById("agent").value;
+      if (!agent) {
+        alert("يرجى اختيار اسم الوكيل أولاً قبل المتابعة.");
+        return;
+      }
+      window.location.href = `${service}.html?agent=${encodeURIComponent(agent)}`;
+    }
+  </script>
 
 </body>
 </html>
