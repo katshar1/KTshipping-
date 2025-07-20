@@ -4,62 +4,153 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>شحن ميكو لايف</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+    header {
+      background-color: #222;
+      color: gold;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 2rem;
+      margin-top: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+    }
+    select, input {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .price {
+      margin: 1rem 0;
+      font-weight: bold;
+      color: #444;
+      background: #f0f0f0;
+      padding: 0.5rem;
+      border-radius: 6px;
+    }
+    button {
+      background-color: gold;
+      color: #000;
+      padding: 0.7rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-  <main class="container">
-    <h1>شحن ماسات ميكو لايف</h1>
 
-    <label>اختر الدولة:</label>
-    <select id="country">
-      <option value="eg">🇪🇬 مصر</option>
-      <option value="sa">🇸🇦 السعودية</option>
-      <option value="ae">🇦🇪 الإمارات</option>
-    </select>
+<header>شحن ميكو لايف</header>
 
-    <label>عدد الماسات:</label>
-    <input type="number" id="diamonds" placeholder="مثال: 6000" />
+<div class="container">
+  <label for="country">اختر الدولة:</label>
+  <select id="country">
+    <option value="eg">مصر</option>
+    <option value="sa">السعودية</option>
+    <option value="ae">الإمارات</option>
+  </select>
 
-    <div id="price"></div>
+  <label for="amount">عدد الماسات:</label>
+  <input type="number" id="amount" placeholder="مثال: 6000" />
 
-    <label>اختر طريقة الدفع:</label>
-    <select id="payment">
-      <option value="">-- اختر --</option>
-      <option value="vodafone">فودافون كاش</option>
-      <option value="etisalat">اتصالات كاش</option>
-      <option value="instapay">إنستا باي</option>
-      <option value="western">ويسترن يونيون</option>
-      <option value="bank">بنك داخلي</option>
-      <option value="binance">بايننس</option>
-    </select>
+  <div class="price" id="price">سعر الشحنة: -</div>
 
-    <button onclick="sendOrder()">متابعة واتساب</button>
-  </main>
+  <label for="method">اختر وسيلة الدفع:</label>
+  <select id="method">
+    <option value="vodafone">فودافون كاش</option>
+    <option value="etisalat">اتصالات كاش</option>
+    <option value="instapay">إنستا باي</option>
+    <option value="western">ويسترن يونيون</option>
+    <option value="binance">بايننس</option>
+    <option value="bank">تحويل بنكي داخلي</option>
+  </select>
 
-  <script>
-    const prices = {
-      eg: 0.085, sa: 0.00664, ae: 0.00654
+  <button onclick="submitOrder()">متابعة إلى واتساب</button>
+</div>
+
+<footer>
+  جميع الحقوق محفوظة © كاتشر 2025
+</footer>
+
+<script>
+  const countryPrices = {
+    eg: 0.085,       // مصر
+    sa: 0.006641,    // السعودية
+    ae: 0.006538     // الإمارات
+  };
+
+  const countryCurrency = {
+    eg: "جنيه",
+    sa: "ريال",
+    ae: "درهم"
+  };
+
+  document.getElementById('amount').addEventListener('input', updatePrice);
+  document.getElementById('country').addEventListener('change', updatePrice);
+
+  function updatePrice() {
+    const amount = document.getElementById('amount').value;
+    const country = document.getElementById('country').value;
+    const price = amount * countryPrices[country];
+    const currency = countryCurrency[country];
+    document.getElementById('price').textContent =
+      amount ? `سعر الشحنة: ${price.toFixed(2)} ${currency}` : "سعر الشحنة: -";
+  }
+
+  function submitOrder() {
+    const amount = document.getElementById('amount').value;
+    const country = document.getElementById('country').value;
+    const method = document.getElementById('method').value;
+
+    if (!amount || amount <= 0) {
+      alert("يرجى إدخال عدد الماسات.");
+      return;
+    }
+
+    const messages = {
+      eg: "🇪🇬 مصر",
+      sa: "🇸🇦 السعودية",
+      ae: "🇦🇪 الإمارات"
     };
 
-    document.getElementById('diamonds').addEventListener('input', updatePrice);
-    document.getElementById('country').addEventListener('change', updatePrice);
+    const number = "+201145427899"; // رقم كاتشر
 
-    function updatePrice() {
-      const country = document.getElementById('country').value;
-      const qty = parseInt(document.getElementById('diamonds').value) || 0;
-      const price = (qty * (prices[country] || 0)).toFixed(2);
-      document.getElementById('price').innerText = price > 0 ? `السعر: ${price}` : '';
-    }
+    const msg = `مرحباً، أود شحن ميكو لايف ✅\n\nالكمية: ${amount} ماسة 💎\nالدولة: ${messages[country]}\nطريقة الدفع: ${method}\n\nيرجى تزويدي بتفاصيل الدفع.`;
 
-    function sendOrder() {
-      const country = document.getElementById('country').value;
-      const qty = document.getElementById('diamonds').value;
-      const pay = document.getElementById('payment').value;
-      if (!qty || !pay || !country) return alert("يرجى إدخال جميع البيانات");
-      const price = (qty * prices[country]).toFixed(2);
-      const msg = `طلب شحن ميكو لايف:\nالكمية: ${qty}\nالدولة: ${country}\nالسعر: ${price}\nطريقة الدفع: ${pay}`;
-      window.open(`https://wa.me/201145427899?text=${encodeURIComponent(msg)}`, "_blank");
-    }
-  </script>
+    const link = `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
+    window.open(link, '_blank');
+  }
+</script>
+
 </body>
 </html>
