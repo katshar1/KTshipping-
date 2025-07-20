@@ -1,102 +1,72 @@
-/* إعدادات عامة */
-body {
-  margin: 0;
-  font-family: 'Cairo', sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
-  direction: rtl;
-}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="كاتشر - وكالة شحن برامج وتزويد مذيعين، خدمات احترافية بأسعار منافسة">
+  <meta name="keywords" content="كاتشر, شحن بيجو لايف, ميكو لايف, كيتى لايف, مذيعين, وكالة كاتشر, Katshar Agency">
+  <title>وكالة كاتشر</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">كاتشر</a>
+      <nav class="navbar-nav">
+        <a href="#services">الخدمات</a>
+        <a href="#about">من نحن</a>
+        <a href="#why">لماذا نحن</a>
+        <a href="#contact">تواصل معنا</a>
+        <a href="login.html" class="login-btn">تسجيل دخول المسؤول</a>
+      </nav>
+    </div>
+  </header>
 
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: auto;
-}
+  <section class="hero" id="hero">
+    <div class="container">
+      <h1>مرحباً بك في وكالة كاتشر</h1>
+      <p>نحن نقدم خدمات احترافية لشحن البرامج وإدارة المذيعين</p>
+    </div>
+  </section>
 
-/* الشريط العلوي */
-.navbar {
-  background-color: #111;
-  padding: 15px 0;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
+  <section id="services" class="section">
+    <div class="container">
+      <h2>الخدمات</h2>
+      <ul>
+        <li>شحن بيجو لايف</li>
+        <li>شحن ميكو لايف</li>
+        <li>شحن كيتى لايف</li>
+        <li>تزويد ومتابعة المذيعين</li>
+      </ul>
+    </div>
+  </section>
 
-.navbar .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  <section id="about" class="section">
+    <div class="container">
+      <h2>من نحن</h2>
+      <p>نحن وكالة احترافية تعمل في مجال شحن البرامج وتقديم الدعم الكامل للمذيعين.</p>
+    </div>
+  </section>
 
-.navbar-brand {
-  font-size: 1.8rem;
-  color: gold;
-  text-decoration: none;
-  font-weight: bold;
-}
+  <section id="why" class="section">
+    <div class="container">
+      <h2>لماذا نحن؟</h2>
+      <p>نتميز بالدقة والسرعة والأسعار المناسبة والدعم المستمر.</p>
+    </div>
+  </section>
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
+  <section id="contact" class="section">
+    <div class="container">
+      <h2>تواصل معنا</h2>
+      <p>راسلنا على واتساب أو البريد الإلكتروني أو عبر إنستغرام.</p>
+      <p>📧 البريد: phkatsh@gmail.com</p>
+      <p>📞 واتساب: <a href="https://wa.me/201145427899">+201145427899</a> / <a href="https://wa.me/201033040762">+201033040762</a></p>
+      <p>📸 إنستغرام: <a href="https://www.instagram.com/katshar_agency" target="_blank">@katshar_agency</a></p>
+    </div>
+  </section>
 
-.nav-links li a {
-  text-decoration: none;
-  color: white;
-  font-size: 1rem;
-  transition: color 0.3s;
-}
-
-.nav-links li a:hover {
-  color: gold;
-}
-
-.login-btn {
-  background-color: gold;
-  color: #000;
-  padding: 6px 15px;
-  border-radius: 25px;
-  transition: 0.3s;
-}
-
-.login-btn:hover {
-  background-color: #ffcc00;
-}
-
-/* الهيدر */
-.hero {
-  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1606760720293-b1455434a7ab?auto=format&fit=crop&w=1350&q=80') no-repeat center center;
-  background-size: cover;
-  color: white;
-  padding: 100px 20px;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-}
-
-.hero p {
-  font-size: 1.2rem;
-}
-
-/* أقسام المحتوى */
-section {
-  padding: 60px 20px;
-  background-color: white;
-  margin-bottom: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-/* تذييل */
-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #222;
-  color: #ccc;
-  font-size: 0.9rem;
-}
+  <footer>
+    <p>&copy; 2025 كاتشر - جميع الحقوق محفوظة</p>
+  </footer>
+</body>
+</html>
