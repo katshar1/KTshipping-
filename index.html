@@ -3,106 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>كاتشر - خدمات الشحن</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet" />
+  <title>كاتشر | الصفحة الرئيسية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Tajawal', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #000;
-      color: #fff;
+    * {
+      box-sizing: border-box;
     }
-
+    body {
+      margin: 0;
+      font-family: 'Tajawal', sans-serif;
+      background-color: #000;
+      color: white;
+    }
     header {
       background-color: #111;
-      padding: 20px;
-      text-align: center;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(255, 215, 0, 0.1);
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: gold;
+    }
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
       color: gold;
     }
 
-    h1 {
-      margin: 0;
+    .hero {
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(45deg, #000, #111);
+    }
+    .hero h1 {
+      font-size: 36px;
+      color: gold;
+    }
+    .hero p {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #ccc;
     }
 
     .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
       padding: 40px 20px;
-    }
-
-    .service-card {
-      background-color: #111;
-      padding: 20px;
-      border-radius: 15px;
       text-align: center;
-      transition: 0.3s;
-      border: 1px solid #333;
-      text-decoration: none;
-      color: white;
     }
-
-    .service-card:hover {
+    .services h2 {
+      color: gold;
+      margin-bottom: 30px;
+    }
+    .service-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .service-buttons a {
+      background-color: #222;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      border: 2px solid gold;
+      transition: 0.3s;
+    }
+    .service-buttons a:hover {
       background-color: gold;
       color: black;
-    }
-
-    .service-card img {
-      width: 100px;
-      margin-bottom: 15px;
     }
 
     footer {
       background-color: #111;
-      color: #888;
       text-align: center;
       padding: 15px;
+      color: #aaa;
+      margin-top: 40px;
+      border-top: 1px solid #333;
     }
 
-    .login-button {
-      background-color: transparent;
-      border: 2px solid gold;
-      color: gold;
-      padding: 10px 20px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      margin-top: 10px;
-      display: inline-block;
-      transition: 0.3s;
-    }
-
-    .login-button:hover {
-      background-color: gold;
-      color: black;
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 28px;
+      }
+      .service-buttons a {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>مرحبًا بك في كاتشر</h1>
-    <a href="login.html" class="login-button">تسجيل الدخول</a>
+    <div class="logo">وكالة كاتشر</div>
+    <nav>
+      <a href="#home">الرئيسية</a>
+      <a href="#services">الخدمات</a>
+      <a href="apply.html">تقديم وكيل</a>
+      <a href="login.html">تسجيل الدخول</a>
+    </nav>
   </header>
 
-  <section class="services">
-    <a href="bigo.html" class="service-card">
-      <img src="img/bigo.png" alt="BIGO" />
-      <h3>شحن بيجو لايف</h3>
-    </a>
-    <a href="mico.html" class="service-card">
-      <img src="img/mico.png" alt="MICO" />
-      <h3>شحن ميكو لايف</h3>
-    </a>
-    <a href="kitty.html" class="service-card">
-      <img src="img/kitty.png" alt="KITTY" />
-      <h3>شحن كيتي لايف</h3>
-    </a>
+  <section class="hero" id="home">
+    <h1>مرحباً بك في كاتشر</h1>
+    <p>أفضل وكالة لشحن برامج اللايف وإدارة المذيعين</p>
+  </section>
+
+  <section class="services" id="services">
+    <h2>خدمات الشحن</h2>
+    <div class="service-buttons">
+      <a href="bigo.html">شحن بيجو لايف</a>
+      <a href="mico.html">شحن ميكو لايف</a>
+      <a href="kiti.html">شحن كيتي لايف</a>
+    </div>
   </section>
 
   <footer>
-    جميع الحقوق محفوظة © كاتشر 2025
+    © 2025 وكالة كاتشر - جميع الحقوق محفوظة
   </footer>
 
 </body>
