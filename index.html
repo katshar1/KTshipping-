@@ -3,140 +3,93 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>بوابة الوكلاء</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <title>كاتشر - خدمات الشحن</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Cairo', sans-serif;
-      background: linear-gradient(to bottom, #000, #222);
+      font-family: 'Tajawal', sans-serif;
+      background-color: #111;
       color: white;
-      text-align: center;
+      margin: 0;
+      padding: 0;
     }
 
     header {
-      background-color: #111;
-      padding: 30px;
+      background-color: #000;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     header h1 {
-      color: #f5c400;
-      font-size: 28px;
+      color: #FFD700;
+      font-size: 22px;
       margin: 0;
     }
 
-    .box {
-      background-color: #1a1a1a;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 15px;
-      max-width: 420px;
-      box-shadow: 0 0 15px rgba(245, 196, 0, 0.2);
-    }
-
-    select, input, textarea, button {
-      padding: 12px;
-      font-size: 17px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: none;
-      width: 90%;
-      display: block;
-      margin-inline: auto;
-    }
-
-    button {
-      background-color: #f5c400;
-      color: black;
-      cursor: pointer;
-    }
-
-    .services, .default-settings, .apply-agent {
-      display: none;
-      margin-top: 20px;
-    }
-
-    .services a {
-      display: block;
-      background-color: #f5c400;
-      color: black;
+    nav a {
+      color: white;
       text-decoration: none;
-      padding: 12px;
-      margin: 10px auto;
-      border-radius: 10px;
-      max-width: 300px;
+      margin-right: 15px;
+      font-weight: bold;
     }
 
-    h2, h3 {
-      color: #f5c400;
+    nav a:hover {
+      color: #FFD700;
     }
 
-    audio {
-      display: none;
+    .section {
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .button {
+      background-color: #FFD700;
+      color: black;
+      border: none;
+      padding: 15px 25px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .button:hover {
+      background-color: #e6be00;
+    }
+
+    footer {
+      background-color: #000;
+      color: #aaa;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>بوابة الوكلاء</h1>
+    <h1>وكالة كاتشر</h1>
+    <nav>
+      <a href="#services">خدمات الشحن</a>
+      <a href="settings.html">الإعدادات</a>
+      <a href="apply-agent.html">تقديم وكيل</a>
+    </nav>
   </header>
 
-  <!-- اختيار وكيل -->
-  <div class="box">
-    <h2>اختر الوكيل الذي تريد الشحن من خلاله</h2>
-    <select id="agentSelect">
-      <option value="">-- اختر وكيل --</option>
-      <option value="كاتشر">وكالة كاتشر</option>
-    </select>
-    <button onclick="showSections()">متابعة</button>
+  <section class="section" id="services">
+    <h2>مرحبًا بك في كاتشر 🎉</h2>
+    <p>اختر الخدمة التي تريد شحنها:</p>
+    <a href="bigo.html"><button class="button">شحن بيجو لايف</button></a><br><br>
+    <a href="mico.html"><button class="button">شحن ميكو لايف</button></a><br><br>
+    <a href="kitty.html"><button class="button">شحن كيتي لايف</button></a>
+  </section>
 
-    <!-- خدمات الشحن -->
-    <div class="services" id="services">
-      <h3>خدمات الشحن:</h3>
-      <a href="bigo.html">🔹 شحن بيجو لايف</a>
-      <a href="mico.html">🔹 شحن ميكو لايف</a>
-      <a href="kitty.html">🔹 شحن كيتي لايف</a>
-    </div>
-  </div>
+  <footer>
+    جميع الحقوق محفوظة &copy; كاتشر 2025
+  </footer>
 
-  <!-- الإعدادات الافتراضية -->
-  <div class="box default-settings" id="defaultSettings">
-    <h2>⚙️ الإعدادات الافتراضية</h2>
-    <p>هذا القسم مخصص للمشرف فقط لضبط الأسعار والسياسات العامة.</p>
-    <button onclick="alert('فتح صفحة الإعدادات الافتراضية')">عرض الإعدادات</button>
-  </div>
-
-  <!-- تقديم وكيل جديد -->
-  <div class="box apply-agent" id="applyAgent">
-    <h2>📝 قدم طلب لتصبح وكيل</h2>
-    <input type="text" placeholder="اسمك الكامل" />
-    <input type="tel" placeholder="رقم الهاتف" />
-    <textarea placeholder="لماذا ترغب أن تكون وكيلًا؟"></textarea>
-    <button onclick="alert('تم إرسال الطلب بنجاح! سيتم مراجعة طلبك قريبًا')">إرسال الطلب</button>
-  </div>
-
-  <!-- ملف صوت ترحيبي -->
-  <audio id="welcomeSound" src="welcome.mp3" preload="auto"></audio>
-
-  <script>
-    function showSections() {
-      const agent = document.getElementById("agentSelect").value;
-      const services = document.getElementById("services");
-      const audio = document.getElementById("welcomeSound");
-
-      if (agent === "كاتشر") {
-        services.style.display = "block";
-        document.getElementById("defaultSettings").style.display = "block";
-        audio.play().catch(() => {});
-      } else {
-        services.style.display = "none";
-        document.getElementById("defaultSettings").style.display = "none";
-      }
-
-      // إظهار نموذج تقديم وكيل دائمًا
-      document.getElementById("applyAgent").style.display = "block";
-    }
-  </script>
 </body>
 </html>
