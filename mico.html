@@ -3,33 +3,70 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>شحن ميكو لايف</title>
+  <title>شحن ماسات ميكو لايف بأسعار مميزة | كاتشر جروب</title>
+  <meta name="description" content="اشحن ماسات ميكو لايف بأفضل الأسعار في مصر والسعودية والإمارات عبر كاتشر جروب. خدمات سريعة وتحويل مباشر عبر واتساب.">
+  <meta name="keywords" content="شحن ميكو لايف, mico live, ماسات mico, شراء ماسات ميكو, كاتشر جروب, شحن mico, mico شحن, شحن mico في مصر, شحن mico في السعودية">
+  <meta name="author" content="Katshar Group">
   <style>
     body {
-      background: #000; color: #fff; font-family: Arial; padding: 20px;
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
     }
     .container {
-      max-width: 500px; margin: auto; background: #111; padding: 30px;
-      border-radius: 15px; border: 2px solid gold;
+      max-width: 500px;
+      margin: auto;
+      background: #111;
+      padding: 30px;
+      border-radius: 15px;
+      border: 2px solid gold;
     }
-    label, .result { margin: 10px 0; display: block; font-weight: bold; }
-    input, select, button {
-      width: 100%; padding: 10px; border-radius: 5px; border: none; margin-bottom: 15px;
+    h2 {
+      text-align: center;
+      color: gold;
+    }
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      margin-bottom: 10px;
     }
     .btn {
-      background: gold; color: #000; font-size: 18px; border-radius: 8px; cursor: pointer;
+      display: block;
+      width: 100%;
+      background: gold;
+      color: #000;
+      font-size: 18px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+      text-align: center;
+      text-decoration: none;
     }
-    .result { color: #0f0; }
+    .result {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #0f0;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>شحن ميكو لايف</h2>
+    <h2>شحن ماسات ميكو لايف</h2>
 
-    <label>عدد الماس:</label>
+    <label for="amount">عدد الماس:</label>
     <input type="number" id="amount" min="1" placeholder="أدخل عدد الماس">
 
-    <label>اختر الدولة:</label>
+    <label for="country">اختر الدولة:</label>
     <select id="country">
       <option value="eg">مصر</option>
       <option value="sa">السعودية</option>
@@ -39,37 +76,35 @@
     <div class="result" id="priceResult"></div>
 
     <button class="btn" onclick="calculate()">احسب السعر</button>
-    <button class="btn" onclick="goToWhatsApp()">الدفع عبر واتساب</button>
+    <a id="whatsappLink" class="btn" style="display:none" target="_blank">التحويل على واتساب</a>
   </div>
 
   <script>
     function calculate() {
-      const amount = +document.getElementById("amount").value;
-      const country = document.getElementById("country").value;
-      const rates = { eg: 0.085, sa: 0.0067, ae: 0.0065 };
-      if (amount > 0) {
-        const total = (amount * rates[country]).toFixed(2);
-        document.getElementById("priceResult").innerText = `السعر: ${total}`;
-      } else {
-        document.getElementById("priceResult").innerText = "أدخل عدد الماس أولاً.";
-      }
-    }
-
-    function goToWhatsApp() {
       const amount = document.getElementById("amount").value;
       const country = document.getElementById("country").value;
-      const rates = { eg: 0.085, sa: 0.0067, ae: 0.0065 };
+      let rate = 0;
 
-      if (!amount) {
-        alert("يرجى إدخال عدد الماس أولاً.");
-        return;
+      if (country === "eg") rate = 0.085;
+      else if (country === "sa") rate = 0.0067;
+      else if (country === "ae") rate = 0.0065;
+
+      if (amount && amount > 0) {
+        const total = (amount * rate).toFixed(2);
+        document.getElementById("priceResult").innerText = `السعر: ${total}`;
+
+        const phone = "+201033040762";
+        const countryName = country === "eg" ? "مصر" : country === "sa" ? "السعودية" : "الإمارات";
+        const text = `مرحبًا، أود شحن ${amount} ماسه في ميكو لايف.\nالدولة: ${countryName}\nالسعر: ${total}`;
+        const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+
+        const link = document.getElementById("whatsappLink");
+        link.href = whatsappURL;
+        link.style.display = "block";
+      } else {
+        document.getElementById("priceResult").innerText = "أدخل عدد الماس أولاً.";
+        document.getElementById("whatsappLink").style.display = "none";
       }
-
-      const price = (amount * rates[country]).toFixed(2);
-      const countryName = country === "eg" ? "مصر" : country === "sa" ? "السعودية" : "الإمارات";
-      const msg = `مرحبا، أود شحن ${amount} ماسه لميكو لايف.\nالدولة: ${countryName}\nالسعر: ${price}`;
-      const whatsappURL = `https://wa.me/201033040762?text=${encodeURIComponent(msg)}`;
-      window.open(whatsappURL, "_blank");
     }
   </script>
 </body>
