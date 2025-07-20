@@ -2,145 +2,151 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>شحن كيتي لايف | وكالة كاتشر</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>شحن كيتي لايف - كاتشر</title>
   <style>
     body {
       font-family: 'Tajawal', sans-serif;
-      margin: 0;
       background-color: #000;
       color: #fff;
-    }
-    header {
-      background-color: #111;
-      padding: 15px;
-      text-align: center;
-      font-size: 22px;
-      color: gold;
-      font-weight: bold;
-    }
-    main {
-      max-width: 600px;
-      margin: 30px auto;
+      margin: 0;
       padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: gold;
+    }
+    .form-container {
+      max-width: 500px;
+      margin: auto;
       background-color: #111;
-      border: 1px solid #444;
-      border-radius: 12px;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #444;
     }
     label {
       display: block;
-      margin: 15px 0 5px;
+      margin-top: 15px;
+      font-weight: bold;
     }
-    select, input {
+    select, input[type="number"] {
       width: 100%;
       padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #666;
-      background-color: #222;
-      color: #fff;
-      font-size: 16px;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
-      background-color: gold;
-      color: #000;
-      padding: 12px;
+      border-radius: 10px;
       border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
+      margin-top: 5px;
     }
     .price-display {
       margin-top: 15px;
-      font-size: 18px;
-      color: #0f0;
-      font-weight: bold;
+      background-color: #222;
+      padding: 10px;
+      border-radius: 10px;
+      color: gold;
       text-align: center;
     }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #111;
-      color: #aaa;
-      margin-top: 40px;
+    .methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .methods button {
+      flex: 1 1 40%;
+      padding: 10px;
+      border: none;
+      border-radius: 12px;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .methods button:hover {
+      background-color: gold;
+      color: #000;
     }
   </style>
 </head>
 <body>
 
-  <header>شحن كيتي لايف - وكالة كاتشر</header>
+  <h1>شحن كيتي لايف</h1>
+  <div class="form-container">
+    <label for="country">اختر الدولة:</label>
+    <select id="country">
+      <option value="eg">🇪🇬 مصر</option>
+      <option value="sa">🇸🇦 السعودية</option>
+      <option value="ae">🇦🇪 الإمارات</option>
+    </select>
 
-  <main>
-    <form id="kitiForm">
-      <label for="country">اختر الدولة:</label>
-      <select id="country" required>
-        <option value="">-- اختر الدولة --</option>
-        <option value="egypt">مصر</option>
-        <option value="ksa">السعودية</option>
-        <option value="uae">الإمارات</option>
-      </select>
+    <label for="amount">عدد الماسات:</label>
+    <input type="number" id="amount" placeholder="أدخل عدد الماسات" min="1">
 
-      <label for="amount">اختر كمية الشحن:</label>
-      <select id="amount" required>
-        <option value="">-- اختر الكمية --</option>
-        <option value="1250">1250 ماسة</option>
-        <option value="2500">2500 ماسة</option>
-        <option value="5000">5000 ماسة</option>
-      </select>
+    <div class="price-display" id="priceDisplay">السعر: 0</div>
 
-      <div class="price-display" id="price">يرجى اختيار الدولة والكمية</div>
-
-      <button type="submit">متابعة واتساب</button>
-    </form>
-  </main>
-
-  <footer>© 2025 وكالة كاتشر - جميع الحقوق محفوظة</footer>
+    <label>اختر وسيلة الدفع:</label>
+    <div class="methods" id="methods">
+      <!-- أزرار الدفع ستُدرج تلقائيًا هنا -->
+    </div>
+  </div>
 
   <script>
+    const countrySelect = document.getElementById('country');
+    const amountInput = document.getElementById('amount');
+    const priceDisplay = document.getElementById('priceDisplay');
+    const methodsContainer = document.getElementById('methods');
+
     const prices = {
-      egypt: 51,
-      ksa: 3.98,
-      uae: 3.92
+      eg: 0.0408,
+      sa: 0.00318,
+      ae: 0.00314
     };
 
-    const form = document.getElementById('kitiForm');
-    const country = document.getElementById('country');
-    const amount = document.getElementById('amount');
-    const priceDisplay = document.getElementById('price');
+    const paymentMethods = {
+      eg: ['فودافون كاش', 'إنستا باي', 'اتصالات كاش', 'ويسترن يونيون'],
+      sa: ['تحويل بنكي داخلي', 'بايننس'],
+      ae: ['تحويل بنكي داخلي', 'بايننس']
+    };
 
     function updatePrice() {
-      const c = country.value;
-      const a = parseInt(amount.value);
-      if (c && a) {
-        const unit = c === 'egypt' ? 'جنيه' : c === 'ksa' ? 'ريال' : 'درهم';
-        const result = (prices[c] * a / 1250).toFixed(2);
-        priceDisplay.textContent = `السعر: ${result} ${unit}`;
-      } else {
-        priceDisplay.textContent = 'يرجى اختيار الدولة والكمية';
-      }
+      const country = countrySelect.value;
+      const amount = parseInt(amountInput.value) || 0;
+      const price = prices[country] * amount;
+      const currency = country === 'eg' ? 'جنيه' : country === 'sa' ? 'ريال' : 'درهم';
+      priceDisplay.innerText = `السعر: ${price.toFixed(2)} ${currency}`;
     }
 
-    country.addEventListener('change', updatePrice);
-    amount.addEventListener('change', updatePrice);
+    function updateMethods() {
+      const country = countrySelect.value;
+      const methods = paymentMethods[country];
+      methodsContainer.innerHTML = '';
+      methods.forEach(method => {
+        const btn = document.createElement('button');
+        btn.textContent = method;
+        btn.onclick = () => goToWhatsApp(method);
+        methodsContainer.appendChild(btn);
+      });
+    }
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const c = country.value;
-      const a = amount.value;
-      if (!c || !a) {
-        alert("يرجى اختيار الدولة والكمية");
-        return;
-      }
+    function goToWhatsApp(method) {
+      const amount = amountInput.value;
+      const country = countrySelect.options[countrySelect.selectedIndex].text;
+      const price = priceDisplay.innerText.replace('السعر: ', '');
+      const message = `مرحباً، أريد شحن ${amount} ماسة كيتي لايف\nالدولة: ${country}\nالسعر: ${price}\nطريقة الدفع: ${method}`;
+      const phone = "201145427899";
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    }
 
-      const countryName = c === 'egypt' ? 'مصر' : c === 'ksa' ? 'السعودية' : 'الإمارات';
-      const text = `طلب شحن كيتي لايف:\nالكمية: ${a} ماسة\nالدولة: ${countryName}`;
-      const encodedText = encodeURIComponent(text);
-      const phone = "201145427899"; // رقم الواتساب
-      const url = `https://wa.me/${phone}?text=${encodedText}`;
-      window.open(url, '_blank');
+    countrySelect.addEventListener('change', () => {
+      updatePrice();
+      updateMethods();
     });
+
+    amountInput.addEventListener('input', updatePrice);
+
+    // تشغيل مبدئي
+    updatePrice();
+    updateMethods();
   </script>
 
 </body>
