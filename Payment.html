@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>إتمام الدفع - كاتشر جروب</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Tajawal', Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    .box {
+      background: #111;
+      border: 2px solid gold;
+      border-radius: 15px;
+      padding: 25px;
+      max-width: 500px;
+      margin: auto;
+    }
+    h2 {
+      color: gold;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    select, button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: none;
+    }
+    button {
+      background-color: gold;
+      color: black;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>إتمام الدفع</h2>
+    <p id="info"></p>
+
+    <label for="method">اختر قناة الدفع:</label>
+    <select id="method">
+      <option value="فودافون كاش">فودافون كاش</option>
+      <option value="أورانج كاش">أورانج كاش</option>
+      <option value="اتصالات كاش">اتصالات كاش</option>
+      <option value="بنك">تحويل بنكي</option>
+    </select>
+
+    <button onclick="redirectToWhatsApp()">إتمام التحويل عبر واتساب</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const diamonds = params.get("diamonds") || "غير محدد";
+    const country = params.get("country") || "غير محددة";
+    const price = params.get("price") || "غير محدد";
+
+    // عرض المعلومات
+    document.getElementById("info").innerHTML = `
+      <strong>عدد الماس:</strong> ${diamonds}<br>
+      <strong>الدولة:</strong> ${country}<br>
+      <strong>السعر:</strong> ${price} 
+    `;
+
+    function redirectToWhatsApp() {
+      const method = document.getElementById("method").value;
+      const message = `مرحبًا، أريد شحن بيجو لايف:\n- عدد الماس: ${diamonds}\n- الدولة: ${country}\n- السعر: ${price}\n- طريقة الدفع: ${method}`;
+      const phone = "201145427899"; // بدون +
+
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
