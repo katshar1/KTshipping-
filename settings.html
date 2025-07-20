@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>الإعدادات - كاتشر جروب</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom, #000, #222);
+      color: white;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      color: #f5c400;
+      text-align: center;
+    }
+
+    .form-section, .agents-list {
+      background-color: #1a1a1a;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 15px;
+      max-width: 600px;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    button {
+      background-color: #f5c400;
+      color: black;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #d4aa00;
+    }
+
+    .note {
+      color: #aaa;
+      font-size: 14px;
+      text-align: center;
+      margin-top: -10px;
+      margin-bottom: 20px;
+    }
+
+    .admin-only {
+      background-color: #333;
+      padding: 15px;
+      border: 1px dashed #f5c400;
+      text-align: center;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .admin-only strong {
+      color: #f5c400;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>الإعدادات</h1>
+
+  <div class="form-section">
+    <h2>طلب إضافة وكيل جديد</h2>
+    <form>
+      <label for="agentName">اسم الوكيل</label>
+      <input type="text" id="agentName" name="agentName" required>
+
+      <label for="agencyName">اسم الوكالة</label>
+      <input type="text" id="agencyName" name="agencyName" required>
+
+      <label for="phone">رقم هاتف الوكيل / الوكالة</label>
+      <input type="text" id="phone" name="phone" required>
+
+      <label for="mainAgency">إذا كنت وكيل فرعي، اكتب اسم الوكالة الرئيسية</label>
+      <input type="text" id="mainAgency" name="mainAgency">
+
+      <label for="services">اختر الخدمات التي يمكنك شحنها:</label>
+      <select id="services" name="services" multiple>
+        <option>بيجو لايف</option>
+        <option>ميكو لايف</option>
+        <option>كيتي لايف</option>
+      </select>
+
+      <p class="note">* الطلب لا يتم اعتماده إلا بعد مراجعته والموافقة عليه من قبل إدارة كاتشر فقط.</p>
+      <p class="note">* تتم مراقبة الأسعار تلقائيًا باستخدام الذكاء الاصطناعي، ولا يُسمح بالبيع بسعر أقل من سعر كاتشر.</p>
+
+      <button type="submit">إرسال الطلب</button>
+    </form>
+  </div>
+
+  <div class="form-section">
+    <h2>لوحة تحكم الموافقة على الوكلاء</h2>
+    <p class="note">🔒 هذه اللوحة مخصصة للإدارة فقط (كاتشر)، ولا يمكن لأي وكيل أو مستخدم آخر الوصول إليها.</p>
+    <div class="admin-only">
+      <p>🔸 طلب جديد من <strong>أحمد - وكالة النور</strong> لخدمة <strong>بيجو لايف</strong></p>
+      <button>قبول الطلب</button>
+      <button>رفض الطلب</button>
+    </div>
+  </div>
+
+</body>
+</html>
