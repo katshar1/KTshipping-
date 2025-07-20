@@ -1,38 +1,102 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>مرحبا بك</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+/* إعدادات عامة */
+body {
+  margin: 0;
+  font-family: 'Cairo', sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  direction: rtl;
+}
 
-  <!-- الشريط العلوي -->
-  <nav class="navbar">
-    <div class="container">
-      <a href="#" class="navbar-brand">وكالتك</a>
-      <ul class="nav-links">
-        <li><a href="#services">الخدمات</a></li>
-        <li><a href="#settings">الإعدادات</a></li>
-        <li><a href="agent.html">تقديم كوكيل</a></li>
-        <li><a href="#contact">تواصل معنا</a></li>
-        <li><a href="login.html" class="login-btn">تسجيل دخول</a></li>
-      </ul>
-    </div>
-  </nav>
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
 
-  <!-- مقدمة -->
-  <header class="hero">
-    <div class="container">
-      <h1>مرحبا بك</h1>
-      <p>اختر وكالتك ثم الخدمة التي ترغب بشحنها</p>
-    </div>
-  </header>
+/* الشريط العلوي */
+.navbar {
+  background-color: #111;
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
 
-  <!-- باقي الأقسام: الخدمات، الإعدادات، تواصل معنا -->
-  <!-- يمكنك إضافة الأقسام هنا حسب المحتوى الموجود لديك -->
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+.navbar-brand {
+  font-size: 1.8rem;
+  color: gold;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: gold;
+}
+
+.login-btn {
+  background-color: gold;
+  color: #000;
+  padding: 6px 15px;
+  border-radius: 25px;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #ffcc00;
+}
+
+/* الهيدر */
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1606760720293-b1455434a7ab?auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+  background-size: cover;
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+}
+
+/* أقسام المحتوى */
+section {
+  padding: 60px 20px;
+  background-color: white;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* تذييل */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #222;
+  color: #ccc;
+  font-size: 0.9rem;
+}
