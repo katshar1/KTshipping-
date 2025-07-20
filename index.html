@@ -47,6 +47,7 @@
       font-size: 28px;
       margin-bottom: 20px;
     }
+    .select-box,
     .service-btn {
       display: block;
       margin: 15px auto;
@@ -62,6 +63,9 @@
     }
     .service-btn:hover {
       background-color: #e0c000;
+    }
+    .select-box {
+      color: #000;
     }
     footer {
       background: #000;
@@ -86,17 +90,37 @@
   </nav>
 
   <div class="container">
-    <h1>مرحبًا بك في كاتشر 🎯</h1>
-    <p>اختر الخدمة التي تريد شحنها:</p>
+    <h1>مرحبًا بك</h1>
+    
+    <label for="agent" style="display:block;margin-bottom:10px;">اختر الوكيل الذي تريد التعامل معه:</label>
+    <select id="agent" class="select-box">
+      <option value="">-- اختر وكيل --</option>
+      <option value="وكيل رقم 1">وكيل رقم 1</option>
+      <option value="وكيل رقم 2">وكيل رقم 2</option>
+      <option value="وكيل كاتشر">وكيل كاتشر</option>
+    </select>
 
-    <button class="service-btn" onclick="window.location.href='bigo.html'">شحن بيجو لايف</button>
-    <button class="service-btn" onclick="window.location.href='mico.html'">شحن ميكو لايف</button>
-    <button class="service-btn" onclick="window.location.href='kitty.html'">شحن كيتي لايف</button>
+    <p style="margin-top: 30px;">اختر الخدمة التي تريد شحنها:</p>
+
+    <button class="service-btn" onclick="goToService('bigo.html')">شحن بيجو لايف</button>
+    <button class="service-btn" onclick="goToService('mico.html')">شحن ميكو لايف</button>
+    <button class="service-btn" onclick="goToService('kitty.html')">شحن كيتي لايف</button>
   </div>
 
   <footer>
     جميع الحقوق محفوظة © كاتشر 2025
   </footer>
+
+  <script>
+    function goToService(link) {
+      const agent = document.getElementById('agent').value;
+      if (!agent) {
+        alert("يرجى اختيار الوكيل أولاً.");
+        return;
+      }
+      window.location.href = link;
+    }
+  </script>
 
 </body>
 </html>
