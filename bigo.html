@@ -1,116 +1,61 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>شحن بيجو لايف - كاتشر جروب</title>
-
-  <meta name="description" content="شحن بيجو لايف من خلال كاتشر جروب بأسعار مميزة وخدمة سريعة وآمنة للمستخدمين في مصر والسعودية والإمارات.">
-  <meta name="keywords" content="شحن بيجو, شحن بيجو لايف, شحن BIGO, كاتشر, كاتشر جروب, شحن مذيعين, شحن آمن, شحن سريع, وكالة كاتشر, Katshar Agency">
-
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Tajawal', Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 500px;
-      margin: auto;
-      background: #111;
-      padding: 30px;
-      border-radius: 15px;
-      border: 2px solid gold;
-      box-shadow: 0 0 10px gold;
-    }
-    h2 {
-      text-align: center;
-      color: gold;
-      margin-bottom: 30px;
-    }
-    label {
-      display: block;
-      margin: 15px 0 5px;
-      font-weight: bold;
-    }
-    input, select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      background: gold;
-      color: #000;
-      font-size: 18px;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 15px;
-      text-align: center;
-      text-decoration: none;
-    }
-    .btn:hover {
-      background-color: #ffd700;
-    }
-    .result {
-      margin-top: 15px;
-      font-size: 18px;
-      color: #0f0;
-      text-align: center;
-    }
-  </style>
+  <title>شحن بيجو لايف</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="شحن بيجو لايف بأسعار مميزة وسرعة فائقة. اختر دولتك والكمية الآن.">
+  <meta name="keywords" content="شحن بيجو, شحن BIGO, شراء ماسات بيجو, Bigo Live, بيجو لايف مصر, السعودية, الإمارات">
+  <meta name="author" content="Katshar Agency">
 </head>
 <body>
-  <div class="container">
-    <h2>طلب شحن بيجو لايف</h2>
+  <header>
+    <h1>شحن بيجو لايف</h1>
+  </header>
 
-    <label for="amount">عدد الماس:</label>
-    <input type="number" id="amount" min="1" placeholder="أدخل عدد الماس">
+  <main>
+    <section class="form-section">
+      <label for="country">اختر الدولة:</label>
+      <select id="country">
+        <option value="">-- اختر --</option>
+        <option value="egypt">مصر</option>
+        <option value="ksa">السعودية</option>
+        <option value="uae">الإمارات</option>
+      </select>
 
-    <label for="country">اختر الدولة:</label>
-    <select id="country">
-      <option value="eg">مصر</option>
-      <option value="sa">السعودية</option>
-      <option value="ae">الإمارات</option>
-    </select>
+      <label for="diamonds">أدخل عدد الماسات:</label>
+      <input type="number" id="diamonds" min="1" placeholder="مثال: 100" />
 
-    <div class="result" id="priceResult"></div>
+      <button onclick="calculateAndRedirect()">التالي للدفع</button>
+    </section>
+  </main>
 
-    <button class="btn" onclick="calculate()">احسب السعر</button>
-    <a id="goToPayment" class="btn" style="display:none" href="payment.html">التالي إلى الدفع</a>
-  </div>
+  <footer>
+    <p>جميع الحقوق محفوظة &copy; كاتشر جروب</p>
+  </footer>
 
   <script>
-    function calculate() {
-      const amount = document.getElementById("amount").value;
+    function calculateAndRedirect() {
       const country = document.getElementById("country").value;
-      let rate = 0;
+      const diamonds = parseInt(document.getElementById("diamonds").value);
 
-      if (country === "eg") rate = 0.92;
-      else if (country === "sa") rate = 0.073;
-      else if (country === "ae") rate = 0.070;
-
-      if (amount && amount > 0) {
-        const total = (amount * rate).toFixed(2);
-        document.getElementById("priceResult").innerText = `✅ السعر: ${total}`;
-
-        localStorage.setItem("bigo_amount", amount);
-        localStorage.setItem("bigo_country", country);
-        localStorage.setItem("bigo_price", total);
-
-        document.getElementById("goToPayment").style.display = "block";
-      } else {
-        document.getElementById("priceResult").innerText = "⚠️ أدخل عدد الماس أولاً.";
-        document.getElementById("goToPayment").style.display = "none";
+      if (!country || !diamonds || isNaN(diamonds)) {
+        alert("يرجى اختيار الدولة والكمية بشكل صحيح");
+        return;
       }
+
+      const prices = {
+        "egypt": 0.0409,
+        "ksa": 0.00309,
+        "uae": 0.00305
+      };
+
+      const pricePerDiamond = prices[country];
+      const total = (pricePerDiamond * diamonds).toFixed(2);
+
+      const url = `pay.html?diamonds=${diamonds}&country=${country}&price=${total}`;
+      window.location.href = url;
     }
   </script>
 </body>
