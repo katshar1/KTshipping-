@@ -54,7 +54,7 @@
       const pricePerDiamond = prices[country];
       const total = (pricePerDiamond * diamonds).toFixed(2);
 
-      const url = `pay.html?diamonds=${diamonds}&country=${country}&price=${total}`;
+      const url = `payment.html?diamonds=${diamonds}&country=${country}&price=${total}`;
       window.location.href = url;
     }
   </script>
