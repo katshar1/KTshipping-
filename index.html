@@ -3,104 +3,151 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>وكالة كاتشر</title>
+  <title>مرحباً بك</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      background-color: #1a1a1a;
-      color: white;
-      font-family: 'Arial', sans-serif;
-      text-align: center;
       margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom, #000, #222);
+      color: white;
     }
-
     header {
-      background-color: #000;
-      padding: 15px 0;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      font-size: 18px;
+      background-color: #111;
+      padding: 20px;
+      text-align: center;
     }
-
-    header a {
-      color: #f5b301;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    h1 {
-      margin-top: 50px;
+    header h1 {
+      color: #f5c400;
+      margin: 0;
       font-size: 28px;
     }
-
-    select, button {
-      display: block;
-      margin: 15px auto;
-      padding: 15px;
-      width: 250px;
+    nav {
+      background-color: #1a1a1a;
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: #f5c400;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+    .hero {
+      text-align: center;
+      padding: 30px 20px;
+    }
+    .hero select, .hero button {
       font-size: 16px;
-      border: none;
+      padding: 10px;
+      margin: 10px;
       border-radius: 10px;
-      background-color: #ffd700;
+      border: none;
+    }
+    .hero button {
+      background-color: #f5c400;
       cursor: pointer;
-      transition: background 0.3s ease;
     }
-
-    select {
-      background-color: #ffd700;
-      color: #000;
-    }
-
-    button:hover {
-      background-color: #e6c200;
-    }
-
-    footer {
-      margin-top: 60px;
+    .sections {
+      display: none;
+      text-align: center;
       padding: 20px;
-      background-color: #000;
-      font-size: 14px;
+    }
+    .section {
+      background-color: #1a1a1a;
+      padding: 20px;
+      margin: 15px auto;
+      border-radius: 15px;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+    }
+    .section h3 {
+      color: #f5c400;
+    }
+    .section a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #f5c400;
+      color: black;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      font-size: 30px;
+      text-decoration: none;
+    }
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <a href="#">الرئيسية</a>
-    <a href="#">من نحن</a>
-    <a href="#">الخدمات</a>
-    <a href="#">تواصل معنا</a>
-    <a href="#">الإعدادات</a>
-    <a href="#">تقديم كوكيل 🧾</a>
+    <h1>مرحباً بك</h1>
   </header>
 
-  <h1>مرحباً بك</h1>
-  <p>اختر الوكيل الذي تريد التعامل معه:</p>
+  <nav>
+    <ul>
+      <li><a href="index.html">الرئيسية</a></li>
+      <li><a href="contact.html">تواصل معنا</a></li>
+      <li><a href="settings.html">الإعدادات</a></li>
+      <li><a href="apply.html">تقديم وكيل 📝</a></li>
+    </ul>
+  </nav>
 
-  <select id="agent" required>
-    <option value="">-- اختر وكيل --</option>
-    <option value="katshar">وكيل كاتشر</option>
-  </select>
+  <section class="hero">
+    <h2>اختر الوكيل الذي تريد الشحن عن طريقه</h2>
+    <select id="agentSelect" onchange="selectAgent()">
+      <option disabled selected>-- اختر الوكيل --</option>
+      <option value="katshar">وكيل كاتشر</option>
+    </select>
+    <audio id="introSound" src="welcome.mp3" preload="auto"></audio>
+  </section>
 
-  <button onclick="redirectToService('bigo')">شحن بيجو لايف</button>
-  <button onclick="redirectToService('mico')">شحن ميكو لايف</button>
-  <button onclick="redirectToService('kiti')">شحن كيتي لايف</button>
+  <section class="sections" id="sections">
+    <div class="section">
+      <h3>🔹 بيجو لايف</h3>
+      <p>خدمة شحن سريعة وآمنة لجميع باقات بيجو.</p>
+      <a href="bigo.html">الذهاب لصفحة بيجو</a>
+    </div>
+    <div class="section">
+      <h3>🔹 ميكو لايف</h3>
+      <p>استمتع بعروض حصرية على شحن ميكو لايف.</p>
+      <a href="mico.html">الذهاب لصفحة ميكو</a>
+    </div>
+    <div class="section">
+      <h3>🔹 كيتي لايف</h3>
+      <p>خدمة مميزة لشحن كيتي لايف بأفضل الأسعار.</p>
+      <a href="kitty.html">الذهاب لصفحة كيتي</a>
+    </div>
+  </section>
 
-  <footer>
-    جميع الحقوق محفوظة © كاتشر 2025
-  </footer>
+  <a href="https://wa.me/201145427899" class="whatsapp-float" target="_blank" title="تواصل معنا على واتساب">🟢</a>
 
   <script>
-    function redirectToService(service) {
-      const agent = document.getElementById('agent').value;
-      if (!agent) {
-        alert("يرجى اختيار الوكيل أولاً");
-        return;
+    function selectAgent() {
+      const agent = document.getElementById('agentSelect').value;
+      if (agent === "katshar") {
+        document.getElementById('sections').style.display = 'block';
+        const audio = document.getElementById("introSound");
+        audio.play().catch(() => {});
       }
-      // مثال: يمكن إضافة روابط بناءً على الوكيل والخدمة
-      if (service === 'bigo') window.location.href = "bigo.html";
-      else if (service === 'mico') window.location.href = "mico.html";
-      else if (service === 'kiti') window.location.href = "kiti.html";
     }
   </script>
 
