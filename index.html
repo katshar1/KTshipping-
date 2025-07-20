@@ -3,239 +3,147 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>كاتشر | الصفحة الرئيسية</title>
+  <title>كاتشر - الصفحة الرئيسية</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Cairo', sans-serif;
-      background-color: #111;
-      color: #fff;
-      background-image: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
-      transition: background-color 0.5s, color 0.5s;
-    }
-
-    /* شريط المهام */
-    nav {
+      font-family: 'Tajawal', sans-serif;
       background-color: #000;
-      border-bottom: 2px solid #FFA500;
+      color: #fff;
+    }
+    nav {
+      background-color: #111;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       padding: 10px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 999;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(255, 215, 0, 0.2);
     }
-
-    nav .logo {
-      color: #FFA500;
+    .logo {
+      font-size: 24px;
+      color: gold;
       font-weight: bold;
-      font-size: 1.5em;
     }
-
-    nav .nav-links a {
-      color: #fff;
+    .nav-links a {
+      color: white;
       text-decoration: none;
-      margin-left: 20px;
-      font-size: 1em;
-      transition: color 0.3s ease;
+      margin: 0 10px;
+      transition: color 0.3s;
     }
-
-    nav .nav-links a:hover {
-      color: #FFA500;
+    .nav-links a:hover {
+      color: gold;
     }
-
     header {
       text-align: center;
-      padding: 50px 20px 10px;
+      padding: 50px 20px;
+      background: linear-gradient(to bottom, #111, #000);
     }
-
-    h1 {
-      font-size: 2.5em;
-      color: #FFA500;
-      margin-bottom: 0.2em;
+    header h1 {
+      font-size: 36px;
+      color: gold;
     }
-
-    p {
-      font-size: 1.1em;
+    header p {
+      font-size: 18px;
       color: #ccc;
     }
-
-    .buttons-container {
+    .services {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      margin-top: 30px;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 40px 20px;
     }
-
-    .service-button {
-      background-color: #222;
-      border: 2px solid #FFA500;
-      color: #FFA500;
-      padding: 12px 25px;
-      border-radius: 10px;
-      font-size: 1.2em;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      width: 250px;
-      text-align: center;
-    }
-
-    .service-button:hover {
-      background-color: #FFA500;
-      color: #000;
-    }
-
-    footer {
-      background-color: #222;
-      color: #ccc;
-      text-align: center;
-      padding: 15px 0;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      font-size: 0.9em;
-    }
-
-    .select-agent {
-      margin-top: 30px;
-      text-align: center;
-    }
-
-    select {
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 1em;
-      border: none;
-      margin-top: 10px;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 1.4em;
-      margin-top: 40px;
-      color: #FFA500;
-    }
-
-    /* إعدادات */
-    .settings-popup {
-      display: none;
-      position: fixed;
-      top: 70px;
-      right: 20px;
-      background: #222;
-      border: 2px solid #FFA500;
+    .service-card {
+      background-color: #111;
+      border-radius: 15px;
       padding: 20px;
-      border-radius: 10px;
-      z-index: 9999;
-      color: #fff;
       width: 250px;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s;
+      cursor: pointer;
     }
-
-    .settings-popup label {
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+    .service-card h3 {
+      color: gold;
+    }
+    .footer {
+      text-align: center;
+      background-color: #111;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #888;
+    }
+    .settings-panel {
+      display: none;
+      background-color: #111;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 15px;
+    }
+    .settings-panel label {
       display: block;
-      margin: 10px 0 5px;
-    }
-
-    .settings-popup select {
-      width: 100%;
-      padding: 5px;
-      border-radius: 5px;
-      border: none;
+      margin-top: 10px;
+      color: gold;
     }
   </style>
 </head>
 <body>
 
-  <!-- شريط المهام -->
   <nav>
     <div class="logo">كاتشر</div>
     <div class="nav-links">
-      <a href="in.html">الرئيسية</a>
+      <!-- تم حذف "الرئيسية" هنا -->
       <a href="agent.html">طلب وكيل</a>
       <a href="login.html">تسجيل الدخول</a>
       <a href="#" onclick="toggleSettings()">الإعدادات</a>
     </div>
   </nav>
 
-  <!-- نافذة الإعدادات -->
-  <div class="settings-popup" id="settingsPopup">
-    <label>لون الخلفية:</label>
-    <select onchange="changeTheme(this.value)">
-      <option value="black">أسود</option>
-      <option value="white">أبيض</option>
-      <option value="gold">ذهبي</option>
-    </select>
-
-    <label>حجم الخط:</label>
-    <select onchange="changeFontSize(this.value)">
-      <option value="small">صغير</option>
-      <option value="medium" selected>متوسط</option>
-      <option value="large">كبير</option>
-    </select>
-  </div>
-
-  <!-- المحتوى -->
   <header>
     <h1>مرحباً بك في كاتشر</h1>
-    <p>أفضل وكالة لشحن برامج اللايف وإدارة المذيعين</p>
+    <p>نوفر خدمات الشحن والوكالات الاحترافية</p>
   </header>
 
-  <div class="select-agent">
-    <h3>اختر الوكيل</h3>
-    <select id="agentSelect">
-      <option value="" selected disabled>وكالة كاتشر</option>
-      <option value="كاتشر">كاتشر</option>
-    </select>
+  <section class="services">
+    <div class="service-card" onclick="location.href='bigo.html'">
+      <h3>شحن بيجو لايف</h3>
+      <p>أفضل الأسعار وطرق دفع متعددة</p>
+    </div>
+    <div class="service-card" onclick="location.href='mico.html'">
+      <h3>شحن ميكو لايف</h3>
+      <p>خدمة سريعة وآمنة</p>
+    </div>
+    <div class="service-card" onclick="location.href='kitty.html'">
+      <h3>شحن كيتي لايف</h3>
+      <p>عروض حصرية لعملائنا</p>
+    </div>
+  </section>
+
+  <section class="settings-panel" id="settingsPanel">
+    <h3>الإعدادات</h3>
+    <label>
+      لون الخلفية:
+      <input type="color" onchange="document.body.style.backgroundColor = this.value">
+    </label>
+    <label>
+      حجم الخط:
+      <input type="range" min="12" max="30" value="16" onchange="document.body.style.fontSize = this.value + 'px'">
+    </label>
+  </section>
+
+  <div class="footer">
+    جميع الحقوق محفوظة © كاتشر 2025
   </div>
 
-  <h2 class="section-title">خدمات الشحن</h2>
-  <div class="buttons-container">
-    <button class="service-button" onclick="goTo('bigo.html')">شحن بيجو لايف</button>
-    <button class="service-button" onclick="goTo('mico.html')">شحن ميكو لايف</button>
-    <button class="service-button" onclick="goTo('kiti.html')">شحن كيتي لايف</button>
-  </div>
-
-  <footer>
-    © 2025 وكالة كاتشر - جميع الحقوق محفوظة
-  </footer>
-
-  <!-- سكريبتات التفاعل -->
   <script>
-    function goTo(page) {
-      const agent = document.getElementById('agentSelect').value;
-      if (!agent) {
-        alert("يرجى اختيار الوكيل أولاً");
-        return;
-      }
-      window.location.href = page;
-    }
-
     function toggleSettings() {
-      const popup = document.getElementById("settingsPopup");
-      popup.style.display = popup.style.display === "block" ? "none" : "block";
-    }
-
-    function changeTheme(value) {
-      if (value === "black") {
-        document.body.style.backgroundColor = "#111";
-        document.body.style.color = "#fff";
-      } else if (value === "white") {
-        document.body.style.backgroundColor = "#fff";
-        document.body.style.color = "#000";
-      } else if (value === "gold") {
-        document.body.style.backgroundColor = "#FFD700";
-        document.body.style.color = "#000";
-      }
-    }
-
-    function changeFontSize(value) {
-      let size = "16px";
-      if (value === "small") size = "14px";
-      if (value === "medium") size = "16px";
-      if (value === "large") size = "20px";
-      document.body.style.fontSize = size;
+      const panel = document.getElementById('settingsPanel');
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
     }
   </script>
 
