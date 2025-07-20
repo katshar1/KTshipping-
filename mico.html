@@ -4,151 +4,148 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>شحن ميكو لايف</title>
-  <link rel="stylesheet" href="style.css"/>
   <style>
     body {
       font-family: 'Cairo', sans-serif;
-      background-color: #f8f8f8;
       margin: 0;
       padding: 0;
+      background: #fdfdfd;
       direction: rtl;
     }
     header {
-      background-color: #222;
+      background: #000;
       color: gold;
-      padding: 1rem;
+      padding: 20px;
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 24px;
     }
     .container {
       max-width: 500px;
       margin: auto;
-      background: #fff;
-      padding: 2rem;
-      margin-top: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ccc;
+      padding: 20px;
     }
     label {
       display: block;
-      margin: 1rem 0 0.5rem;
-    }
-    select, input {
-      width: 100%;
-      padding: 0.6rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    .price {
-      margin: 1rem 0;
+      margin: 15px 0 5px;
       font-weight: bold;
-      color: #444;
-      background: #f0f0f0;
-      padding: 0.5rem;
-      border-radius: 6px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .price-box {
+      background: #f2f2f2;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 10px 0;
+      text-align: center;
+      font-weight: bold;
+      color: #333;
     }
     button {
-      background-color: gold;
-      color: #000;
-      padding: 0.7rem;
-      font-size: 1.1rem;
+      background: gold;
       border: none;
+      color: #000;
+      padding: 12px;
+      font-size: 18px;
       border-radius: 8px;
       cursor: pointer;
       width: 100%;
-      margin-top: 1rem;
     }
     footer {
       text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-      color: #666;
-      font-size: 0.9rem;
+      margin-top: 40px;
+      padding: 10px;
+      color: #777;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
-<header>شحن ميكو لايف</header>
+<header>🟣 شحن ميكو لايف</header>
 
 <div class="container">
-  <label for="country">اختر الدولة:</label>
+  <label for="country">اختر الدولة</label>
   <select id="country">
-    <option value="eg">مصر</option>
-    <option value="sa">السعودية</option>
-    <option value="ae">الإمارات</option>
+    <option value="eg">🇪🇬 مصر</option>
+    <option value="sa">🇸🇦 السعودية</option>
+    <option value="ae">🇦🇪 الإمارات</option>
   </select>
 
-  <label for="amount">عدد الماسات:</label>
+  <label for="amount">عدد الماسات</label>
   <input type="number" id="amount" placeholder="مثال: 6000" />
 
-  <div class="price" id="price">سعر الشحنة: -</div>
+  <div class="price-box" id="price">سعر الشحنة: -</div>
 
-  <label for="method">اختر وسيلة الدفع:</label>
+  <label for="method">اختر وسيلة الدفع</label>
   <select id="method">
     <option value="vodafone">فودافون كاش</option>
     <option value="etisalat">اتصالات كاش</option>
-    <option value="instapay">إنستا باي</option>
+    <option value="instapay">انستا باي</option>
     <option value="western">ويسترن يونيون</option>
     <option value="binance">بايننس</option>
     <option value="bank">تحويل بنكي داخلي</option>
   </select>
 
-  <button onclick="submitOrder()">متابعة إلى واتساب</button>
+  <button onclick="submitForm()">متابعة عبر واتساب</button>
 </div>
 
-<footer>
-  جميع الحقوق محفوظة © كاتشر 2025
-</footer>
+<footer>جميع الحقوق محفوظة © كاتشر جروب 2025</footer>
 
 <script>
-  const countryPrices = {
-    eg: 0.085,       // مصر
-    sa: 0.006641,    // السعودية
-    ae: 0.006538     // الإمارات
+  const prices = {
+    eg: 0.085,
+    sa: 0.006641,
+    ae: 0.006538
   };
 
-  const countryCurrency = {
+  const currency = {
     eg: "جنيه",
     sa: "ريال",
     ae: "درهم"
   };
 
-  document.getElementById('amount').addEventListener('input', updatePrice);
-  document.getElementById('country').addEventListener('change', updatePrice);
+  document.getElementById("amount").addEventListener("input", updatePrice);
+  document.getElementById("country").addEventListener("change", updatePrice);
 
   function updatePrice() {
-    const amount = document.getElementById('amount').value;
-    const country = document.getElementById('country').value;
-    const price = amount * countryPrices[country];
-    const currency = countryCurrency[country];
-    document.getElementById('price').textContent =
-      amount ? `سعر الشحنة: ${price.toFixed(2)} ${currency}` : "سعر الشحنة: -";
-  }
-
-  function submitOrder() {
-    const amount = document.getElementById('amount').value;
-    const country = document.getElementById('country').value;
-    const method = document.getElementById('method').value;
+    const amount = parseFloat(document.getElementById("amount").value);
+    const country = document.getElementById("country").value;
 
     if (!amount || amount <= 0) {
+      document.getElementById("price").innerText = "سعر الشحنة: -";
+      return;
+    }
+
+    const price = amount * prices[country];
+    document.getElementById("price").innerText = `سعر الشحنة: ${price.toFixed(2)} ${currency[country]}`;
+  }
+
+  function submitForm() {
+    const amount = document.getElementById("amount").value;
+    const country = document.getElementById("country").value;
+    const method = document.getElementById("method").value;
+
+    if (!amount) {
       alert("يرجى إدخال عدد الماسات.");
       return;
     }
 
-    const messages = {
-      eg: "🇪🇬 مصر",
-      sa: "🇸🇦 السعودية",
-      ae: "🇦🇪 الإمارات"
+    const numbers = {
+      eg: "+201145427899", // مثال
+      sa: "+966XXXXXXXXX",
+      ae: "+971XXXXXXXXX"
     };
 
-    const number = "+201145427899"; // رقم كاتشر
+    const msg = `🔥 طلب شحن ميكو لايف\n\n✅ الكمية: ${amount} ماسة\n📍 الدولة: ${country.toUpperCase()}\n💳 وسيلة الدفع: ${method}\n\nالرجاء المتابعة لإتمام الدفع.`;
 
-    const msg = `مرحباً، أود شحن ميكو لايف ✅\n\nالكمية: ${amount} ماسة 💎\nالدولة: ${messages[country]}\nطريقة الدفع: ${method}\n\nيرجى تزويدي بتفاصيل الدفع.`;
-
-    const link = `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
-    window.open(link, '_blank');
+    const waLink = `https://wa.me/${numbers.eg}?text=${encodeURIComponent(msg)}`;
+    window.open(waLink, "_blank");
   }
 </script>
 
