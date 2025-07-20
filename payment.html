@@ -1,24 +1,105 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>تحويل إلى واتساب</title>
+  <title>الدفع - كاتشر جروب</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Tajawal', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      background: #111;
+      padding: 30px;
+      border-radius: 15px;
+      border: 2px solid gold;
+      box-shadow: 0 0 15px gold;
+      text-align: center;
+    }
+
+    h2 {
+      color: gold;
+      margin-bottom: 20px;
+    }
+
+    .details {
+      font-size: 18px;
+      line-height: 2;
+      margin-bottom: 30px;
+      white-space: pre-line;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 10px auto;
+      padding: 15px;
+      background: gold;
+      color: #000;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #ffd700;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #888;
+      font-size: 14px;
+    }
+  </style>
+
   <script>
+    let diamonds = "";
+    let country = "";
+    let price = "";
+
     window.onload = function () {
       const params = new URLSearchParams(window.location.search);
-      const diamonds = params.get("diamonds") || "غير محدد";
-      const country = params.get("country") || "غير محددة";
-      const price = params.get("price") || "غير محدد";
+      diamonds = params.get("diamonds") || "غير محدد";
+      country = params.get("country") || "غير محددة";
+      price = params.get("price") || "غير محدد";
 
-      const message = `مرحبًا، أريد شحن بيجو لايف:\n- عدد الماس: ${diamonds}\n- الدولة: ${country}\n- السعر: ${price}`;
-      const phone = "201145427899"; // رقمك بدون +
-      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-      window.location.href = url;
+      document.getElementById("info").innerText =
+        `✅ عدد الماس: ${diamonds}\n✅ الدولة: ${country}\n✅ السعر: ${price} `;
     };
+
+    function sendToWhatsApp(method) {
+      const phone = "201145427899"; // رقم الواتساب بدون +
+      const message = `مرحبًا، أريد شحن بيجو لايف:\n- عدد الماس: ${diamonds}\n- الدولة: ${country}\n- السعر: ${price}\n- طريقة الدفع: ${method}`;
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.location.href = url;
+    }
   </script>
 </head>
-<body style="background:#111;color:#fff;text-align:center;padding-top:50px;">
-  <h2>جارٍ تحويلك إلى واتساب...</h2>
+
+<body>
+  <div class="container">
+    <h2>اختر طريقة الدفع</h2>
+    <div class="details" id="info">جارٍ التحميل...</div>
+
+    <button class="btn" onclick="sendToWhatsApp('فودافون كاش')">💳 فودافون كاش</button>
+    <button class="btn" onclick="sendToWhatsApp('محفظة بنك مصر')">🏦 محفظة بنك مصر</button>
+    <button class="btn" onclick="sendToWhatsApp('باي بال')">🌍 PayPal</button>
+  </div>
+
+  <footer>
+    &copy; 2025 كاتشر جروب - جميع الحقوق محفوظة
+  </footer>
 </body>
 </html>
