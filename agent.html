@@ -1,250 +1,93 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>كاتشر | الصفحة الرئيسية</title>
+  <title>تقديم وكيل جديد</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Cairo', sans-serif;
       background-color: #111;
       color: #fff;
-      background-image: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
-      transition: background-color 0.5s, color 0.5s;
+      font-family: 'Cairo', sans-serif;
+      padding: 20px;
     }
-
-    nav {
-      background-color: #000;
-      border-bottom: 2px solid #FFA500;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 999;
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: #222;
+      padding: 20px;
+      border-radius: 15px;
     }
-
-    nav .logo {
-      color: #FFA500;
-      font-weight: bold;
-      font-size: 1.5em;
-    }
-
-    nav .nav-links a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 1em;
-      transition: color 0.3s ease;
-    }
-
-    nav .nav-links a:hover {
-      color: #FFA500;
-    }
-
-    header {
-      text-align: center;
-      padding: 50px 20px 10px;
-    }
-
-    h1 {
-      font-size: 2.5em;
-      color: #FFA500;
-      margin-bottom: 0.2em;
-    }
-
-    p {
-      font-size: 1.1em;
-      color: #ccc;
-    }
-
-    .buttons-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      margin-top: 30px;
-    }
-
-    .service-button {
-      background-color: #222;
-      border: 2px solid #FFA500;
-      color: #FFA500;
-      padding: 12px 25px;
-      border-radius: 10px;
-      font-size: 1.2em;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      width: 250px;
-      text-align: center;
-    }
-
-    .service-button:hover {
-      background-color: #FFA500;
-      color: #000;
-    }
-
-    footer {
-      background-color: #222;
-      color: #ccc;
-      text-align: center;
-      padding: 15px 0;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      font-size: 0.9em;
-    }
-
-    .select-agent {
-      margin-top: 30px;
-      text-align: center;
-    }
-
-    select {
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 1em;
-      border: none;
+    label {
+      display: block;
       margin-top: 10px;
     }
-
-    .section-title {
-      text-align: center;
-      font-size: 1.4em;
-      margin-top: 40px;
-      color: #FFA500;
-    }
-
-    .settings-popup {
-      display: none;
-      position: fixed;
-      top: 70px;
-      right: 20px;
-      background: #222;
-      border: 2px solid #FFA500;
-      padding: 20px;
-      border-radius: 10px;
-      z-index: 9999;
-      color: #fff;
-      width: 250px;
-    }
-
-    .settings-popup label {
-      display: block;
-      margin: 10px 0 5px;
-    }
-
-    .settings-popup select {
+    input, select {
       width: 100%;
-      padding: 5px;
-      border-radius: 5px;
+      padding: 10px;
+      border-radius: 8px;
       border: none;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      background-color: gold;
+      border: none;
+      padding: 12px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+    }
+    #response {
+      margin-top: 20px;
+      text-align: center;
+      color: lightgreen;
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <div class="logo">كاتشر</div>
-    <div class="nav-links">
-      <a href="index.html">الرئيسية</a>
-      <a href="agent.html">طلب وكيل</a>
-      <a href="login.html">تسجيل الدخول</a>
-      <a href="#" onclick="toggleSettings()">الإعدادات</a>
-    </div>
-  </nav>
+  <h2 style="text-align:center; color:gold;">طلب تقديم وكيل</h2>
 
-  <div class="settings-popup" id="settingsPopup">
-    <label>لون الخلفية:</label>
-    <select onchange="changeTheme(this.value)">
-      <option value="black">أسود</option>
-      <option value="white">أبيض</option>
-      <option value="gold">ذهبي</option>
-    </select>
+  <form id="agentForm">
+    <label>اسم الوكيل:</label>
+    <input type="text" name="name" required>
 
-    <label>حجم الخط:</label>
-    <select onchange="changeFontSize(this.value)">
-      <option value="small">صغير</option>
-      <option value="medium" selected>متوسط</option>
-      <option value="large">كبير</option>
-    </select>
-  </div>
+    <label>اسم الوكالة:</label>
+    <input type="text" name="agency" required>
 
-  <header>
-    <h1>مرحباً بك</h1>
-    <p>أفضل وكالة لشحن برامج اللايف وإدارة المذيعين</p>
-  </header>
+    <label>رقم الهاتف:</label>
+    <input type="text" name="phone" required>
 
-  <div class="select-agent">
-    <h3>اختر الوكيل</h3>
-    <select id="agentSelect">
-      <option value="" selected disabled>وكالة كاتشر</option>
-    </select>
-  </div>
+    <label>هل أنت وكيل فري؟ إذا نعم، أدخل اسم الوكالة الرئيسية:</label>
+    <input type="text" name="mainAgency">
 
-  <h2 class="section-title">خدمات الشحن</h2>
-  <div class="buttons-container">
-    <button class="service-button" onclick="goTo('bigo.html')">شحن بيجو لايف</button>
-    <button class="service-button" onclick="goTo('mico.html')">شحن ميكو لايف</button>
-    <button class="service-button" onclick="goTo('kiti.html')">شحن كيتي لايف</button>
-  </div>
+    <button type="submit">إرسال الطلب</button>
 
-  <footer>
-    © 2025 وكالة كاتشر - جميع الحقوق محفوظة
-  </footer>
+    <div id="response"></div>
+  </form>
 
   <script>
-    function goTo(page) {
-      const agent = document.getElementById('agentSelect').value;
-      if (!agent) {
-        alert("يرجى اختيار الوكيل أولاً");
-        return;
-      }
-      window.location.href = page;
-    }
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyH2sHEQRNXjOqQQzJd1eICfm9iozXFmVjCMTuHYV8shFDr_5yBpcjQxKKow41UNd_-/exec';
+    const form = document.getElementById('agentForm');
+    const responseDiv = document.getElementById('response');
 
-    function toggleSettings() {
-      const popup = document.getElementById("settingsPopup");
-      popup.style.display = popup.style.display === "block" ? "none" : "block";
-    }
-
-    function changeTheme(value) {
-      if (value === "black") {
-        document.body.style.backgroundColor = "#111";
-        document.body.style.color = "#fff";
-      } else if (value === "white") {
-        document.body.style.backgroundColor = "#fff";
-        document.body.style.color = "#000";
-      } else if (value === "gold") {
-        document.body.style.backgroundColor = "#FFD700";
-        document.body.style.color = "#000";
-      }
-    }
-
-    function changeFontSize(value) {
-      let size = "16px";
-      if (value === "small") size = "14px";
-      if (value === "medium") size = "16px";
-      if (value === "large") size = "20px";
-      document.body.style.fontSize = size;
-    }
-
-    // قراءة الوكلاء من Google Sheet
-    fetch("https://script.google.com/macros/s/AKfycbyH2sHEQRNXjOqQQzJd1eICfm9iozXFmVjCMTuHYV8shFDr_5yBpcjQxKKow41UNd_-/exec")
-      .then(res => res.json())
-      .then(data => {
-        const select = document.getElementById("agentSelect");
-        data.forEach(agent => {
-          const option = document.createElement("option");
-          option.value = agent.name;
-          option.textContent = agent.name;
-          select.appendChild(option);
-        });
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      fetch(scriptURL, {
+        method: 'POST',
+        body: new FormData(form)
       })
-      .catch(err => console.error("حدث خطأ في جلب البيانات:", err));
+      .then(response => {
+        responseDiv.innerText = "✅ تم إرسال الطلب بنجاح، جاري المراجعة.";
+        form.reset();
+      })
+      .catch(error => {
+        responseDiv.innerText = "❌ فشل الاتصال بالخادم، حاول لاحقًا.";
+        console.error('Error!', error.message);
+      });
+    });
   </script>
 
 </body>
