@@ -1,62 +1,116 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>شحن بيجو لايف</title>
+  <title>شحن بيجو لايف - كاتشر جروب</title>
   <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="شحن بيجو لايف بأسعار مميزة وسرعة فائقة. اختر دولتك والكمية الآن.">
-  <meta name="keywords" content="شحن بيجو, شحن BIGO, شراء ماسات بيجو, Bigo Live, بيجو لايف مصر, السعودية, الإمارات">
-  <meta name="author" content="Katshar Agency">
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Tajawal', sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 { color: #ffd700; }
+    label { display: block; margin: 10px 0 5px; }
+    select, input {
+      padding: 10px;
+      width: 80%;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background: #ffd700;
+      color: #000;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .result, .note {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>شحن بيجو لايف</h1>
-  </header>
 
-  <main>
-    <section class="form-section">
-      <label for="country">اختر الدولة:</label>
-      <select id="country">
-        <option value="">-- اختر --</option>
-        <option value="egypt">مصر</option>
-        <option value="ksa">السعودية</option>
-        <option value="uae">الإمارات</option>
-      </select>
+  <h1>شحن بيجو لايف</h1>
 
-      <label for="diamonds">أدخل عدد الماسات:</label>
-      <input type="number" id="diamonds" min="1" placeholder="مثال: 100" />
+  <form id="bigoForm">
+    <label for="country">اختر الدولة:</label>
+    <select id="country" required>
+      <option value="sa">السعودية</option>
+      <option value="ae">الإمارات</option>
+      <option value="eg">مصر</option>
+    </select>
 
-      <button onclick="calculateAndRedirect()">التالي للدفع</button>
-    </section>
-  </main>
+    <label for="quantity">عدد الماسات:</label>
+    <input type="number" id="quantity" min="1" placeholder="أدخل العدد" required />
 
-  <footer>
-    <p>جميع الحقوق محفوظة &copy; كاتشر جروب</p>
-  </footer>
+    <div class="result" id="priceResult">السعر: 0</div>
+
+    <label for="name">الاسم:</label>
+    <input type="text" id="name" placeholder="الاسم الكامل" required />
+
+    <label for="bigoId">معرف بيجو (BIGO ID):</label>
+    <input type="text" id="bigoId" placeholder="مثل: BIGO123456" required />
+
+    <label for="method">طريقة الدفع:</label>
+    <select id="method" required>
+      <option value="vodafone">فودافون كاش</option>
+      <option value="instapay">إنستاباي</option>
+      <option value="bank">تحويل بنكي</option>
+    </select>
+
+    <button type="submit">إتمام الطلب على واتساب</button>
+  </form>
 
   <script>
-    function calculateAndRedirect() {
-      const country = document.getElementById("country").value;
-      const diamonds = parseInt(document.getElementById("diamonds").value);
+    const prices = {
+      sa: 0.073,
+      ae: 0.070,
+      eg: 0.0409
+    };
 
-      if (!country || !diamonds || isNaN(diamonds)) {
-        alert("يرجى اختيار الدولة والكمية بشكل صحيح");
-        return;
-      }
+    const form = document.getElementById("bigoForm");
+    const country = document.getElementById("country");
+    const quantity = document.getElementById("quantity");
+    const priceResult = document.getElementById("priceResult");
 
-      const prices = {
-        "egypt": 0.0409,
-        "ksa": 0.00309,
-        "uae": 0.00305
-      };
-
-      const pricePerDiamond = prices[country];
-      const total = (pricePerDiamond * diamonds).toFixed(2);
-
-      const url = `payment.html?diamonds=${diamonds}&country=${country}&price=${total}`;
-      window.location.href = url;
+    function updatePrice() {
+      const c = country.value;
+      const q = parseInt(quantity.value) || 0;
+      const total = (prices[c] * q).toFixed(2);
+      priceResult.textContent = `السعر: ${total} ${c === "eg" ? "جنيه" : c === "sa" ? "ريال" : "درهم"}`;
     }
+
+    quantity.addEventListener("input", updatePrice);
+    country.addEventListener("change", updatePrice);
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const total = (prices[country.value] * quantity.value).toFixed(2);
+      const msg = `
+🔹 طلب شحن بيجو لايف
+الاسم: ${name.value}
+BIGO ID: ${bigoId.value}
+الدولة: ${country.options[country.selectedIndex].text}
+الكمية: ${quantity.value}
+السعر: ${total}
+طريقة الدفع: ${method.options[method.selectedIndex].text}
+      `.trim();
+
+      const phone = "201145427899";
+      const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, "_blank");
+    });
   </script>
+
 </body>
 </html>
