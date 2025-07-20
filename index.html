@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>أهلاً بك في كاتشر جروب</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       margin: 0;
@@ -18,12 +17,25 @@
       text-align: center;
       padding: 40px 20px 20px;
       background-color: #111;
+      position: relative;
     }
 
     header h1 {
       color: #f5c400;
       font-size: 32px;
       margin: 0;
+    }
+
+    .settings-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: #f5c400;
+      color: #000;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
     }
 
     .hero {
@@ -94,9 +106,9 @@
   </style>
 </head>
 <body>
-
   <header>
     <h1>أهلاً بك في كاتشر جروب</h1>
+    <a href="settings.html" class="settings-link">⚙️ الإعدادات</a>
   </header>
 
   <section class="hero">
@@ -119,11 +131,6 @@
       <h3>🔹 كيتي لايف</h3>
       <p>خدمة مميزة لشحن كيتي لايف بأفضل الأسعار.</p>
       <a href="kitty.html">الذهاب لصفحة كيتي</a>
-    </div>
-    <div class="section">
-      <h3>⚙️ الإعدادات</h3>
-      <p>تعديل خيارات الموقع مثل الصوت، التواصل، وغيرها.</p>
-      <a href="settings.html">فتح الإعدادات</a>
     </div>
   </section>
 
@@ -150,7 +157,12 @@
       };
       document.addEventListener("click", playSoundOnce);
     });
-  </script>
 
+    // AI Price Monitor Mock (مراقبة الأسعار آليًا)
+    const monitorPrices = () => {
+      console.log("🔍 AI: جارٍ مراقبة الأسعار تلقائيًا للتأكد من مطابقتها للسعر الأساسي...");
+    };
+    setInterval(monitorPrices, 30000); // كل 30 ثانية
+  </script>
 </body>
 </html>
