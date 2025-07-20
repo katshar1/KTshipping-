@@ -1,66 +1,136 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>لوحة تحكم كاتشر</title>
-    <style>
-        body {
-            background-color: #111;
-            color: #fff;
-            font-family: 'Arial', sans-serif;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #FFD700;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-        }
-        .request {
-            background: #333;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-        .btn {
-            background: #FFD700;
-            color: #000;
-            border: none;
-            padding: 10px 15px;
-            margin: 5px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background: #e6c200;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>لوحة تحكم كاتشر</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #111;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #000;
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: #FFA500;
+      box-shadow: 0 4px 10px rgba(255, 215, 0, 0.1);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .request-card {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    }
+
+    .request-card p {
+      margin: 10px 0;
+    }
+
+    .btn {
+      padding: 8px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-accept {
+      background-color: #FFD700;
+      color: #000;
+    }
+
+    .btn-reject {
+      background-color: #999;
+      color: #000;
+    }
+
+    .no-requests {
+      text-align: center;
+      color: #ccc;
+      margin-top: 50px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>لوحة تحكم كاتشر</h1>
-        <div class="request">
-            <p><strong>اسم الوكيل:</strong> محمد أحمد</p>
-            <p><strong>البريد:</strong> example@email.com</p>
-            <p><strong>رقم الهاتف:</strong> +201000000000</p>
-            <button class="btn">قبول</button>
-            <button class="btn">رفض</button>
-        </div>
-        <div class="request">
-            <p><strong>اسم الوكيل:</strong> سارة علي</p>
-            <p><strong>البريد:</strong> sara@email.com</p>
-            <p><strong>رقم الهاتف:</strong> +201111111111</p>
-            <button class="btn">قبول</button>
-            <button class="btn">رفض</button>
-        </div>
-        <!-- المزيد من الطلبات سيتم عرضها هنا تلقائياً -->
-    </div>
+
+  <header>
+    لوحة تحكم كاتشر
+  </header>
+
+  <div class="container">
+    <div id="requests-container"></div>
+  </div>
+
+  <script>
+    // بيانات وهمية للعرض التجريبي
+    let requests = JSON.parse(localStorage.getItem("agentRequests")) || [
+      {
+        name: "محمد أحمد",
+        email: "example@email.com",
+        phone: "201000000000"
+      },
+      {
+        name: "سارة علي",
+        email: "sara@email.com",
+        phone: "201111111111"
+      }
+    ];
+
+    function renderRequests() {
+      const container = document.getElementById("requests-container");
+      container.innerHTML = "";
+
+      if (requests.length === 0) {
+        container.innerHTML = '<p class="no-requests">لا توجد طلبات جديدة.</p>';
+        return;
+      }
+
+      requests.forEach((req, index) => {
+        const card = document.createElement("div");
+        card.className = "request-card";
+        card.innerHTML = `
+          <p><strong>اسم الوكيل:</strong> ${req.name}</p>
+          <p><strong>البريد:</strong> ${req.email}</p>
+          <p><strong>رقم الهاتف:</strong> +${req.phone}</p>
+          <button class="btn btn-accept" onclick="acceptRequest(${index})">قبول</button>
+          <button class="btn btn-reject" onclick="rejectRequest(${index})">رفض</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function acceptRequest(index) {
+      alert("تم قبول الوكيل: " + requests[index].name);
+      requests.splice(index, 1);
+      localStorage.setItem("agentRequests", JSON.stringify(requests));
+      renderRequests();
+    }
+
+    function rejectRequest(index) {
+      alert("تم رفض الوكيل: " + requests[index].name);
+      requests.splice(index, 1);
+      localStorage.setItem("agentRequests", JSON.stringify(requests));
+      renderRequests();
+    }
+
+    renderRequests();
+  </script>
+
 </body>
 </html>
