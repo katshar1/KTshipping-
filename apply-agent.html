@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>طلب وكيل - كاتشر</title>
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: 'Tajawal', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #000;
+      padding: 15px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      color: #FFD700;
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .form-container {
+      padding: 30px 20px;
+      max-width: 500px;
+      margin: auto;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+    }
+
+    .form-container h2 {
+      color: #FFD700;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+      background-color: #222;
+      color: white;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #FFD700;
+      color: black;
+      border: none;
+      padding: 15px;
+      width: 100%;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e6be00;
+    }
+
+    footer {
+      background-color: #000;
+      color: #aaa;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>طلب تقديم وكيل</h1>
+  </header>
+
+  <div class="form-container">
+    <h2>📋 قدم طلب لتصبح وكيل</h2>
+    <form action="https://api.whatsapp.com/send" method="get" target="_blank">
+      <input type="text" name="agent_name" placeholder="اسمك الكامل" required>
+      <input type="text" name="agency_name" placeholder="اسم الوكالة" required>
+      <input type="text" name="phone" placeholder="رقم الهاتف" required>
+      <input type="text" name="main_agency" placeholder="اسم الوكالة الرئيسية (إن وجد)">
+      <textarea name="reason" rows="4" placeholder="لماذا ترغب أن تكون وكيلاً؟" required></textarea>
+
+      <input type="hidden" name="phone" value="201145427899">
+      <input type="hidden" name="text" id="whatsappMessage">
+
+      <button type="submit" onclick="prepareMessage()">إرسال الطلب عبر واتساب</button>
+    </form>
+  </div>
+
+  <footer>
+    جميع الحقوق محفوظة &copy; كاتشر 2025
+  </footer>
+
+  <script>
+    function prepareMessage() {
+      const name = document.querySelector('input[name="agent_name"]').value;
+      const agency = document.querySelector('input[name="agency_name"]').value;
+      const phone = document.querySelector('input[name="phone"]').value;
+      const mainAgency = document.querySelector('input[name="main_agency"]').value;
+      const reason = document.querySelector('textarea[name="reason"]').value;
+
+      const message = `طلب وكيل جديد:
+الاسم: ${name}
+اسم الوكالة: ${agency}
+رقم الهاتف: ${phone}
+الوكالة الرئيسية: ${mainAgency}
+السبب: ${reason}`;
+
+      document.getElementById("whatsappMessage").value = message;
+    }
+  </script>
+
+</body>
+</html>
