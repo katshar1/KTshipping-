@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>شحن كيتي لايف</title>
+  <title>شحن ماسات كيتي لايف بأسعار مميزة | كاتشر جروب</title>
+  <meta name="description" content="اشحن ماسات كيتي لايف Kitty Live بأفضل الأسعار في مصر والسعودية والإمارات عبر كاتشر جروب. خدمات سريعة وتحويل مباشر عبر واتساب.">
+  <meta name="keywords" content="شحن كيتي لايف, kitty live, ماسات kitty, شراء ماسات كيتي, كاتشر جروب, شحن kitty, kitty شحن, شحن kitty في مصر, شحن kitty في السعودية">
+  <meta name="author" content="Katshar Group">
   <style>
     body {
       background-color: #000;
@@ -19,6 +22,10 @@
       border-radius: 15px;
       border: 2px solid gold;
     }
+    h2 {
+      text-align: center;
+      color: gold;
+    }
     label {
       display: block;
       margin: 15px 0 5px;
@@ -32,6 +39,7 @@
       margin-bottom: 10px;
     }
     .btn {
+      display: block;
       width: 100%;
       background: gold;
       color: #000;
@@ -41,6 +49,8 @@
       border-radius: 8px;
       cursor: pointer;
       margin-top: 15px;
+      text-align: center;
+      text-decoration: none;
     }
     .result {
       margin-top: 10px;
@@ -51,7 +61,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>شحن كيتي لايف</h2>
+    <h2>شحن ماسات كيتي لايف</h2>
 
     <label for="amount">عدد الماس:</label>
     <input type="number" id="amount" min="1" placeholder="أدخل عدد الماس">
@@ -66,51 +76,35 @@
     <div class="result" id="priceResult"></div>
 
     <button class="btn" onclick="calculate()">احسب السعر</button>
-    <button class="btn" onclick="sendWhatsApp()">اطلب عبر واتساب</button>
+    <a id="whatsappLink" class="btn" style="display:none" target="_blank">التحويل على واتساب</a>
   </div>
 
   <script>
-    function getRate(country) {
-      if (country === "eg") return 0.0408;
-      if (country === "sa") return 0.00320;
-      if (country === "ae") return 0.00318;
-      return 0;
-    }
-
-    function getCountryName(code) {
-      if (code === "eg") return "مصر";
-      if (code === "sa") return "السعودية";
-      if (code === "ae") return "الإمارات";
-      return "";
-    }
-
     function calculate() {
       const amount = document.getElementById("amount").value;
       const country = document.getElementById("country").value;
-      const rate = getRate(country);
+      let rate = 0;
+
+      if (country === "eg") rate = 0.0409;
+      else if (country === "sa") rate = 0.00309;
+      else if (country === "ae") rate = 0.00305;
+
       if (amount && amount > 0) {
         const total = (amount * rate).toFixed(2);
-        const currency = country === "eg" ? "جنيه" : country === "sa" ? "ريال" : "درهم";
-        document.getElementById("priceResult").innerText = `السعر: ${total} ${currency}`;
+        document.getElementById("priceResult").innerText = `السعر: ${total}`;
+
+        const phone = "+201033040762";
+        const countryName = country === "eg" ? "مصر" : country === "sa" ? "السعودية" : "الإمارات";
+        const text = `مرحبًا، أود شحن ${amount} ماسه في كيتي لايف.\nالدولة: ${countryName}\nالسعر: ${total}`;
+        const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+
+        const link = document.getElementById("whatsappLink");
+        link.href = whatsappURL;
+        link.style.display = "block";
       } else {
         document.getElementById("priceResult").innerText = "أدخل عدد الماس أولاً.";
+        document.getElementById("whatsappLink").style.display = "none";
       }
-    }
-
-    function sendWhatsApp() {
-      const amount = document.getElementById("amount").value;
-      const country = document.getElementById("country").value;
-      const rate = getRate(country);
-      if (!amount || amount <= 0) {
-        alert("يرجى إدخال عدد الماس أولاً.");
-        return;
-      }
-      const total = (amount * rate).toFixed(2);
-      const countryName = getCountryName(country);
-      const message = `مرحباً، أود شحن كيتي لايف\nعدد الماس: ${amount}\nالدولة: ${countryName}\nالسعر: ${total}`;
-      const phone = "201145427899";
-      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-      window.open(url, "_blank");
     }
   </script>
 </body>
