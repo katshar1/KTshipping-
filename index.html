@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>مرحبًا بك</title>
+  <title>بوابة الوكلاء</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -30,17 +30,19 @@
       margin: 20px auto;
       padding: 20px;
       border-radius: 15px;
-      max-width: 400px;
+      max-width: 420px;
       box-shadow: 0 0 15px rgba(245, 196, 0, 0.2);
     }
 
-    select, button {
+    select, input, textarea, button {
       padding: 12px;
-      font-size: 18px;
-      margin-top: 15px;
+      font-size: 17px;
+      margin-top: 10px;
       border-radius: 8px;
       border: none;
-      width: 80%;
+      width: 90%;
+      display: block;
+      margin-inline: auto;
     }
 
     button {
@@ -49,7 +51,7 @@
       cursor: pointer;
     }
 
-    .services {
+    .services, .default-settings, .apply-agent {
       display: none;
       margin-top: 20px;
     }
@@ -65,53 +67,75 @@
       max-width: 300px;
     }
 
+    h2, h3 {
+      color: #f5c400;
+    }
+
     audio {
       display: none;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>مرحبًا بك في وكالتك</h1>
+    <h1>بوابة الوكلاء</h1>
   </header>
 
+  <!-- اختيار وكيل -->
   <div class="box">
     <h2>اختر الوكيل الذي تريد الشحن من خلاله</h2>
     <select id="agentSelect">
       <option value="">-- اختر وكيل --</option>
       <option value="كاتشر">وكالة كاتشر</option>
-      <option value="وكالتك">وكالتك</option>
     </select>
-    <button onclick="showServices()">متابعة</button>
+    <button onclick="showSections()">متابعة</button>
 
+    <!-- خدمات الشحن -->
     <div class="services" id="services">
-      <h3>خدمات الشحن المتاحة:</h3>
+      <h3>خدمات الشحن:</h3>
       <a href="bigo.html">🔹 شحن بيجو لايف</a>
       <a href="mico.html">🔹 شحن ميكو لايف</a>
       <a href="kitty.html">🔹 شحن كيتي لايف</a>
     </div>
   </div>
 
-  <!-- ملف الصوت -->
+  <!-- الإعدادات الافتراضية -->
+  <div class="box default-settings" id="defaultSettings">
+    <h2>⚙️ الإعدادات الافتراضية</h2>
+    <p>هذا القسم مخصص للمشرف فقط لضبط الأسعار والسياسات العامة.</p>
+    <button onclick="alert('فتح صفحة الإعدادات الافتراضية')">عرض الإعدادات</button>
+  </div>
+
+  <!-- تقديم وكيل جديد -->
+  <div class="box apply-agent" id="applyAgent">
+    <h2>📝 قدم طلب لتصبح وكيل</h2>
+    <input type="text" placeholder="اسمك الكامل" />
+    <input type="tel" placeholder="رقم الهاتف" />
+    <textarea placeholder="لماذا ترغب أن تكون وكيلًا؟"></textarea>
+    <button onclick="alert('تم إرسال الطلب بنجاح! سيتم مراجعة طلبك قريبًا')">إرسال الطلب</button>
+  </div>
+
+  <!-- ملف صوت ترحيبي -->
   <audio id="welcomeSound" src="welcome.mp3" preload="auto"></audio>
 
   <script>
-    function showServices() {
+    function showSections() {
       const agent = document.getElementById("agentSelect").value;
       const services = document.getElementById("services");
       const audio = document.getElementById("welcomeSound");
 
       if (agent === "كاتشر") {
         services.style.display = "block";
-        audio.play().catch(() => {
-          console.log("الصوت لم يتم تشغيله تلقائياً، يرجى النقر لتشغيله.");
-        });
-      } else if (agent === "وكالتك") {
-        services.style.display = "block";
+        document.getElementById("defaultSettings").style.display = "block";
+        audio.play().catch(() => {});
       } else {
         services.style.display = "none";
-        alert("يرجى اختيار وكيل صحيح لعرض خدمات الشحن.");
+        document.getElementById("defaultSettings").style.display = "none";
       }
+
+      // إظهار نموذج تقديم وكيل دائمًا
+      document.getElementById("applyAgent").style.display = "block";
     }
   </script>
 </body>
