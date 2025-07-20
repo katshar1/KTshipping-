@@ -6,7 +6,7 @@
   <title>شحن بيجو لايف - كاتشر جروب</title>
 
   <meta name="description" content="شحن بيجو لايف من خلال كاتشر جروب بأسعار مميزة وخدمة سريعة وآمنة للمستخدمين في مصر والسعودية والإمارات.">
-  <meta name="keywords" content="شحن بيجو, شحن بيجو لايف, شحن BIGO, كاتشر, كاتشر جروب, شحن مذيعين, شحن آمن, شحن سريع">
+  <meta name="keywords" content="شحن بيجو, شحن بيجو لايف, شحن BIGO, كاتشر, كاتشر جروب, شحن مذيعين, شحن آمن, شحن سريع, وكالة كاتشر, Katshar Agency">
 
   <style>
     body {
@@ -85,7 +85,7 @@
     <div class="result" id="priceResult"></div>
 
     <button class="btn" onclick="calculate()">احسب السعر</button>
-    <a id="whatsappLink" class="btn" style="display:none" target="_blank">التواصل عبر واتساب</a>
+    <a id="goToPayment" class="btn" style="display:none" href="payment.html">التالي إلى الدفع</a>
   </div>
 
   <script>
@@ -102,17 +102,14 @@
         const total = (amount * rate).toFixed(2);
         document.getElementById("priceResult").innerText = `✅ السعر: ${total}`;
 
-        const phone = "+201145427899";
-        const countryName = country === "eg" ? "مصر" : country === "sa" ? "السعودية" : "الإمارات";
-        const text = `مرحبًا، أود شحن ${amount} ماسه في بيجو لايف.\nالدولة: ${countryName}\nالسعر: ${total}`;
-        const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+        localStorage.setItem("bigo_amount", amount);
+        localStorage.setItem("bigo_country", country);
+        localStorage.setItem("bigo_price", total);
 
-        const link = document.getElementById("whatsappLink");
-        link.href = whatsappURL;
-        link.style.display = "block";
+        document.getElementById("goToPayment").style.display = "block";
       } else {
         document.getElementById("priceResult").innerText = "⚠️ أدخل عدد الماس أولاً.";
-        document.getElementById("whatsappLink").style.display = "none";
+        document.getElementById("goToPayment").style.display = "none";
       }
     }
   </script>
