@@ -3,113 +3,150 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>شحن بيجو لايف</title>
+  <title>شحن بيجو لايف - كاتشر</title>
   <style>
     body {
       font-family: 'Tajawal', sans-serif;
-      background-color: #111;
-      color: white;
-      text-align: center;
-      padding: 40px 20px;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
     }
     h1 {
-      color: #ffc107;
+      text-align: center;
+      color: gold;
     }
-    select, input {
-      padding: 10px;
-      margin: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
+    .form-container {
+      max-width: 500px;
+      margin: auto;
+      background-color: #111;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #444;
     }
-    button {
-      padding: 10px 20px;
-      background-color: #ffc107;
-      border: none;
-      border-radius: 5px;
-      color: #000;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    .payment-methods {
-      margin-top: 20px;
-    }
-    .result {
-      margin-top: 20px;
-      font-size: 20px;
+    label {
+      display: block;
+      margin-top: 15px;
       font-weight: bold;
+    }
+    select, input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 5px;
+    }
+    .price-display {
+      margin-top: 15px;
+      background-color: #222;
+      padding: 10px;
+      border-radius: 10px;
+      color: gold;
+      text-align: center;
+    }
+    .methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .methods button {
+      flex: 1 1 40%;
+      padding: 10px;
+      border: none;
+      border-radius: 12px;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .methods button:hover {
+      background-color: gold;
+      color: #000;
     }
   </style>
 </head>
 <body>
 
   <h1>شحن بيجو لايف</h1>
+  <div class="form-container">
+    <label for="country">اختر الدولة:</label>
+    <select id="country">
+      <option value="eg">🇪🇬 مصر</option>
+      <option value="sa">🇸🇦 السعودية</option>
+      <option value="ae">🇦🇪 الإمارات</option>
+    </select>
 
-  <label>الدولة:</label>
-  <select id="country">
-    <option value="eg">مصر</option>
-    <option value="sa">السعودية</option>
-    <option value="ae">الإمارات</option>
-  </select>
+    <label for="amount">عدد الماسات:</label>
+    <input type="number" id="amount" placeholder="أدخل عدد الماسات" min="1">
 
-  <br />
+    <div class="price-display" id="priceDisplay">السعر: 0</div>
 
-  <label>أدخل عدد الماسات:</label>
-  <input type="number" id="diamonds" placeholder="مثال: 1000" />
-
-  <div class="result" id="priceDisplay">السعر: --</div>
-
-  <div class="payment-methods" id="paymentSection" style="display:none;">
-    <h2>اختر طريقة الدفع:</h2>
-    <button onclick="redirectToWhatsApp('فودافون كاش')">فودافون كاش</button>
-    <button onclick="redirectToWhatsApp('اتصالات كاش')">اتصالات كاش</button>
-    <button onclick="redirectToWhatsApp('ويسترن يونيون')">ويسترن يونيون</button>
-    <button onclick="redirectToWhatsApp('انستا باي')">انستا باي</button>
-    <button onclick="redirectToWhatsApp('بايننس')">بايننس</button>
+    <label>اختر وسيلة الدفع:</label>
+    <div class="methods" id="methods">
+      <!-- أزرار الدفع ستُدرج تلقائيًا هنا -->
+    </div>
   </div>
 
   <script>
-    const countrySelect = document.getElementById("country");
-    const diamondsInput = document.getElementById("diamonds");
-    const priceDisplay = document.getElementById("priceDisplay");
-    const paymentSection = document.getElementById("paymentSection");
+    const countrySelect = document.getElementById('country');
+    const amountInput = document.getElementById('amount');
+    const priceDisplay = document.getElementById('priceDisplay');
+    const methodsContainer = document.getElementById('methods');
 
     const prices = {
-      eg: 0.092,
-      sa: 0.0073,
-      ae: 0.007
+      eg: 0.92,
+      sa: 0.073,
+      ae: 0.07
+    };
+
+    const paymentMethods = {
+      eg: ['فودافون كاش', 'إنستا باي', 'اتصالات كاش', 'ويسترن يونيون'],
+      sa: ['تحويل بنكي داخلي', 'بايننس'],
+      ae: ['تحويل بنكي داخلي', 'بايننس']
     };
 
     function updatePrice() {
       const country = countrySelect.value;
-      const diamonds = parseInt(diamondsInput.value);
-      if (!isNaN(diamonds) && diamonds > 0) {
-        const price = diamonds * prices[country];
-        priceDisplay.textContent = `السعر: ${price.toFixed(2)} ${
-          country === "eg" ? "جنيه" : country === "sa" ? "ريال" : "درهم"
-        }`;
-        paymentSection.style.display = "block";
-      } else {
-        priceDisplay.textContent = "السعر: --";
-        paymentSection.style.display = "none";
-      }
+      const amount = parseInt(amountInput.value) || 0;
+      const price = prices[country] * amount;
+      const currency = country === 'eg' ? 'جنيه' : country === 'sa' ? 'ريال' : 'درهم';
+      priceDisplay.innerText = `السعر: ${price.toFixed(2)} ${currency}`;
     }
 
-    diamondsInput.addEventListener("input", updatePrice);
-    countrySelect.addEventListener("change", updatePrice);
-
-    function redirectToWhatsApp(method) {
+    function updateMethods() {
       const country = countrySelect.value;
-      const diamonds = diamondsInput.value;
-      const price = (diamonds * prices[country]).toFixed(2);
-      const currency = country === "eg" ? "جنيه" : country === "sa" ? "ريال" : "درهم";
-
-      const message = `مرحبًا، أريد شحن ${diamonds} ماسة في بيجو لايف.\nالدولة: ${
-        country === "eg" ? "مصر" : country === "sa" ? "السعودية" : "الإمارات"
-      }\nطريقة الدفع: ${method}\nالسعر: ${price} ${currency}`;
-
-      window.open(`https://wa.me/201145427899?text=${encodeURIComponent(message)}`, "_blank");
+      const methods = paymentMethods[country];
+      methodsContainer.innerHTML = '';
+      methods.forEach(method => {
+        const btn = document.createElement('button');
+        btn.textContent = method;
+        btn.onclick = () => goToWhatsApp(method);
+        methodsContainer.appendChild(btn);
+      });
     }
+
+    function goToWhatsApp(method) {
+      const amount = amountInput.value;
+      const country = countrySelect.options[countrySelect.selectedIndex].text;
+      const price = priceDisplay.innerText.replace('السعر: ', '');
+      const message = `مرحباً، أريد شحن ${amount} ماسة بيجو لايف\nالدولة: ${country}\nالسعر: ${price}\nطريقة الدفع: ${method}`;
+      const phone = "201145427899";
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    }
+
+    countrySelect.addEventListener('change', () => {
+      updatePrice();
+      updateMethods();
+    });
+
+    amountInput.addEventListener('input', updatePrice);
+
+    // تشغيل مبدئي
+    updatePrice();
+    updateMethods();
   </script>
 
 </body>
