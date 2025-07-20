@@ -1,109 +1,56 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>كاتشر - الصفحة الرئيسية</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      font-family: 'Tajawal', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    .navbar {
-      background-color: #111;
-      color: #fff;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .navbar-brand {
-      font-size: 1.3em;
-      font-weight: bold;
-    }
-    .navbar-nav a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 15px;
-      transition: color 0.3s;
-    }
-    .navbar-nav a:hover {
-      color: gold;
-    }
-    .login-btn {
-      background-color: orange;
-      color: white;
-      padding: 8px 15px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .section {
-      padding: 80px 20px;
-      text-align: center;
-    }
-    .section h2 {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-    .section ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 auto;
-      max-width: 400px;
-    }
-    .section ul li {
-      background-color: #f1f1f1;
-      margin: 10px 0;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 1.1em;
-    }
-    footer {
-      background-color: #222;
-      color: #ccc;
-      text-align: center;
-      padding: 15px;
-      font-size: 0.9em;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>وكالة الشحن</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- الهيدر -->
-  <header class="navbar">
-    <div class="navbar-brand">وكالة كاتشر</div>
-    <nav class="navbar-nav">
-      <a href="#services">خدماتنا</a>
-      <a href="#contact">تواصل معنا</a>
-      <a href="agent.html">تسجيل وكيل</a>
-      <a href="login.html" class="login-btn">تسجيل دخول المسؤول</a>
-    </nav>
+  <!-- شريط المهام -->
+  <header class="header">
+    <div class="container nav-container">
+      <h1 class="logo">مرحباً بك</h1>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#services">الخدمات</a></li>
+          <li><a href="agent.html">تقديم وكيل</a></li>
+          <li><a href="settings.html">الإعدادات</a></li>
+          <li><a href="login.html">تسجيل الدخول</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <!-- قسم الخدمات -->
-  <section class="section" id="services">
-    <h2>الخدمات</h2>
-    <ul>
-      <li>شحن بيجو لايف</li>
-      <li>شحن ميكو لايف</li>
-      <li>شحن كيتي لايف</li>
-      <li>إدارة ومتابعة المذيعين</li>
-    </ul>
+  <!-- اختيار الوكيل -->
+  <section class="choose-agent">
+    <div class="container">
+      <h2>اختر الوكيل</h2>
+      <select id="agentSelect">
+        <option value="katshar">وكالة كاتشر</option>
+        <!-- تتم إضافة وكلاء آخرين تلقائياً بعد الموافقة -->
+      </select>
+    </div>
   </section>
 
-  <!-- الفوتر -->
-  <footer>
-    جميع الحقوق محفوظة © كاتشر 2025
+  <!-- خدمات الشحن -->
+  <section id="services" class="services">
+    <div class="container">
+      <h3>خدمات الشحن</h3>
+      <div class="service-buttons">
+        <a href="bigo.html" class="btn">شحن بيجو لايف</a>
+        <a href="mico.html" class="btn">شحن ميكو لايف</a>
+        <a href="kiti.html" class="btn">شحن كيتي لايف</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- تذييل -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 جميع الحقوق محفوظة</p>
+    </div>
   </footer>
 
 </body>
