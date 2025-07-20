@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>أهلاً بك في كاتشر جروب</title>
+  <title>مرحبًا بك</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -11,93 +11,58 @@
       font-family: 'Cairo', sans-serif;
       background: linear-gradient(to bottom, #000, #222);
       color: white;
+      text-align: center;
     }
 
     header {
-      text-align: center;
-      padding: 40px 20px 20px;
       background-color: #111;
-      position: relative;
+      padding: 30px;
     }
 
     header h1 {
       color: #f5c400;
-      font-size: 32px;
+      font-size: 28px;
       margin: 0;
     }
 
-    .settings-link {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background-color: #f5c400;
-      color: #000;
-      padding: 8px 16px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 30px;
-    }
-
-    .hero h2 {
-      font-size: 24px;
-      margin-bottom: 20px;
-      color: #eee;
-    }
-
-    .hero button {
-      background-color: #f5c400;
-      border: none;
-      padding: 12px 24px;
-      font-size: 18px;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .hero button:hover {
-      background-color: #d4aa00;
-    }
-
-    .sections {
-      display: none;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .section {
+    .box {
       background-color: #1a1a1a;
+      margin: 20px auto;
       padding: 20px;
-      margin: 15px auto;
       border-radius: 15px;
       max-width: 400px;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+      box-shadow: 0 0 15px rgba(245, 196, 0, 0.2);
     }
 
-    .section h3 {
-      color: #f5c400;
+    select, button {
+      padding: 12px;
+      font-size: 18px;
+      margin-top: 15px;
+      border-radius: 8px;
+      border: none;
+      width: 80%;
     }
 
-    .section a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
+    button {
+      background-color: #f5c400;
+      color: black;
+      cursor: pointer;
+    }
+
+    .services {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .services a {
+      display: block;
       background-color: #f5c400;
       color: black;
       text-decoration: none;
-      border-radius: 8px;
-    }
-
-    .whatsapp-float {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      font-size: 30px;
-      text-decoration: none;
+      padding: 12px;
+      margin: 10px auto;
+      border-radius: 10px;
+      max-width: 300px;
     }
 
     audio {
@@ -107,62 +72,47 @@
 </head>
 <body>
   <header>
-    <h1>أهلاً بك في كاتشر جروب</h1>
-    <a href="settings.html" class="settings-link">⚙️ الإعدادات</a>
+    <h1>مرحبًا بك في وكالتك</h1>
   </header>
 
-  <section class="hero">
-    <h2>اشحن بيجو لايف، ميكو لايف، كيتي لايف بأمان وسرعة</h2>
-    <button onclick="showSections()">ابدأ الآن</button>
-  </section>
+  <div class="box">
+    <h2>اختر الوكيل الذي تريد الشحن من خلاله</h2>
+    <select id="agentSelect">
+      <option value="">-- اختر وكيل --</option>
+      <option value="كاتشر">وكالة كاتشر</option>
+      <option value="وكالتك">وكالتك</option>
+    </select>
+    <button onclick="showServices()">متابعة</button>
 
-  <section class="sections" id="sections">
-    <div class="section">
-      <h3>🔹 بيجو لايف</h3>
-      <p>خدمة شحن سريعة وآمنة لجميع باقات بيجو.</p>
-      <a href="bigo.html">الذهاب لصفحة بيجو</a>
+    <div class="services" id="services">
+      <h3>خدمات الشحن المتاحة:</h3>
+      <a href="bigo.html">🔹 شحن بيجو لايف</a>
+      <a href="mico.html">🔹 شحن ميكو لايف</a>
+      <a href="kitty.html">🔹 شحن كيتي لايف</a>
     </div>
-    <div class="section">
-      <h3>🔹 ميكو لايف</h3>
-      <p>استمتع بعروض حصرية على شحن ميكو لايف.</p>
-      <a href="mico.html">الذهاب لصفحة ميكو</a>
-    </div>
-    <div class="section">
-      <h3>🔹 كيتي لايف</h3>
-      <p>خدمة مميزة لشحن كيتي لايف بأفضل الأسعار.</p>
-      <a href="kitty.html">الذهاب لصفحة كيتي</a>
-    </div>
-  </section>
+  </div>
 
-  <!-- زر واتساب -->
-  <a href="https://wa.me/201145427899" class="whatsapp-float" target="_blank" title="تواصل معنا على واتساب">🟢</a>
-
-  <!-- صوت ترحيبي -->
-  <audio id="introSound" src="welcome.mp3" preload="auto"></audio>
+  <!-- ملف الصوت -->
+  <audio id="welcomeSound" src="welcome.mp3" preload="auto"></audio>
 
   <script>
-    function showSections() {
-      document.getElementById('sections').style.display = 'block';
-      window.scrollTo({
-        top: document.getElementById('sections').offsetTop,
-        behavior: 'smooth'
-      });
+    function showServices() {
+      const agent = document.getElementById("agentSelect").value;
+      const services = document.getElementById("services");
+      const audio = document.getElementById("welcomeSound");
+
+      if (agent === "كاتشر") {
+        services.style.display = "block";
+        audio.play().catch(() => {
+          console.log("الصوت لم يتم تشغيله تلقائياً، يرجى النقر لتشغيله.");
+        });
+      } else if (agent === "وكالتك") {
+        services.style.display = "block";
+      } else {
+        services.style.display = "none";
+        alert("يرجى اختيار وكيل صحيح لعرض خدمات الشحن.");
+      }
     }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const audio = document.getElementById("introSound");
-      const playSoundOnce = () => {
-        audio.play().catch(() => {});
-        document.removeEventListener("click", playSoundOnce);
-      };
-      document.addEventListener("click", playSoundOnce);
-    });
-
-    // AI Price Monitor Mock (مراقبة الأسعار آليًا)
-    const monitorPrices = () => {
-      console.log("🔍 AI: جارٍ مراقبة الأسعار تلقائيًا للتأكد من مطابقتها للسعر الأساسي...");
-    };
-    setInterval(monitorPrices, 30000); // كل 30 ثانية
   </script>
 </body>
 </html>
