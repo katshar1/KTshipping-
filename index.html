@@ -5,36 +5,112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>كاتشر | الصفحة الرئيسية</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Cairo', sans-serif;
-      background-color: #111;
-      color: #fff;
-      background-image: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
-      transition: background-color 0.5s, color 0.5s;
+    body { margin:0; font-family: 'Cairo', sans-serif; background:#111; color:#fff; background-image:url('https://www.transparenttextures.com/patterns/asfalt-light.png'); }
+    nav { background:#000; border-bottom:2px solid #FFA500; display:flex; justify-content:space-between; align-items:center; padding:10px 20px; position:sticky; top:0; z-index:999; }
+    nav .logo { color:#FFA500; font-weight:bold; font-size:1.5em; }
+    nav .nav-links a { color:#fff; text-decoration:none; margin-left:20px; font-size:1em; }
+    nav .nav-links a:hover { color:#FFA500; }
+    header { text-align:center; padding:50px 20px 10px; }
+    h1 { font-size:2.5em; color:#FFA500; margin-bottom:.2em; }
+    p { font-size:1.1em; color:#ccc; }
+    .buttons-container { display:flex; flex-direction:column; align-items:center; gap:15px; margin-top:30px; }
+    .service-button { background:#222; border:2px solid #FFA500; color:#FFA500; padding:12px 25px; border-radius:10px; font-size:1.2em; cursor:pointer; transition:.3s; width:250px; text-align:center; }
+    .service-button:hover { background:#FFA500; color:#000; }
+    footer { background:#222; color:#ccc; text-align:center; padding:15px 0; position:fixed; bottom:0; width:100%; font-size:.9em; }
+    .select-agent { margin-top:30px; text-align:center; }
+    select { padding:8px 12px; border-radius:8px; font-size:1em; border:none; margin-top:10px; }
+    .section-title { text-align:center; font-size:1.4em; margin-top:40px; color:#FFA500; }
+    .settings-popup { display:none; position:fixed; top:70px; right:20px; background:#222; border:2px solid #FFA500; padding:20px; border-radius:10px; z-index:9999; color:#fff; width:250px; }
+    .settings-popup label { display:block; margin:10px 0 5px; }
+    .settings-popup select { width:100%; padding:5px; border-radius:5px; border:none; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">كاتشر</div>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="agent.html">طلب وكيل</a>
+      <a href="login.html">تسجيل الدخول</a>
+      <a href="#" onclick="toggleSettings()">الإعدادات</a>
+    </div>
+  </nav>
+
+  <div class="settings-popup" id="settingsPopup">
+    <label>لون الخلفية:</label>
+    <select onchange="changeTheme(this.value)">
+      <option value="black">أسود</option>
+      <option value="white">أبيض</option>
+      <option value="gold">ذهبي</option>
+    </select>
+
+    <label>حجم الخط:</label>
+    <select onchange="changeFontSize(this.value)">
+      <option value="small">صغير</option>
+      <option value="medium" selected>متوسط</option>
+      <option value="large">كبير</option>
+    </select>
+  </div>
+
+  <header>
+    <h1>مرحباً بك</h1>
+    <p>أفضل وكالة لشحن برامج اللايف وإدارة المذيعين</p>
+  </header>
+
+  <!-- اختيار الوكيل -->
+  <div class="select-agent">
+    <h3>اختر الوكيل</h3>
+    <select id="agentSelect">
+      <option value="" selected disabled>وكالة</option>
+      <option value="كاتشر" data-phone="">كاتشر</option>
+      <option value="وكالة FM" data-phone="201273211343">وكالة FM</option>
+      <option value="وكالة وطون" data-phone="201101614024">وكالة وطون</option>
+    </select>
+  </div>
+
+  <h2 class="section-title">خدمات الشحن</h2>
+  <div class="buttons-container">
+    <button class="service-button" onclick="selectService('bigo.html')">شحن بيجو لايف</button>
+    <button class="service-button" onclick="selectService('mico.html')">شحن ميكو لايف</button>
+    <button class="service-button" onclick="selectService('kiti.html')">شحن كيتي لايف</button>
+  </div>
+
+  <footer>
+    © 2025 وكالة كاتشر - جميع الحقوق محفوظة
+  </footer>
+
+  <script>
+    function selectService(page) {
+      const sel = document.getElementById('agentSelect');
+      const agentName = sel.value;
+      if (!agentName) { alert("يرجى اختيار الوكيل أولاً"); return; }
+      const agentPhone = sel.options[sel.selectedIndex].getAttribute('data-phone') || "";
+      localStorage.setItem('selectedAgent', agentName);
+      localStorage.setItem('selectedAgentPhone', agentPhone);
+      window.location.href = page;
     }
 
-    nav {
-      background-color: #000;
-      border-bottom: 2px solid #FFA500;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 999;
+    function toggleSettings() {
+      const popup = document.getElementById("settingsPopup");
+      popup.style.display = popup.style.display === "block" ? "none" : "block";
     }
-
-    nav .logo {
-      color: #FFA500;
-      font-weight: bold;
-      font-size: 1.5em;
+    function changeTheme(value) {
+      if (value === "black") { document.body.style.backgroundColor = "#111"; document.body.style.color = "#fff"; }
+      else if (value === "white") { document.body.style.backgroundColor = "#fff"; document.body.style.color = "#000"; }
+      else if (value === "gold") { document.body.style.backgroundColor = "#FFD700"; document.body.style.color = "#000"; }
     }
+    function changeFontSize(value) {
+      let size = "16px";
+      if (value === "small") size = "14px";
+      if (value === "medium") size = "16px";
+      if (value === "large") size = "20px";
+      document.body.style.fontSize = size;
+    }
+  </script>
 
-    nav .nav-links a {
-      color: #fff;
-      text-decoration: none;
+</body>
+</html>      text-decoration: none;
       margin-left: 20px;
       font-size: 1em;
       transition: color 0.3s ease;
