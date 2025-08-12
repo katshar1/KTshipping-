@@ -1,40 +1,46 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>شحن بيجو لايف</title>
   <style>
-    body { margin:0; font-family:'Cairo',sans-serif; background:#111; color:#fff; }
-    .container { max-width:600px; margin:40px auto 120px; padding:20px; background:#1b1b1b; border:1px solid #333; border-radius:12px; }
-    h1 { color:#FFA500; text-align:center; margin-bottom:10px; }
-    .agent { text-align:center; color:#ccc; margin-bottom:20px; }
-    label { display:block; margin-top:12px; margin-bottom:6px; }
-    input, select, textarea { width:100%; padding:10px; border-radius:8px; border:1px solid #444; background:#222; color:#fff; }
-    button { margin-top:18px; width:100%; background:#222; border:2px solid #FFA500; color:#FFA500; padding:12px; border-radius:10px; font-size:1.1em; cursor:pointer; }
-    button:hover { background:#FFA500; color:#000; }
-    footer { position:fixed; bottom:0; left:0; right:0; background:#222; color:#ccc; text-align:center; padding:12px; }
+    body { font-family: 'Cairo', sans-serif; background: #111; color: #fff; text-align: center; padding: 20px; }
+    h1 { color: #FFA500; }
+    p { color: #ccc; }
+    .service-button { background:#222; border:2px solid #FFA500; color:#FFA500; padding:12px 25px; border-radius:10px; font-size:1.2em; cursor:pointer; transition:.3s; width:250px; text-align:center; margin-top: 20px; }
+    .service-button:hover { background:#FFA500; color:#000; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>شحن بيجو لايف</h1>
-    <div class="agent">الوكيل المختار: <strong id="agentName">—</strong></div>
 
-    <form id="chargeForm">
-      <label for="qty">كمية الشحن</label>
-      <select id="qty" required>
-        <option value="" disabled selected>اختر الكمية</option>
-        <option value="500">500</option>
-        <option value="1000">1000</option>
-        <option value="5000">5000</option>
-        <option value="10000">10000</option>
-      </select>
+  <h1>شحن بيجو لايف</h1>
+  <p>الوكيل المختار: <span id="agentName">—</span></p>
 
-      <label for="country">الدولة</label>
-      <select id="country" required>
-        <option value="" disabled selected>اختر الدولة</option>
-        <option>مصر</option>
+  <button id="whatsappBtn" class="service-button">التواصل عبر واتساب</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // جلب بيانات الوكيل من LocalStorage
+      const agentName = localStorage.getItem('selectedAgent') || "—";
+      const agentPhone = localStorage.getItem('selectedAgentPhone') || "";
+
+      document.getElementById('agentName').textContent = agentName;
+
+      // عند الضغط على الزر يفتح الواتساب للوكيل المختار
+      document.getElementById('whatsappBtn').addEventListener('click', function() {
+        if (!agentPhone) {
+          alert("لا يوجد رقم واتساب محفوظ لهذا الوكيل.");
+          return;
+        }
+        const msg = encodeURIComponent(`مرحباً، أريد شحن بيجو لايف عبر ${agentName}`);
+        window.open(`https://wa.me/${agentPhone}?text=${msg}`, "_blank");
+      });
+    });
+  </script>
+
+</body>
+</html>        <option>مصر</option>
         <option>السعودية</option>
         <option>الإمارات</option>
         <option>الكويت</option>
