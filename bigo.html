@@ -1,40 +1,113 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>شحن بيجو لايف - كاتشر</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>شحن بيجو لايف</title>
   <style>
-    body {
-      font-family: 'Tajawal', sans-serif;
-      background-color: #000;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
+    body { margin:0; font-family:'Cairo',sans-serif; background:#111; color:#fff; }
+    .container { max-width:600px; margin:40px auto 120px; padding:20px; background:#1b1b1b; border:1px solid #333; border-radius:12px; }
+    h1 { color:#FFA500; text-align:center; margin-bottom:10px; }
+    .agent { text-align:center; color:#ccc; margin-bottom:20px; }
+    label { display:block; margin-top:12px; margin-bottom:6px; }
+    input, select, textarea { width:100%; padding:10px; border-radius:8px; border:1px solid #444; background:#222; color:#fff; }
+    button { margin-top:18px; width:100%; background:#222; border:2px solid #FFA500; color:#FFA500; padding:12px; border-radius:10px; font-size:1.1em; cursor:pointer; }
+    button:hover { background:#FFA500; color:#000; }
+    footer { position:fixed; bottom:0; left:0; right:0; background:#222; color:#ccc; text-align:center; padding:12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>شحن بيجو لايف</h1>
+    <div class="agent">الوكيل المختار: <strong id="agentName">—</strong></div>
+
+    <form id="chargeForm">
+      <label for="qty">كمية الشحن</label>
+      <select id="qty" required>
+        <option value="" disabled selected>اختر الكمية</option>
+        <option value="500">500</option>
+        <option value="1000">1000</option>
+        <option value="5000">5000</option>
+        <option value="10000">10000</option>
+      </select>
+
+      <label for="country">الدولة</label>
+      <select id="country" required>
+        <option value="" disabled selected>اختر الدولة</option>
+        <option>مصر</option>
+        <option>السعودية</option>
+        <option>الإمارات</option>
+        <option>الكويت</option>
+        <option>الأردن</option>
+      </select>
+
+      <label for="pay">طريقة التحويل</label>
+      <select id="pay" required>
+        <option value="" disabled selected>اختر الطريقة</option>
+        <option>فودافون كاش</option>
+        <option>بنك</option>
+        <option>ويسترن يونيون</option>
+        <option>STC Pay</option>
+      </select>
+
+      <label for="userId">ID حساب بيجو</label>
+      <input type="text" id="userId" placeholder="اكتب ID" required/>
+
+      <label for="notes">ملاحظات</label>
+      <textarea id="notes" rows="3" placeholder="أي تفاصيل إضافية..."></textarea>
+
+      <button id="sendBtn">إرسال الطلب</button>
+    </form>
+  </div>
+
+  <footer>© 2025 وكالة كاتشر</footer>
+
+  <script>
+    // أرقام الوكلاء (fallback)
+    const KATSHAR_NUMBER = "2010XXXXXXXX"; // ضع رقم كاتشر هنا بصيغة دولية
+    const AGENTS = {
+      "كاتشر": KATSHAR_NUMBER,
+      "وكالة FM": "201273211343",
+      "وكالة وطون": "201101614024"
+    };
+
+    // قراءة بيانات الوكيل المختار
+    const agentName = localStorage.getItem("selectedAgent") || "كاتشر";
+    let agentPhone = localStorage.getItem("selectedAgentPhone");
+    if (!agentPhone || agentPhone.trim() === "") {
+      agentPhone = AGENTS[agentName] || KATSHAR_NUMBER;
     }
-    h1 {
-      text-align: center;
-      color: gold;
+    document.getElementById("agentName").textContent = agentName;
+
+    function buildWhatsAppMessage(serviceName) {
+      const qty     = document.getElementById("qty").value || "";
+      const country = document.getElementById("country").value || "";
+      const method  = document.getElementById("pay").value || "";
+      const uid     = document.getElementById("userId").value || "";
+      const notes   = document.getElementById("notes").value || "";
+      const msg = `وكيل: ${agentName}
+الخدمة: ${serviceName}
+الكمية: ${qty}
+الدولة: ${country}
+طريقة التحويل: ${method}
+ID: ${uid}
+ملاحظات: ${notes}`.trim();
+      return encodeURIComponent(msg);
     }
-    .form-container {
-      max-width: 500px;
-      margin: auto;
-      background-color: #111;
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 0 10px #444;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    select, input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      margin-top: 5px;
+
+    document.getElementById("sendBtn").addEventListener("click", function(e){
+      e.preventDefault();
+      // تحقق بسيط من الحقول المطلوبة
+      if(!document.getElementById("qty").value || !document.getElementById("country").value || !document.getElementById("pay").value || !document.getElementById("userId").value){
+        alert("من فضلك أكمل الحقول المطلوبة.");
+        return;
+      }
+      const url = `https://wa.me/${agentPhone}?text=${buildWhatsAppMessage("بيجو لايف")}`;
+      window.open(url, "_blank");
+    });
+  </script>
+</body>
+</html>      margin-top: 5px;
     }
     .price-display {
       margin-top: 15px;
