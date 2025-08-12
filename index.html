@@ -24,7 +24,7 @@
     header { text-align: center; padding: 50px 20px 10px; }
     h1 { font-size: 2.5em; color: #FFA500; margin-bottom: 0.2em; }
     p { font-size: 1.1em; color: #ccc; }
-    .select-agent { margin-top: 30px; text-align: center; }
+    .select-agent, .select-program { margin-top: 30px; text-align: center; }
     select {
       padding: 8px 12px; border-radius: 8px; font-size: 1em; border: none; margin-top: 10px;
     }
@@ -93,6 +93,17 @@
     </select>
   </div>
 
+  <!-- اختيار البرنامج -->
+  <div class="select-program">
+    <h3>اختر البرنامج</h3>
+    <select id="programSelect">
+      <option value="" selected disabled>برنامج</option>
+      <option value="بيجو لايف">بيجو لايف</option>
+      <option value="ميكو لايف">ميكو لايف</option>
+      <option value="كيتي لايف">كيتي لايف</option>
+    </select>
+  </div>
+
   <h2 class="section-title">خدمات الشحن</h2>
   <div class="buttons-container">
     <button class="service-button" onclick="startOrder()">ابدأ الطلب</button>
@@ -102,15 +113,25 @@
 
   <script>
     function startOrder() {
-      const sel = document.getElementById('agentSelect');
-      const agentName = sel.value;
+      const selAgent = document.getElementById('agentSelect');
+      const selProgram = document.getElementById('programSelect');
+      const agentName = selAgent.value;
+      const programName = selProgram.value;
+
       if (!agentName) {
         alert("يرجى اختيار الوكيل أولاً");
         return;
       }
-      const phone = sel.options[sel.selectedIndex].dataset.phone || "";
+      if (!programName) {
+        alert("يرجى اختيار البرنامج أولاً");
+        return;
+      }
+
+      const phone = selAgent.options[selAgent.selectedIndex].dataset.phone || "";
       localStorage.setItem('selectedAgent', agentName);
       localStorage.setItem('selectedAgentPhone', phone);
+      localStorage.setItem('selectedProgram', programName);
+
       window.location.href = 'charge.html';
     }
 
@@ -124,10 +145,7 @@
       else if (v==="gold"){ document.body.style.backgroundColor="#FFD700"; document.body.style.color="#000"; }
     }
     function changeFontSize(v){
-      let size="16px"; 
-      if (v==="small") size="14px"; 
-      if (v==="medium") size="16px"; 
-      if (v==="large") size="20px";
+      let size="16px"; if (v==="small") size="14px"; if (v==="medium") size="16px"; if (v==="large") size="20px";
       document.body.style.fontSize=size;
     }
   </script>
