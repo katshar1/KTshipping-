@@ -1,33 +1,58 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>شحن بيجو لايف</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>شحن بيجو لايف | كاتشر</title>
   <style>
-    body { font-family: 'Cairo', sans-serif; background: #111; color: #fff; text-align: center; padding: 20px; }
-    h1 { color: #FFA500; }
-    p { color: #ccc; }
-    .service-button { background:#222; border:2px solid #FFA500; color:#FFA500; padding:12px 25px; border-radius:10px; font-size:1.2em; cursor:pointer; transition:.3s; width:250px; text-align:center; margin-top: 20px; }
+    body { margin:0; font-family: 'Cairo', sans-serif; background:#111; color:#fff; background-image:url('https://www.transparenttextures.com/patterns/asfalt-light.png'); }
+    nav { background:#000; border-bottom:2px solid #FFA500; display:flex; justify-content:space-between; align-items:center; padding:10px 20px; position:sticky; top:0; z-index:999; }
+    nav .logo { color:#FFA500; font-weight:bold; font-size:1.5em; }
+    nav .nav-links a { color:#fff; text-decoration:none; margin-left:20px; font-size:1em; }
+    nav .nav-links a:hover { color:#FFA500; }
+    header { text-align:center; padding:40px 20px 10px; }
+    h1 { font-size:2.2em; color:#FFA500; margin-bottom:.2em; }
+    p { font-size:1.1em; color:#ccc; }
+    .buttons-container { display:flex; flex-direction:column; align-items:center; gap:15px; margin-top:30px; }
+    .service-button { background:#222; border:2px solid #FFA500; color:#FFA500; padding:12px 25px; border-radius:10px; font-size:1.2em; cursor:pointer; transition:.3s; width:250px; text-align:center; }
     .service-button:hover { background:#FFA500; color:#000; }
+    footer { background:#222; color:#ccc; text-align:center; padding:15px 0; position:fixed; bottom:0; width:100%; font-size:.9em; }
   </style>
 </head>
 <body>
 
-  <h1>شحن بيجو لايف</h1>
-  <p>الوكيل المختار: <span id="agentName">—</span></p>
+  <!-- شريط التنقل -->
+  <nav>
+    <div class="logo">كاتشر</div>
+    <div class="nav-links">
+      <a href="index.html">الرئيسية</a>
+      <a href="agent.html">طلب وكيل</a>
+      <a href="login.html">تسجيل الدخول</a>
+    </div>
+  </nav>
 
-  <button id="whatsappBtn" class="service-button">التواصل عبر واتساب</button>
+  <!-- رأس الصفحة -->
+  <header>
+    <h1>شحن بيجو لايف</h1>
+    <p>الوكيل المختار: <span id="agentName">—</span></p>
+  </header>
+
+  <!-- زر الواتساب -->
+  <div class="buttons-container">
+    <button id="whatsappBtn" class="service-button">التواصل عبر واتساب</button>
+  </div>
+
+  <!-- الفوتر -->
+  <footer>
+    © 2025 وكالة كاتشر - جميع الحقوق محفوظة
+  </footer>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // جلب بيانات الوكيل من LocalStorage
       const agentName = localStorage.getItem('selectedAgent') || "—";
       const agentPhone = localStorage.getItem('selectedAgentPhone') || "";
-
       document.getElementById('agentName').textContent = agentName;
 
-      // عند الضغط على الزر يفتح الواتساب للوكيل المختار
       document.getElementById('whatsappBtn').addEventListener('click', function() {
         if (!agentPhone) {
           alert("لا يوجد رقم واتساب محفوظ لهذا الوكيل.");
@@ -35,6 +60,12 @@
         }
         const msg = encodeURIComponent(`مرحباً، أريد شحن بيجو لايف عبر ${agentName}`);
         window.open(`https://wa.me/${agentPhone}?text=${msg}`, "_blank");
+      });
+    });
+  </script>
+
+</body>
+</html>        window.open(`https://wa.me/${agentPhone}?text=${msg}`, "_blank");
       });
     });
   </script>
