@@ -35,6 +35,118 @@
       border-radius: 10px;
       border: none;
       margin-top: 5px;
+      box-sizing: border-box;
+    }
+    .price-display {
+      margin-top: 15px;
+      background-color: #222;
+      padding: 10px;
+      border-radius: 10px;
+      color: gold;
+      text-align: center;
+    }
+    .methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .methods button {
+      flex: 1 1 40%;
+      padding: 10px;
+      border: none;
+      border-radius: 12px;
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .methods button:hover {
+      background-color: gold;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>شحن بيجو لايف</h1>
+  <div class="form-container">
+    <label for="country">اختر الدولة:</label>
+    <select id="country">
+      <option value="eg">🇪🇬 مصر</option>
+      <option value="sa">🇸🇦 السعودية</option>
+      <option value="ae">🇦🇪 الإمارات</option>
+    </select>
+
+    <label for="amount">عدد الماسات:</label>
+    <input type="number" id="amount" placeholder="أدخل عدد الماسات" min="1" inputmode="numeric">
+
+    <div class="price-display" id="priceDisplay">السعر: 0.00 جنيه</div>
+
+    <label>اختر وسيلة الدفع:</label>
+    <div class="methods" id="methods">
+      <!-- الأزرار تُولّد تلقائيًا -->
+    </div>
+  </div>
+
+  <script>
+    const countrySelect = document.getElementById('country');
+    const amountInput   = document.getElementById('amount');
+    const priceDisplay  = document.getElementById('priceDisplay');
+    const methodsWrap   = document.getElementById('methods');
+
+    // سعر الماسة الواحدة (حسب سعر 1000 ماسة)
+    // مصر: 920/1000 = 0.92 جنيه، السعودية: 70/1000 = 0.07 ريال، الإمارات: 69/1000 = 0.069 درهم
+    const prices = { eg: 0.92, sa: 0.07, ae: 0.069 };
+
+    const methods = {
+      eg: ['فودافون كاش', 'إنستا باي', 'اتصالات كاش', 'ويسترن يونيون'],
+      sa: ['تحويل بنكي داخلي', 'بايننس'],
+      ae: ['تحويل بنكي داخلي', 'بايننس']
+    };
+
+    function currencyLabel(code){
+      return code === 'eg' ? 'جنيه' : code === 'sa' ? 'ريال' : 'درهم';
+    }
+
+    function updatePrice(){
+      const code   = countrySelect.value;
+      const amount = Math.max(0, parseInt(amountInput.value) || 0);
+      const total  = amount * prices[code];
+      priceDisplay.textContent = `السعر: ${total.toFixed(2)} ${currencyLabel(code)}`;
+    }
+
+    function renderMethods(){
+      const code = countrySelect.value;
+      methodsWrap.innerHTML = '';
+      methods[code].forEach(m => {
+        const btn = document.createElement('button');
+        btn.textContent = m;
+        btn.addEventListener('click', () => toWhatsApp(m));
+        methodsWrap.appendChild(btn);
+      });
+    }
+
+    function toWhatsApp(method){
+      const amount = amountInput.value || 0;
+      const countryText = countrySelect.options[countrySelect.selectedIndex].text;
+      const priceText = priceDisplay.textContent.replace('السعر: ','');
+      const message = `مرحباً، أريد شحن ${amount} ماسة بيجو لايف\nالدولة: ${countryText}\nالسعر: ${priceText}\nطريقة الدفع: ${method}`;
+      const phone = "201145427899"; // عدل الرقم أو اربطه بالوكيل لاحقاً
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`,"_blank");
+    }
+
+    countrySelect.addEventListener('change', () => { updatePrice(); renderMethods(); });
+    amountInput.addEventListener('input', updatePrice);
+
+    // تشغيل مبدئي
+    updatePrice();
+    renderMethods();
+  </script>
+
+</body>
+</html>      margin-top: 5px;
     }
     .price-display {
       margin-top: 15px;
