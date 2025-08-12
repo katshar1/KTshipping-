@@ -1,33 +1,52 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>طلب شحن</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إتمام طلب الشحن</title>
   <style>
-    body { font-family: 'Tajawal', sans-serif; background:#000; color:#fff; margin:0; padding:20px; }
-    h1 { text-align:center; color:gold; }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 { text-align: center; color: gold; }
     .form-container {
-      max-width: 500px; margin:auto; background:#111; padding:20px;
-      border-radius:20px; box-shadow:0 0 10px #444; text-align: start;
+      max-width: 500px; margin: auto; background-color: #111;
+      padding: 20px; border-radius: 20px; box-shadow: 0 0 10px #444;
     }
-    label { display:block; margin-top:15px; font-weight:bold; }
-    input[type="number"], select {
-      width:100%; padding:10px; border-radius:10px; border:none; margin-top:5px; box-sizing:border-box;
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    select, input[type="number"] {
+      width: 100%; padding: 10px; border-radius: 10px; border: none; margin-top: 5px;
     }
-    .methods { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; justify-content:center; }
+    .price-display {
+      margin-top: 15px; background-color: #222; padding: 10px;
+      border-radius: 10px; color: gold; text-align: center;
+    }
+    .methods {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; justify-content: center;
+    }
     .methods button {
-      flex:1 1 40%; padding:10px; border:none; border-radius:12px; background:#333; color:#fff; cursor:pointer; transition:.3s;
+      flex: 1 1 40%; padding: 10px; border: none; border-radius: 12px;
+      background-color: #333; color: white; cursor: pointer; transition: 0.3s;
     }
-    .methods button:hover { background:gold; color:#000; }
-    .agent-chip { display:block; text-align:center; margin-bottom:10px; color:#aaa; }
+    .methods button:hover { background-color: gold; color: #000; }
+    .info {
+      display:flex; justify-content:space-between; gap:10px; margin-top:10px; color:#aaa; font-size:.95em;
+    }
   </style>
 </head>
 <body>
 
-  <h1>طلب شحن</h1>
+  <h1 id="pageTitle">إتمام طلب الشحن</h1>
+
   <div class="form-container">
-    <div class="agent-chip">الوكيل المختار: <span id="agentName">—</span></div>
+    <div class="info">
+      <div>الوكيل: <span id="agentName" style="color:gold">—</span></div>
+      <div>البرنامج: <span id="programName" style="color:gold">—</span></div>
+    </div>
 
     <label for="country">اختر الدولة:</label>
     <select id="country">
@@ -39,34 +58,76 @@
     <label for="amount">عدد الماسات:</label>
     <input type="number" id="amount" placeholder="أدخل عدد الماسات" min="1" inputmode="numeric">
 
+    <div class="price-display" id="priceDisplay">السعر: 0</div>
+
     <label>اختر وسيلة الدفع:</label>
     <div class="methods" id="methods"></div>
   </div>
 
   <script>
-    const methodsByCountry = {
+    // عناصر الصفحة
+    const agentNameEl   = document.getElementById('agentName');
+    const programNameEl = document.getElementById('programName');
+    const countrySelect = document.getElementById('country');
+    const amountInput   = document.getElementById('amount');
+    const priceDisplay  = document.getElementById('priceDisplay');
+    const methodsWrap   = document.getElementById('methods');
+
+    // بيانات قادمة من index.html
+    const agentName  = localStorage.getItem('selectedAgent') || 'غير محدد';
+    const agentPhone = localStorage.getItem('selectedAgentPhone') || '';
+    const programName= localStorage.getItem('selectedProgram') || 'غير محدد';
+
+    agentNameEl.textContent   = agentName;
+    programNameEl.textContent = programName;
+
+    // خريطة اسم البرنامج -> مفتاح داخلي
+    function programKeyFromArabic(name){
+      if (name.includes('بيجو')) return 'bigo';
+      if (name.includes('ميكو')) return 'mico';
+      if (name.includes('كيتي')) return 'kiti';
+      return 'bigo'; // افتراضي
+    }
+    const programKey = programKeyFromArabic(programName);
+
+    // أسعار الماسة الواحدة حسب البرنامج والدولة
+    const pricesByProgram = {
+      bigo: { eg: 0.92,    sa: 0.07,      ae: 0.069    },   // بيجو
+      mico: { eg: 0.085,   sa: 0.006641,  ae: 0.006538 },   // ميكو
+      kiti: { eg: 0.04,    sa: 0.003168,  ae: 0.003072 }    // كيتي (حسب بياناتك)
+    };
+
+    // وسائل الدفع حسب الدولة
+    const paymentMethods = {
       eg: ['فودافون كاش', 'إنستا باي', 'اتصالات كاش', 'ويسترن يونيون'],
       sa: ['تحويل بنكي داخلي', 'بايننس'],
       ae: ['تحويل بنكي داخلي', 'بايننس']
     };
 
-    const agentNameEl = document.getElementById('agentName');
-    const countrySelect = document.getElementById('country');
-    const amountInput = document.getElementById('amount');
-    const methodsWrap = document.getElementById('methods');
+    function currencyLabel(code){
+      return code === 'eg' ? 'جنيه' : code === 'sa' ? 'ريال' : 'درهم';
+    }
 
-    // جلب بيانات الوكيل المختار
-    const agentName  = localStorage.getItem('selectedAgent') || '—';
-    const agentPhone = localStorage.getItem('selectedAgentPhone') || '';
-    agentNameEl.textContent = agentName;
+    function currentPricePerDiamond(){
+      const c = countrySelect.value;
+      const table = pricesByProgram[programKey] || pricesByProgram.bigo;
+      return table[c] ?? 0;
+    }
+
+    function updatePrice(){
+      const amount = Math.max(0, parseInt(amountInput.value) || 0);
+      const ppd    = currentPricePerDiamond();
+      const total  = amount * ppd;
+      priceDisplay.textContent = `السعر: ${total.toFixed(2)} ${currencyLabel(countrySelect.value)}`;
+    }
 
     function renderMethods(){
       const code = countrySelect.value;
       methodsWrap.innerHTML = '';
-      (methodsByCountry[code] || []).forEach(m => {
+      (paymentMethods[code] || []).forEach(m=>{
         const b = document.createElement('button');
         b.textContent = m;
-        b.onclick = () => toWhatsApp(m);
+        b.onclick = ()=> toWhatsApp(m);
         methodsWrap.appendChild(b);
       });
     }
@@ -78,13 +139,16 @@
       }
       const amount = amountInput.value || 0;
       const countryText = countrySelect.options[countrySelect.selectedIndex].text;
-      const msg = `مرحباً، أريد شحن ${amount} ماسة\nالدولة: ${countryText}\nطريقة الدفع: ${method}\nالوكيل: ${agentName}`;
+      const priceText   = priceDisplay.textContent.replace('السعر: ','');
+      const msg = `مرحباً، أريد شحن ${amount} ماسة\nالبرنامج: ${programName}\nالدولة: ${countryText}\nالسعر: ${priceText}\nطريقة الدفع: ${method}\nالوكيل: ${agentName}`;
       window.open(`https://wa.me/${agentPhone}?text=${encodeURIComponent(msg)}`,'_blank');
     }
 
-    countrySelect.addEventListener('change', renderMethods);
+    countrySelect.addEventListener('change', ()=>{ updatePrice(); renderMethods(); });
+    amountInput.addEventListener('input', updatePrice);
 
     // تشغيل مبدئي
+    updatePrice();
     renderMethods();
   </script>
 
