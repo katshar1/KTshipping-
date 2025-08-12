@@ -63,6 +63,87 @@
     <h3>اختر الوكيل</h3>
     <select id="agentSelect">
       <option value="" selected disabled>وكالة</option>
+      <option value="كاتشر" data-phone="201145427899">كاتشر</option>
+      <option value="وكالة FM" data-phone="201273211343">وكالة FM</option>
+      <option value="وكالة وطون" data-phone="201101614024">وكالة وطون</option>
+    </select>
+  </div>
+
+  <h2 class="section-title">خدمات الشحن</h2>
+  <div class="buttons-container">
+    <button class="service-button" onclick="selectService('bigo.html')">شحن بيجو لايف</button>
+    <button class="service-button" onclick="selectService('mico.html')">شحن ميكو لايف</button>
+    <button class="service-button" onclick="selectService('kiti.html')">شحن كيتي لايف</button>
+  </div>
+
+  <footer>
+    © 2025 وكالة كاتشر - جميع الحقوق محفوظة
+  </footer>
+
+  <script>
+    function selectService(page) {
+      const sel = document.getElementById('agentSelect');
+      const agentName = sel.value;
+      if (!agentName) {
+        alert("يرجى اختيار الوكيل أولاً");
+        return;
+      }
+      const agentPhone = sel.options[sel.selectedIndex].dataset.phone;
+      // حفظ بيانات الوكيل المختار في LocalStorage
+      localStorage.setItem('selectedAgent', agentName);
+      localStorage.setItem('selectedAgentPhone', agentPhone);
+      // الانتقال للصفحة المطلوبة
+      window.location.href = page;
+    }
+
+    function toggleSettings() {
+      const popup = document.getElementById("settingsPopup");
+      popup.style.display = popup.style.display === "block" ? "none" : "block";
+    }
+    function changeTheme(value) {
+      if (value === "black") { document.body.style.backgroundColor = "#111"; document.body.style.color = "#fff"; }
+      else if (value === "white") { document.body.style.backgroundColor = "#fff"; document.body.style.color = "#000"; }
+      else if (value === "gold") { document.body.style.backgroundColor = "#FFD700"; document.body.style.color = "#000"; }
+    }
+    function changeFontSize(value) {
+      let size = "16px";
+      if (value === "small") size = "14px";
+      if (value === "medium") size = "16px";
+      if (value === "large") size = "20px";
+      document.body.style.fontSize = size;
+    }
+  </script>
+
+</body>
+</html>    </div>
+  </nav>
+
+  <div class="settings-popup" id="settingsPopup">
+    <label>لون الخلفية:</label>
+    <select onchange="changeTheme(this.value)">
+      <option value="black">أسود</option>
+      <option value="white">أبيض</option>
+      <option value="gold">ذهبي</option>
+    </select>
+
+    <label>حجم الخط:</label>
+    <select onchange="changeFontSize(this.value)">
+      <option value="small">صغير</option>
+      <option value="medium" selected>متوسط</option>
+      <option value="large">كبير</option>
+    </select>
+  </div>
+
+  <header>
+    <h1>مرحباً بك</h1>
+    <p>أفضل وكالة لشحن برامج اللايف وإدارة المذيعين</p>
+  </header>
+
+  <!-- اختيار الوكيل -->
+  <div class="select-agent">
+    <h3>اختر الوكيل</h3>
+    <select id="agentSelect">
+      <option value="" selected disabled>وكالة</option>
       <option value="كاتشر" data-phone="">كاتشر</option>
       <option value="وكالة FM" data-phone="201273211343">وكالة FM</option>
       <option value="وكالة وطون" data-phone="201101614024">وكالة وطون</option>
