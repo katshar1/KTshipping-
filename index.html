@@ -53,7 +53,7 @@
 <body>
 
   <nav>
-    <div class="logo">كاتشر</div>
+    <div class="logo">KT</div>
     <div class="nav-links">
       <a href="index.html">الرئيسية</a>
       <a href="agent.html">طلب وكيل</a>
@@ -88,7 +88,7 @@
     <select id="agentSelect">
       <option value="" selected disabled>وكالة</option>
       <option value="كاتشر" data-phone="201145427899">كاتشر</option>
-      <option value="وكالة Hayo" data-phone="201273211343">وكالة FM</option>
+      <option value="وكالة Hayo" data-phone="201273211343">وكالة Hayo</option>
       <option value="وكالة وطون" data-phone="201101614024">وكالة وطون</option>
     </select>
   </div>
@@ -109,20 +109,25 @@
         return;
       }
       const phone = sel.options[sel.selectedIndex].dataset.phone || "";
-      // نخزن الوكيل ورقمه ونروح لصفحة تحديد الكمية وطريقة الدفع
       localStorage.setItem('selectedAgent', agentName);
       localStorage.setItem('selectedAgentPhone', phone);
       window.location.href = 'charge.html';
     }
 
-    function toggleSettings(){ const p=document.getElementById("settingsPopup"); p.style.display=p.style.display==="block"?"none":"block"; }
+    function toggleSettings(){ 
+      const p=document.getElementById("settingsPopup"); 
+      p.style.display=p.style.display==="block"?"none":"block"; 
+    }
     function changeTheme(v){
       if (v==="black"){ document.body.style.backgroundColor="#111"; document.body.style.color="#fff"; }
       else if (v==="white"){ document.body.style.backgroundColor="#fff"; document.body.style.color="#000"; }
       else if (v==="gold"){ document.body.style.backgroundColor="#FFD700"; document.body.style.color="#000"; }
     }
     function changeFontSize(v){
-      let size="16px"; if (v==="small") size="14px"; if (v==="medium") size="16px"; if (v==="large") size="20px";
+      let size="16px"; 
+      if (v==="small") size="14px"; 
+      if (v==="medium") size="16px"; 
+      if (v==="large") size="20px";
       document.body.style.fontSize=size;
     }
   </script>
