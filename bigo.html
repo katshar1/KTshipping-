@@ -71,6 +71,43 @@
   </script>
 
 </body>
+</html>      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>شحن بيجو لايف</h1>
+    <p>الوكيل المختار: <span id="agentName">—</span></p>
+    <button id="whatsappBtn" class="service-button">التواصل عبر واتساب</button>
+  </header>
+
+  <footer>
+    © 2025 وكالة كاتشر - جميع الحقوق محفوظة
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const agentName = localStorage.getItem('selectedAgent') || "—";
+      const agentPhone = localStorage.getItem('selectedAgentPhone') || "";
+      document.getElementById('agentName').textContent = agentName;
+
+      document.getElementById('whatsappBtn').addEventListener('click', function() {
+        if (!agentPhone) {
+          alert("لا يوجد رقم واتساب محفوظ لهذا الوكيل.");
+          return;
+        }
+        const msg = encodeURIComponent(`مرحباً، أريد شحن بيجو لايف عبر ${agentName}`);
+        window.open(`https://wa.me/${agentPhone}?text=${msg}`, "_blank");
+      });
+    });
+  </script>
+
+</body>
 </html>    <p>الوكيل المختار: <span id="agentName">—</span></p>
   </header>
 
