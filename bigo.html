@@ -45,6 +45,34 @@
 
   <header>
     <h1>شحن بيجو لايف</h1>
+    <p>للطلب والتواصل يرجى الضغط على الزر أدناه</p>
+    <button class="service-button" onclick="contactWhatsApp()">التواصل عبر واتساب</button>
+  </header>
+
+  <footer>
+    © 2025 وكالة كاتشر - جميع الحقوق محفوظة
+  </footer>
+
+  <script>
+    function contactWhatsApp() {
+      const phone = "201145427899"; // رقم الواتساب الخاص بك
+      const msg = encodeURIComponent("مرحباً، أريد شحن بيجو لايف");
+      window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
+    }
+  </script>
+
+</body>
+</html>      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>شحن بيجو لايف</h1>
     <p>الوكيل المختار: <span id="agentName">—</span></p>
     <button id="whatsappBtn" class="service-button">التواصل عبر واتساب</button>
   </header>
