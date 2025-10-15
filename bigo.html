@@ -39,10 +39,12 @@
     .price-display {
       margin-top: 15px;
       background-color: #222;
-      padding: 10px;
+      padding: 15px;
       border-radius: 10px;
       color: gold;
       text-align: center;
+      font-size: 20px;
+      font-weight: bold;
     }
     .methods {
       display: flex;
@@ -81,12 +83,10 @@
     <label for="amount">عدد الماسات:</label>
     <input type="number" id="amount" placeholder="أدخل عدد الماسات" min="1">
 
-    <div class="price-display" id="priceDisplay">السعر: 0</div>
+    <div class="price-display" id="priceDisplay">السعر: 0 جنيه</div>
 
     <label>اختر وسيلة الدفع:</label>
-    <div class="methods" id="methods">
-      <!-- أزرار الدفع ستُدرج تلقائيًا هنا -->
-    </div>
+    <div class="methods" id="methods"></div>
   </div>
 
   <script>
@@ -95,18 +95,21 @@
     const priceDisplay = document.getElementById('priceDisplay');
     const methodsContainer = document.getElementById('methods');
 
+    // 💎 الأسعار
     const prices = {
-      eg: 0.880,   // جنيه
-      sa: 0.071,   // ريال
-      ae: 0.069   // درهم
+      eg: 0.880,   // جنيه مصري لكل ماسة (880 جنيه لكل 1000 ماسة)
+      sa: 0.071,   // ريال سعودي
+      ae: 0.069    // درهم إماراتي
     };
 
+    // 💰 وسائل الدفع
     const paymentMethods = {
       eg: ['فودافون كاش', 'إنستا باي', 'اتصالات كاش', 'ويسترن يونيون'],
       sa: ['تحويل بنكي داخلي', 'بايننس'],
       ae: ['تحويل بنكي داخلي', 'بايننس']
     };
 
+    // 🧮 حساب السعر
     function updatePrice() {
       const country = countrySelect.value;
       const amount = parseInt(amountInput.value) || 0;
@@ -115,6 +118,7 @@
       priceDisplay.innerText = `السعر: ${price.toFixed(2)} ${currency}`;
     }
 
+    // 💵 عرض طرق الدفع
     function updateMethods() {
       const country = countrySelect.value;
       const methods = paymentMethods[country];
@@ -127,11 +131,12 @@
       });
     }
 
+    // 🔗 إرسال على واتساب
     function goToWhatsApp(method) {
       const amount = amountInput.value;
       const country = countrySelect.options[countrySelect.selectedIndex].text;
       const price = priceDisplay.innerText.replace('السعر: ', '');
-      const message = `مرحباً، أريد شحن ${amount} ماسة بيجو لايف\nالدولة: ${country}\nالسعر: ${price}\nطريقة الدفع: ${method}`;
+      const message = `مرحباً، أريد شحن ${amount} ماسة بيجو لايف\nالدولة: ${country}\n${price}\nطريقة الدفع: ${method}`;
       const phone = "201145427899";
       const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
       window.open(url, "_blank");
@@ -144,7 +149,7 @@
 
     amountInput.addEventListener('input', updatePrice);
 
-    // تشغيل مبدئي
+    // تشغيل أولي
     updatePrice();
     updateMethods();
   </script>
